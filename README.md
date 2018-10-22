@@ -11,4 +11,6 @@ Cine is your movie guide. The fastest and easiest way to find Movies, Actors and
 
 ## Expo
 
+The choice of the expo was for quick prototyping of the project, in the future will be removed.
+
 https://expo.io/@murillo94/amo-cinema
