@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Cine: The Movie Guide",
+    "description": "Cine is your movie guide. The fastest and easiest way to find Movies, Actors and Series on your device. Know about ratings and reviews from The Movie Database (TMDb).",
+    "slug": "cine-the-movie-guide",
+    "privacy": "public",
+    "sdkVersion": "27.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false
+    }
+  }
+}
