@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { Platform, ActivityIndicator, Alert, Share, StyleSheet, ScrollView, View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import {
+  Platform,
+  ActivityIndicator,
+  Alert,
+  Share,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList
+} from 'react-native';
 
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
@@ -16,8 +28,8 @@ export default class MovieDetailsScreen extends Component {
     isLoading: true,
     isError: false,
     isVisible: false,
-    credit_id: null,
-  }
+    credit_id: null
+  };
 
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
@@ -25,12 +37,16 @@ export default class MovieDetailsScreen extends Component {
     return {
       title: 'Movie details',
       headerRight: (
-        <TouchableOpacity activeOpacity={0.5} style={{paddingRight: 15, paddingLeft: 20}} onPress={params.actionShare}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={{ paddingRight: 15, paddingLeft: 20 }}
+          onPress={params.actionShare}
+        >
           <Feather name="share" size={23} color="#47525E" />
         </TouchableOpacity>
-      ),
+      )
     };
-  }
+  };
 
   componentDidMount() {
     this.props.navigation.setParams({ actionShare: this.actionShare });
@@ -38,7 +54,11 @@ export default class MovieDetailsScreen extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if(this.state.isVisible !== nextState.isVisible || this.state.isLoading !== nextState.isLoading || this.state.isError !== nextState.isError) {
+    if (
+      this.state.isVisible !== nextState.isVisible ||
+      this.state.isLoading !== nextState.isLoading ||
+      this.state.isError !== nextState.isError
+    ) {
       return true;
     }
     return false;
@@ -50,8 +70,21 @@ export default class MovieDetailsScreen extends Component {
 
   convertRatingToStars(vote_average) {
     vote_average = vote_average > 5 ? Math.round(vote_average) : vote_average;
-    const length = vote_average !== 10 ? parseInt((vote_average + '').charAt(0)) - 5 : vote_average - 5;
-    return vote_average <= 5 ? null : [...Array(length)].map((e, i) => <FontAwesome key={i} name="star" size={width * 0.06} color="#ffffff" style={{marginRight: 5}} />)
+    const length =
+      vote_average !== 10
+        ? parseInt((vote_average + '').charAt(0)) - 5
+        : vote_average - 5;
+    return vote_average <= 5
+      ? null
+      : [...Array(length)].map((e, i) => (
+          <FontAwesome
+            key={i}
+            name="star"
+            size={width * 0.06}
+            color="#ffffff"
+            style={{ marginRight: 5 }}
+          />
+        ));
   }
 
   convertMinsToHrsMins(mins) {
@@ -59,12 +92,16 @@ export default class MovieDetailsScreen extends Component {
     let m = mins % 60;
     h = h < 10 ? '0' + h : h;
     m = m < 10 ? '0' + m : m;
-    return h && m ? `${h}h ${m}m`: 'Uninformed';
+    return h && m ? `${h}h ${m}m` : 'Uninformed';
   }
 
   convertToGenre() {
     const { genre } = this.state;
-    return genre.length > 0 ? (genre.length > 1 ? `${genre[0].name}, ${genre[1].name}` : genre[0].name) : 'Uninformed';
+    return genre.length > 0
+      ? genre.length > 1
+        ? `${genre[0].name}, ${genre[1].name}`
+        : genre[0].name
+      : 'Uninformed';
   }
 
   convertToUpperCaseFirstLetter(str) {
@@ -73,11 +110,21 @@ export default class MovieDetailsScreen extends Component {
 
   convertToDate(value) {
     const date = new Date(value);
-    return (date.getDate() + 1) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() || 'Uninformed';
+    return (
+      date.getDate() +
+        1 +
+        '/' +
+        (date.getMonth() + 1) +
+        '/' +
+        date.getFullYear() || 'Uninformed'
+    );
   }
 
   convertToDolar(value) {
-    return "$" + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") || 'Uninformed';
+    return (
+      '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') ||
+      'Uninformed'
+    );
   }
 
   convertAdult(value) {
@@ -86,7 +133,9 @@ export default class MovieDetailsScreen extends Component {
 
   getImageApi(image) {
     image = image || '';
-    return image !== '' ? {uri: `https://image.tmdb.org/t/p/w500/${image}`} : require('./../assets/images/not_found.png');
+    return image !== ''
+      ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
+      : require('./../assets/images/not_found.png');
   }
 
   async requestMoviesInfo() {
@@ -116,25 +165,28 @@ export default class MovieDetailsScreen extends Component {
         overview: data.overview || '',
         cast: this.sliceArrayLength(data.credits.cast, 15),
         crew: this.sliceArrayLength(data.credits.crew, 15),
-        production_companies: this.sliceArrayLength(data.production_companies, 10),
+        production_companies: this.sliceArrayLength(
+          data.production_companies,
+          10
+        )
       });
     } catch (err) {
       this.setState({
         isLoading: false,
-        isError: true,
-      }); 
+        isError: true
+      });
     }
   }
 
   renderLoading = () => (
     <View>
-      {Platform.OS === 'ios' ? 
-        <ActivityIndicator size='small' color="#47525E" />
-      :
+      {Platform.OS === 'ios' ? (
+        <ActivityIndicator size="small" color="#47525E" />
+      ) : (
         <ActivityIndicator size={50} color="#47525E" />
-      }
+      )}
     </View>
-  )
+  );
 
   renderErrorMessage = () => (
     <View style={styles.container}>
@@ -143,58 +195,66 @@ export default class MovieDetailsScreen extends Component {
         Something wrong has happened, please try again later.
       </Text>
     </View>
-  )
+  );
 
   renderListEmpty = () => (
     <View>
-      <Text style={styles.subTitleInfo}>
-        Uninformed
-      </Text>
+      <Text style={styles.subTitleInfo}>Uninformed</Text>
     </View>
-  )
+  );
 
   actionPlayVideo = () => {
     const { video } = this.state;
     const { navigate } = this.props.navigation;
 
-    if(video && video.site === "YouTube") {
-      navigate('WebView', { key: video.key })
+    if (video && video.site === 'YouTube') {
+      navigate('WebView', { key: video.key });
     } else {
-      Alert.alert('Attention', 'This movie has no trailer to show.', [], { cancelable: true });
+      Alert.alert('Attention', 'This movie has no trailer to show.', [], {
+        cancelable: true
+      });
     }
-  }
+  };
 
   actionShare = () => {
     const { isError, title, id } = this.state;
-  
-    if(isError) {
-      Alert.alert('Attention', 'Something wrong has happened, please try again later.', [], { cancelable: true });
-    } else {
-      Share.share({
-        message: `${title}, know everything about this movie \u{1F37F}`,
-        url: `https://www.themoviedb.org/movie/${id}`,
-        title: 'AmoCinema'
-      }, {
-        // Android
-        dialogTitle: `${title}, know everything about this movie \u{1F37F}`,
-      });
-    }
-  }
 
-  actionTeamDetail = (credit_id) => {
+    if (isError) {
+      Alert.alert(
+        'Attention',
+        'Something wrong has happened, please try again later.',
+        [],
+        { cancelable: true }
+      );
+    } else {
+      Share.share(
+        {
+          message: `${title}, know everything about this movie \u{1F37F}`,
+          url: `https://www.themoviedb.org/movie/${id}`,
+          title: 'AmoCinema'
+        },
+        {
+          // Android
+          dialogTitle: `${title}, know everything about this movie \u{1F37F}`
+        }
+      );
+    }
+  };
+
+  actionTeamDetail = credit_id => {
     this.setState(({ isVisible }) => {
       return { credit_id, isVisible: !isVisible };
     });
-  }
+  };
 
   actionClose = () => {
     this.setState(({ isVisible }) => {
       return { isVisible: !isVisible };
     });
-  }
+  };
 
   render() {
-    const { 
+    const {
       isLoading,
       isError,
       backdrop_path,
@@ -211,22 +271,34 @@ export default class MovieDetailsScreen extends Component {
       crew,
       production_companies,
       credit_id,
-      isVisible,
+      isVisible
     } = this.state;
-    
+
     return (
       <View style={styles.container}>
-        {isLoading ? 
+        {isLoading ? (
           this.renderLoading()
-        : isError ?
+        ) : isError ? (
           this.renderErrorMessage()
-        :
+        ) : (
           <ScrollView>
             <View style={styles.containerMainPhoto}>
-              <Image source={this.getImageApi(backdrop_path)}
-                style={styles.mainPhoto} resizeMode="cover" />
-              <TouchableOpacity activeOpacity={0.5} style={styles.play} onPress={this.actionPlayVideo}>
-                <FontAwesome name="play" size={width * 0.07} color="#ffffff" style={{marginLeft: 5}} />
+              <Image
+                source={this.getImageApi(backdrop_path)}
+                style={styles.mainPhoto}
+                resizeMode="cover"
+              />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.play}
+                onPress={this.actionPlayVideo}
+              >
+                <FontAwesome
+                  name="play"
+                  size={width * 0.07}
+                  color="#ffffff"
+                  style={{ marginLeft: 5 }}
+                />
               </TouchableOpacity>
               <View style={styles.containerMainPhotoInfo}>
                 <View style={styles.containerBackgroundPhotoInfo}>
@@ -240,72 +312,60 @@ export default class MovieDetailsScreen extends Component {
               </View>
             </View>
             <View style={styles.containerMovieInfo}>
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.movieFirstInfo}>
-                <View style={styles.movieInfo}> 
-                  <Text style={styles.titleInfo}>
-                    Duration
-                  </Text> 
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                style={styles.movieFirstInfo}
+              >
+                <View style={styles.movieInfo}>
+                  <Text style={styles.titleInfo}>Duration</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertMinsToHrsMins(runtime)}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>
-                    Genre
-                  </Text>
+                  <Text style={styles.titleInfo}>Genre</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertToGenre()}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>
-                    Language
-                  </Text>
+                  <Text style={styles.titleInfo}>Language</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertToUpperCaseFirstLetter(original_language)}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>
-                    Release
-                  </Text>
+                  <Text style={styles.titleInfo}>Release</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertToDate(release_date)}
                   </Text>
                 </View>
-                <View style={styles.movieInfo}> 
-                  <Text style={styles.titleInfo}>
-                    Budget
-                  </Text> 
+                <View style={styles.movieInfo}>
+                  <Text style={styles.titleInfo}>Budget</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertToDolar(budget)}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>
-                    Revenue
-                  </Text>
+                  <Text style={styles.titleInfo}>Revenue</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertToDolar(revenue)}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>
-                    Adult
-                  </Text>
+                  <Text style={styles.titleInfo}>Adult</Text>
                   <Text style={styles.subTitleInfo}>
                     {this.convertAdult(adult)}
                   </Text>
                 </View>
               </ScrollView>
               <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>
-                  Synopsis
-                </Text>
-                <ReadMore 
-                  numberOfLines={3} 
-                  renderTruncatedFooter={renderTruncatedFooter} 
-                  renderRevealedFooter={renderRevealedFooter} 
+                <Text style={styles.titleInfo}>Synopsis</Text>
+                <ReadMore
+                  numberOfLines={3}
+                  renderTruncatedFooter={renderTruncatedFooter}
+                  renderRevealedFooter={renderRevealedFooter}
                 >
                   <Text style={styles.subTitleInfo}>
                     {overview || 'Uninformed'}
@@ -313,95 +373,88 @@ export default class MovieDetailsScreen extends Component {
                 </ReadMore>
               </View>
               <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>
-                  Main cast
-                </Text>
-                <ListTeam 
-                  data={cast} 
-                  type='character' 
-                  keyItem='credit_id' 
-                  ListEmptyComponent={this.renderListEmpty} 
-                  actionTeamDetail={this.actionTeamDetail} 
+                <Text style={styles.titleInfo}>Main cast</Text>
+                <ListTeam
+                  data={cast}
+                  type="character"
+                  keyItem="credit_id"
+                  ListEmptyComponent={this.renderListEmpty}
+                  actionTeamDetail={this.actionTeamDetail}
                 />
               </View>
               <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>
-                  Main technical team
-                </Text>
-                <ListTeam 
-                  data={crew} 
-                  type='job' 
-                  keyItem='credit_id' 
-                  ListEmptyComponent={this.renderListEmpty} 
-                  actionTeamDetail={this.actionTeamDetail} 
+                <Text style={styles.titleInfo}>Main technical team</Text>
+                <ListTeam
+                  data={crew}
+                  type="job"
+                  keyItem="credit_id"
+                  ListEmptyComponent={this.renderListEmpty}
+                  actionTeamDetail={this.actionTeamDetail}
                 />
               </View>
               <View style={[styles.movieSecondInfo, styles.movieLastInfo]}>
-                <Text style={styles.titleInfo}>
-                  Producer
-                </Text>
-                <ListTeam 
-                  data={production_companies} 
-                  type='production' 
-                  keyItem='id' 
-                  ListEmptyComponent={this.renderListEmpty} 
-                  actionTeamDetail={this.actionTeamDetail} 
+                <Text style={styles.titleInfo}>Producer</Text>
+                <ListTeam
+                  data={production_companies}
+                  type="production"
+                  keyItem="id"
+                  ListEmptyComponent={this.renderListEmpty}
+                  actionTeamDetail={this.actionTeamDetail}
                 />
               </View>
             </View>
             <View style={styles.containerModal}>
-              <Modal 
-                isVisible={isVisible} 
-                onBackdropPress={() => this.setState({ isVisible: false })} 
-                useNativeDriver={true} 
-                hideModalContentWhileAnimating={true} 
-                backdropOpacity={0.5} 
-                style={styles.bottomModal} 
+              <Modal
+                isVisible={isVisible}
+                onBackdropPress={() => this.setState({ isVisible: false })}
+                useNativeDriver={true}
+                hideModalContentWhileAnimating={true}
+                backdropOpacity={0.5}
+                style={styles.bottomModal}
               >
-                <TeamDetail credit_id={credit_id} actionClose={this.actionClose} />
+                <TeamDetail
+                  credit_id={credit_id}
+                  actionClose={this.actionClose}
+                />
               </Modal>
             </View>
           </ScrollView>
-        }
+        )}
       </View>
     );
   }
 }
 
-const renderTruncatedFooter = (handlePress) => {
+const renderTruncatedFooter = handlePress => {
   return (
     <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>
-        Read more
-      </Text>
+      <Text style={styles.readMore}>Read more</Text>
     </TouchableOpacity>
   );
-}
+};
 
-const renderRevealedFooter = (handlePress) => {
+const renderRevealedFooter = handlePress => {
   return (
     <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>
-        Read less
-      </Text>
+      <Text style={styles.readMore}>Read less</Text>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   containerMainPhoto: {
     width: width,
-    height: width * 0.6,
+    height: width * 0.6
   },
   mainPhoto: {
     width: '100%',
-    height: '100%',
+    height: '100%'
   },
   play: {
     position: 'absolute',
@@ -413,73 +466,73 @@ const styles = StyleSheet.create({
     width: width * 0.16,
     height: width * 0.16,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   containerMainPhotoInfo: {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)'
   },
   containerBackgroundPhotoInfo: {
     position: 'absolute',
     bottom: 20,
     left: 20,
-    right: 20,
+    right: 20
   },
   photoInfo: {
     fontSize: fontSizeResponsive(3.8),
     color: '#ffffff',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   photoStar: {
     flexDirection: 'row',
-    marginTop: 8,
+    marginTop: 8
   },
   containerMovieInfo: {
     margin: 20,
-    marginTop: 35,
+    marginTop: 35
   },
   movieFirstInfo: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   movieInfo: {
-    marginRight: 25,
+    marginRight: 25
   },
   titleInfo: {
     fontSize: fontSizeResponsive(2.6),
     fontWeight: 'bold',
     color: '#47525E',
-    marginBottom: 7,
+    marginBottom: 7
   },
   subTitleInfo: {
     fontSize: fontSizeResponsive(2.1),
     color: '#8190A5',
-    textAlign: 'justify',
+    textAlign: 'justify'
   },
   readMore: {
     color: '#ff6a6a',
     marginTop: 5,
-    textAlign: 'right',
+    textAlign: 'right'
   },
   movieSecondInfo: {
-    marginTop: 35,
+    marginTop: 35
   },
   movieLastInfo: {
-    marginBottom: 15,
+    marginBottom: 15
   },
   errorInfo: {
     fontSize: fontSizeResponsive(2.6),
     color: '#8190A5',
     textAlign: 'center',
-    padding: 25,
+    padding: 25
   },
   containerModal: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   bottomModal: {
-    justifyContent: "flex-end",
-    margin: 0,
-  },
+    justifyContent: 'flex-end',
+    margin: 0
+  }
 });

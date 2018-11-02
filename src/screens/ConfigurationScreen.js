@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Share, Platform, Linking, Alert, StyleSheet, ScrollView, View, Text, Switch, TouchableOpacity } from 'react-native';
+import {
+  AsyncStorage,
+  Share,
+  Platform,
+  Linking,
+  Alert,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Switch,
+  TouchableOpacity
+} from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
 import { fontSizeResponsive } from './../config/Metrics';
 
 export default class ConfigurationScreen extends Component {
-  
   state = {
-    hasAdultContent: false,
-  }
+    hasAdultContent: false
+  };
 
   /*shouldComponentUpdate() {
     return false;
@@ -21,7 +32,7 @@ export default class ConfigurationScreen extends Component {
       if (value !== null) {
         const arr = JSON.parse(value);
         this.setState({
-          hasAdultContent: arr.hasAdultContent,
+          hasAdultContent: arr.hasAdultContent
         });
       }
     } catch (error) {
@@ -36,35 +47,39 @@ export default class ConfigurationScreen extends Component {
       [],
       { cancelable: true }
     );
-  }
+  };
 
-  actionChangeAdultContent = async (value) => {
+  actionChangeAdultContent = async value => {
     try {
       await AsyncStorage.setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
-      this.setState({hasAdultContent: value});
+      this.setState({ hasAdultContent: value });
     } catch (error) {
       this.showError();
     }
-  }
+  };
 
   actionShare = () => {
-    Share.share({
-      message: 'Learn all about movies and series \u{1F37F}',
-      url: 'https://www.themoviedb.org/',
-      title: 'AmoCinema'
-    }, {
-      // Android
-      dialogTitle: 'Learn all about movies and series \u{1F37F}',
-    });
-  }
-  
+    Share.share(
+      {
+        message: 'Learn all about movies and series \u{1F37F}',
+        url: 'https://www.themoviedb.org/',
+        title: 'AmoCinema'
+      },
+      {
+        // Android
+        dialogTitle: 'Learn all about movies and series \u{1F37F}'
+      }
+    );
+  };
+
   actionRating = () => {
-    const url = Platform.OS =='ios' ? 
-      'https://itunes.apple.com/br/app/adorocinema/id926254990?mt=8' :
-      'https://play.google.com/store/apps/details?id=com.adorocinema.android&hl=pt_BR';
-  
+    const url =
+      Platform.OS == 'ios'
+        ? 'https://itunes.apple.com/br/app/adorocinema/id926254990?mt=8'
+        : 'https://play.google.com/store/apps/details?id=com.adorocinema.android&hl=pt_BR';
+
     Linking.openURL(url).catch(err => this.showError());
-  }
+  };
 
   render() {
     const { hasAdultContent } = this.state;
@@ -79,7 +94,11 @@ export default class ConfigurationScreen extends Component {
             <Text style={styles.itemText} numberOfLines={2}>
               Include adult content
             </Text>
-            <Switch onValueChange={this.actionChangeAdultContent} value={hasAdultContent} onTintColor='#47525E' />
+            <Switch
+              onValueChange={this.actionChangeAdultContent}
+              value={hasAdultContent}
+              onTintColor="#47525E"
+            />
           </View>
         </View>
         <View style={styles.section}>
@@ -91,7 +110,12 @@ export default class ConfigurationScreen extends Component {
               <Text style={styles.itemText} numberOfLines={2}>
                 Tell a friend
               </Text>
-              <Feather name="share" size={22} color="#47525E" style={styles.icon} />
+              <Feather
+                name="share"
+                size={22}
+                color="#47525E"
+                style={styles.icon}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.5} onPress={this.actionRating}>
@@ -99,7 +123,12 @@ export default class ConfigurationScreen extends Component {
               <Text style={styles.itemText} numberOfLines={2}>
                 Rate the app
               </Text>
-              <Feather name="star" size={22} color="#47525E" style={styles.icon} />
+              <Feather
+                name="star"
+                size={22}
+                color="#47525E"
+                style={styles.icon}
+              />
             </View>
           </TouchableOpacity>
           <View style={[styles.item, styles.itemNoBorder]}>
@@ -109,7 +138,7 @@ export default class ConfigurationScreen extends Component {
           </View>
         </View>
       </ScrollView>
-    )
+    );
   }
 }
 
@@ -118,15 +147,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     padding: 20,
-    paddingTop: 25,
+    paddingTop: 25
   },
   section: {
-    marginBottom: 40,
+    marginBottom: 40
   },
   sectionText: {
     marginBottom: 40,
     fontWeight: 'bold',
-    fontSize: fontSizeResponsive(3),
+    fontSize: fontSizeResponsive(3)
   },
   item: {
     backgroundColor: '#ffffff',
@@ -135,21 +164,21 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#f3f3f3',
+    borderBottomColor: '#f3f3f3'
   },
   itemText: {
     fontSize: fontSizeResponsive(2.5),
     color: '#47525E',
-    width: '80%',
+    width: '80%'
   },
   itemTextVersion: {
     fontSize: fontSizeResponsive(2.5),
-    color: '#8190A5',
+    color: '#8190A5'
   },
   itemNoBorder: {
-    borderBottomWidth: 0,
+    borderBottomWidth: 0
   },
   icon: {
-    marginRight: 5,
+    marginRight: 5
   }
 });
