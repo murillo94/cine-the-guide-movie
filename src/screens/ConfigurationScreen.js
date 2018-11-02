@@ -51,8 +51,8 @@ export default class ConfigurationScreen extends Component {
 
   actionChangeAdultContent = async value => {
     try {
-      await AsyncStorage.setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
       this.setState({ hasAdultContent: value });
+      await AsyncStorage.setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
     } catch (error) {
       this.showError();
     }
@@ -66,7 +66,6 @@ export default class ConfigurationScreen extends Component {
         title: 'AmoCinema'
       },
       {
-        // Android
         dialogTitle: 'Learn all about movies and series \u{1F37F}'
       }
     );
@@ -85,56 +84,64 @@ export default class ConfigurationScreen extends Component {
     const { hasAdultContent } = this.state;
 
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.section}>
-          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
-            Interface
-          </Text>
-          <View style={[styles.item, styles.itemNoBorder]}>
-            <Text style={styles.itemText} numberOfLines={2}>
-              Include adult content
+      <ScrollView style={styles.bgWhite}>
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <Text
+              style={[styles.itemText, styles.sectionText]}
+              numberOfLines={2}
+            >
+              Interface
             </Text>
-            <Switch
-              onValueChange={this.actionChangeAdultContent}
-              value={hasAdultContent}
-              onTintColor="#47525E"
-            />
+            <View style={[styles.item, styles.itemNoBorder]}>
+              <Text style={styles.itemText} numberOfLines={2}>
+                Include adult content
+              </Text>
+              <Switch
+                onValueChange={this.actionChangeAdultContent}
+                value={hasAdultContent}
+                onTintColor="#47525E"
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.section}>
-          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
-            Application
-          </Text>
-          <TouchableOpacity activeOpacity={0.5} onPress={this.actionShare}>
-            <View style={styles.item}>
-              <Text style={styles.itemText} numberOfLines={2}>
-                Tell a friend
-              </Text>
-              <Feather
-                name="share"
-                size={22}
-                color="#47525E"
-                style={styles.icon}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} onPress={this.actionRating}>
-            <View style={styles.item}>
-              <Text style={styles.itemText} numberOfLines={2}>
-                Rate the app
-              </Text>
-              <Feather
-                name="star"
-                size={22}
-                color="#47525E"
-                style={styles.icon}
-              />
-            </View>
-          </TouchableOpacity>
-          <View style={[styles.item, styles.itemNoBorder]}>
-            <Text style={styles.itemTextVersion} numberOfLines={2}>
-              Version 1.0.0
+          <View>
+            <Text
+              style={[styles.itemText, styles.sectionText]}
+              numberOfLines={2}
+            >
+              Application
             </Text>
+            <TouchableOpacity activeOpacity={0.5} onPress={this.actionShare}>
+              <View style={styles.item}>
+                <Text style={styles.itemText} numberOfLines={2}>
+                  Tell a friend
+                </Text>
+                <Feather
+                  name="share"
+                  size={22}
+                  color="#47525E"
+                  style={styles.icon}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.5} onPress={this.actionRating}>
+              <View style={styles.item}>
+                <Text style={styles.itemText} numberOfLines={2}>
+                  Rate the app
+                </Text>
+                <Feather
+                  name="star"
+                  size={22}
+                  color="#47525E"
+                  style={styles.icon}
+                />
+              </View>
+            </TouchableOpacity>
+            <View style={[styles.item, styles.itemNoBorder]}>
+              <Text style={styles.itemTextVersion} numberOfLines={2}>
+                Version 1.0.0
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -143,6 +150,9 @@ export default class ConfigurationScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  bgWhite: {
+    backgroundColor: '#ffffff'
+  },
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 40
   },
   sectionText: {
-    marginBottom: 40,
+    marginBottom: 15,
     fontWeight: 'bold',
     fontSize: fontSizeResponsive(3)
   },
@@ -161,8 +171,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 25,
-    paddingBottom: 20,
+    paddingTop: 25,
+    paddingBottom: 25,
     borderBottomWidth: 1,
     borderBottomColor: '#f3f3f3'
   },
