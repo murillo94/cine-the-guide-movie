@@ -129,9 +129,6 @@ export default class TeamDetail extends Component {
               <View style={styles.textItens}>
                 <Text style={styles.titleName}>{name}</Text>
                 <View style={styles.containerTitleMargin}>
-                  <Text style={[styles.textSmall, styles.titleMargin]}>
-                    Known For:
-                  </Text>
                   <Text
                     numberOfLines={2}
                     style={[styles.textSmall, styles.textJustify]}
@@ -140,9 +137,6 @@ export default class TeamDetail extends Component {
                   </Text>
                 </View>
                 <View style={styles.containerTitleMargin}>
-                  <Text style={[styles.textSmall, styles.titleMargin]}>
-                    Age:
-                  </Text>
                   <Text
                     numberOfLines={2}
                     style={[styles.textSmall, styles.textJustify]}
@@ -151,9 +145,6 @@ export default class TeamDetail extends Component {
                   </Text>
                 </View>
                 <View style={styles.containerTitleMargin}>
-                  <Text style={[styles.textSmall, styles.titleMargin]}>
-                    Birthday:
-                  </Text>
                   <Text
                     numberOfLines={2}
                     style={[styles.textSmall, styles.textJustify]}
@@ -236,9 +227,6 @@ const styles = StyleSheet.create({
   textSmall: {
     fontSize: fontSizeResponsive(2.1),
     color: '#8190A5'
-  },
-  titleMargin: {
-    marginBottom: 2
   },
   textJustify: {
     textAlign: 'justify'
