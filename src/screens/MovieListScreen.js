@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Asset } from 'expo';
 import {
   AsyncStorage,
-  Platform,
-  ActivityIndicator,
   StyleSheet,
   View,
   Text,
@@ -13,9 +11,12 @@ import {
 import { Feather } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 
+import { Spinner } from './../components/Spinner';
+import { Error } from './../components/Error';
 import Filter from './../components/Filter';
 import List from './../components/List';
-import { fontSizeResponsive, width } from './../config/Metrics';
+
+import { fontSizeResponsive } from './../config/Metrics';
 
 export default class MovieListScreen extends Component {
   state = {
@@ -93,7 +94,7 @@ export default class MovieListScreen extends Component {
     return false;
   }
 
-  async requestMoviesList() {
+  requestMoviesList = async () => {
     const { page, filterType, hasAdultContent } = this.state;
     const date_release = new Date().toISOString().slice(0, 10);
 
@@ -121,36 +122,23 @@ export default class MovieListScreen extends Component {
         isError: true
       });
     }
-  }
+  };
 
-  renderLoading = () => (
-    <View>
-      {Platform.OS === 'ios' ? (
-        <ActivityIndicator size="small" color="#47525E" />
-      ) : (
-        <ActivityIndicator size={50} color="#47525E" />
-      )}
-    </View>
-  );
+  renderLoading = () => <Spinner />;
 
   renderErrorMessage = () => (
-    <View style={styles.containerError}>
-      <Feather name="alert-octagon" size={width * 0.2} color="#47525E" />
-      <Text style={styles.errorInfo}>
-        Something wrong has happened, please try again later.
-      </Text>
-    </View>
+    <Error icon="alert-octagon" action={this.requestMoviesList} />
+  );
+
+  renderListEmpty = () => (
+    <Error icon="thumbs-down" textError="No results available." />
   );
 
   renderFooter = () => {
     const { isLoadingMore, total_pages, page, results } = this.state;
 
     if (isLoadingMore) {
-      return (
-        <View style={styles.loadingMore}>
-          <ActivityIndicator size="small" color="#47525E" />
-        </View>
-      );
+      return <Spinner size={'small'} />;
     }
 
     if (total_pages !== page && results.length > 0) {
@@ -159,7 +147,7 @@ export default class MovieListScreen extends Component {
           <TouchableOpacity
             style={styles.loadingButton}
             activeOpacity={0.5}
-            onPress={() => this.actionLoadMore()}
+            onPress={this.actionLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
           </TouchableOpacity>
@@ -173,13 +161,6 @@ export default class MovieListScreen extends Component {
 
     return null;
   };
-
-  renderListEmpty = () => (
-    <View style={styles.containerError}>
-      <Feather name="thumbs-down" size={width * 0.2} color="#47525E" />
-      <Text style={styles.errorInfo}>No results available.</Text>
-    </View>
-  );
 
   actionRefresh = () => {
     this.setState(
@@ -283,23 +264,21 @@ export default class MovieListScreen extends Component {
               ListFooterComponent={this.renderFooter}
               navigate={navigate}
             />
-            <View style={styles.containerModal}>
-              <Modal
-                isVisible={isVisible}
-                onBackdropPress={() => this.setState({ isVisible: false })}
-                useNativeDriver={true}
-                hideModalContentWhileAnimating={true}
-                backdropOpacity={0.5}
-                style={styles.bottomModal}
-              >
-                <Filter
-                  actionFilter={this.actionFilter}
-                  actionSwitchMovie={this.actionSwitchMovie}
-                  filterType={filterType}
-                  filterName={filterName}
-                />
-              </Modal>
-            </View>
+            <Modal
+              isVisible={isVisible}
+              onBackdropPress={() => this.setState({ isVisible: false })}
+              useNativeDriver={true}
+              hideModalContentWhileAnimating={true}
+              backdropOpacity={0.5}
+              style={styles.bottomModal}
+            >
+              <Filter
+                actionFilter={this.actionFilter}
+                actionSwitchMovie={this.actionSwitchMovie}
+                filterType={filterType}
+                filterName={filterName}
+              />
+            </Modal>
           </View>
         )}
       </View>
@@ -310,7 +289,7 @@ export default class MovieListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     justifyContent: 'center'
   },
   containerList: {
@@ -337,25 +316,9 @@ const styles = StyleSheet.create({
   buttonGridActive: {
     backgroundColor: '#efefef'
   },
-  containerModal: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   bottomModal: {
     justifyContent: 'flex-end',
     margin: 0
-  },
-  containerError: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffffff'
-  },
-  errorInfo: {
-    fontSize: fontSizeResponsive(2.6),
-    color: '#8190A5',
-    textAlign: 'center',
-    padding: 25
   },
   loadingMore: {
     paddingTop: 20,

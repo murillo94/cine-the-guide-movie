@@ -58,7 +58,7 @@ export default class SearchScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#fff'
   },
   containerList: {
     marginTop: 25

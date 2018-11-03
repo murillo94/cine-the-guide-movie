@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { Platform, ActivityIndicator, View, WebView } from 'react-native';
+import { WebView } from 'react-native';
+
+import { Spinner } from './../components/Spinner';
 
 export default class WebViewScreen extends Component {
   renderLoading = () => (
-    <View
-      style={{ flex: 1, backgroundColor: '#ffffff', justifyContent: 'center' }}
-    >
-      {Platform.OS === 'ios' ? (
-        <ActivityIndicator size="small" color="#47525E" />
-      ) : (
-        <ActivityIndicator size={50} color="#47525E" />
-      )}
-    </View>
+    <Spinner
+      style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center' }}
+    />
   );
 
   render() {

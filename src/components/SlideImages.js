@@ -1,35 +1,28 @@
-import React, { Component } from 'react';
-import { Modal, View, Text } from 'react-native';
+import React from 'react';
+import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
-const images = [
-  {
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-  },
-  {
-    url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
-  }
-];
+import { Spinner } from './Spinner';
 
-export default class SlideImages extends Component {
-  renderLoading = () => (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  );
-
+export default class SlideImages extends React.PureComponent {
   render() {
+    const { showImage, images, actionClose } = this.props;
     return (
       <Modal
-        visible={true}
+        visible={showImage}
         transparent={true}
-        onRequestClose={() => this.setState({ modalVisible: false })}
+        onRequestClose={actionClose}
       >
         <ImageViewer
           imageUrls={images}
           index={0}
-          loadingRender={() => this.renderLoading}
+          maxOverflow={60}
+          loadingRender={() => <Spinner color={'#fff'} />}
           enableSwipeDown={true}
+          enableImageZoom={true}
+          enablePreload={true}
+          saveToLocalByLongPress={false}
+          onCancel={actionClose}
         />
       </Modal>
     );

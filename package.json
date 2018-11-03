@@ -21,6 +21,7 @@
     "expo": "^30.0.0",
     "react": "16.3.1",
     "react-native": "~0.55.4",
+    "react-native-image-zoom-viewer": "^2.2.23",
     "react-native-modal": "^6.1.0",
     "react-native-read-more-text": "^1.1.0",
     "react-native-scalable-image": "^0.4.0",

@@ -151,11 +151,11 @@ export default class ConfigurationScreen extends Component {
 
 const styles = StyleSheet.create({
   bgWhite: {
-    backgroundColor: '#ffffff'
+    backgroundColor: '#fff'
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     padding: 20,
     paddingTop: 25
   },
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizeResponsive(3)
   },
   item: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 25,

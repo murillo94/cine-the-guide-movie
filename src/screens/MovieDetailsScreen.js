@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  ActivityIndicator,
   Alert,
   Share,
   StyleSheet,
@@ -9,17 +7,20 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
-  FlatList
+  TouchableOpacity
 } from 'react-native';
 
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 import Modal from 'react-native-modal';
 
-import { fontSizeResponsive, width } from './../config/Metrics';
+import { Spinner } from './../components/Spinner';
+import { Error } from './../components/Error';
 import TeamDetail from './../components/TeamDetail';
 import ListTeam from './../components/ListTeam';
+import SlideImages from './../components/SlideImages';
+
+import { fontSizeResponsive, width } from './../config/Metrics';
 
 import language from './../assets/language/iso-langague.json';
 
@@ -27,7 +28,8 @@ export default class MovieDetailsScreen extends Component {
   state = {
     isLoading: true,
     isError: false,
-    isVisible: false,
+    showPerson: false,
+    showImage: false,
     credit_id: null
   };
 
@@ -55,7 +57,8 @@ export default class MovieDetailsScreen extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (
-      this.state.isVisible !== nextState.isVisible ||
+      this.state.showPerson !== nextState.showPerson ||
+      this.state.showImage !== nextState.showImage ||
       this.state.isLoading !== nextState.isLoading ||
       this.state.isError !== nextState.isError
     ) {
@@ -81,7 +84,7 @@ export default class MovieDetailsScreen extends Component {
             key={i}
             name="star"
             size={width * 0.06}
-            color="#ffffff"
+            color="#fff"
             style={{ marginRight: 5 }}
           />
         ));
@@ -138,13 +141,19 @@ export default class MovieDetailsScreen extends Component {
       : require('./../assets/images/not_found.png');
   }
 
-  async requestMoviesInfo() {
+  formatImageUrl(images) {
+    return this.sliceArrayLength(images, 15).map(x => {
+      return { url: `https://image.tmdb.org/t/p/original/${x.file_path}` };
+    });
+  }
+
+  requestMoviesInfo = async () => {
     this.setState({ isLoading: true });
     const { id } = this.props.navigation.state.params;
 
     try {
       let response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&language=en-US&append_to_response=credits,videos`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&language=en-US&include_image_language=en,null&append_to_response=credits,videos,images`
       );
       let data = await response.json();
       this.setState({
@@ -168,7 +177,8 @@ export default class MovieDetailsScreen extends Component {
         production_companies: this.sliceArrayLength(
           data.production_companies,
           10
-        )
+        ),
+        images: this.formatImageUrl(data.images.backdrops)
       });
     } catch (err) {
       this.setState({
@@ -176,25 +186,12 @@ export default class MovieDetailsScreen extends Component {
         isError: true
       });
     }
-  }
+  };
 
-  renderLoading = () => (
-    <View>
-      {Platform.OS === 'ios' ? (
-        <ActivityIndicator size="small" color="#47525E" />
-      ) : (
-        <ActivityIndicator size={50} color="#47525E" />
-      )}
-    </View>
-  );
+  renderLoading = () => <Spinner />;
 
   renderErrorMessage = () => (
-    <View style={styles.container}>
-      <Feather name="alert-octagon" size={width * 0.2} color="#47525E" />
-      <Text style={styles.errorInfo}>
-        Something wrong has happened, please try again later.
-      </Text>
-    </View>
+    <Error icon="alert-octagon" action={this.requestMoviesInfo} />
   );
 
   renderListEmpty = () => (
@@ -234,23 +231,30 @@ export default class MovieDetailsScreen extends Component {
           title: 'AmoCinema'
         },
         {
-          // Android
           dialogTitle: `${title}, know everything about this movie \u{1F37F}`
         }
       );
     }
   };
 
-  actionTeamDetail = credit_id => {
-    this.setState(({ isVisible }) => {
-      return { credit_id, isVisible: !isVisible };
+  actionPerson = (credit_id = '') => {
+    this.setState(({ showPerson }) => {
+      return { credit_id, showPerson: !showPerson };
     });
   };
 
-  actionClose = () => {
-    this.setState(({ isVisible }) => {
-      return { isVisible: !isVisible };
-    });
+  actionImage = () => {
+    const { images } = this.state;
+
+    if (images.length) {
+      this.setState(({ showImage }) => {
+        return { showImage: !showImage };
+      });
+    } else {
+      Alert.alert('Attention', 'This movie has no photos to show.', [], {
+        cancelable: true
+      });
+    }
   };
 
   render() {
@@ -270,8 +274,10 @@ export default class MovieDetailsScreen extends Component {
       cast,
       crew,
       production_companies,
+      images,
       credit_id,
-      isVisible
+      showPerson,
+      showImage
     } = this.state;
 
     return (
@@ -296,11 +302,15 @@ export default class MovieDetailsScreen extends Component {
                 <FontAwesome
                   name="play"
                   size={width * 0.07}
-                  color="#ffffff"
+                  color="#fff"
                   style={{ marginLeft: 5 }}
                 />
               </TouchableOpacity>
-              <View style={styles.containerMainPhotoInfo}>
+              <TouchableOpacity
+                style={styles.containerMainPhotoInfo}
+                activeOpacity={0.5}
+                onPress={this.actionImage}
+              >
                 <View style={styles.containerBackgroundPhotoInfo}>
                   <Text numberOfLines={2} style={styles.photoInfo}>
                     {title}
@@ -309,7 +319,7 @@ export default class MovieDetailsScreen extends Component {
                     {this.convertRatingToStars(vote_average)}
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.containerMovieInfo}>
               <ScrollView
@@ -379,7 +389,7 @@ export default class MovieDetailsScreen extends Component {
                   type="character"
                   keyItem="credit_id"
                   ListEmptyComponent={this.renderListEmpty}
-                  actionTeamDetail={this.actionTeamDetail}
+                  actionTeamDetail={this.actionPerson}
                 />
               </View>
               <View style={styles.movieSecondInfo}>
@@ -389,7 +399,7 @@ export default class MovieDetailsScreen extends Component {
                   type="job"
                   keyItem="credit_id"
                   ListEmptyComponent={this.renderListEmpty}
-                  actionTeamDetail={this.actionTeamDetail}
+                  actionTeamDetail={this.actionPerson}
                 />
               </View>
               <View style={[styles.movieSecondInfo, styles.movieLastInfo]}>
@@ -399,25 +409,28 @@ export default class MovieDetailsScreen extends Component {
                   type="production"
                   keyItem="id"
                   ListEmptyComponent={this.renderListEmpty}
-                  actionTeamDetail={this.actionTeamDetail}
+                  actionTeamDetail={this.actionPerson}
                 />
               </View>
             </View>
-            <View style={styles.containerModal}>
-              <Modal
-                isVisible={isVisible}
-                onBackdropPress={() => this.setState({ isVisible: false })}
-                useNativeDriver={true}
-                hideModalContentWhileAnimating={true}
-                backdropOpacity={0.5}
-                style={styles.bottomModal}
-              >
-                <TeamDetail
-                  credit_id={credit_id}
-                  actionClose={this.actionClose}
-                />
-              </Modal>
-            </View>
+            <Modal
+              isVisible={showPerson}
+              onBackdropPress={() => this.setState({ showPerson: false })}
+              useNativeDriver={true}
+              hideModalContentWhileAnimating={true}
+              backdropOpacity={0.5}
+              style={styles.bottomModal}
+            >
+              <TeamDetail
+                credit_id={credit_id}
+                actionClose={this.actionPerson}
+              />
+            </Modal>
+            <SlideImages
+              showImage={showImage}
+              images={images}
+              actionClose={this.actionImage}
+            />
           </ScrollView>
         )}
       </View>
@@ -482,7 +495,7 @@ const styles = StyleSheet.create({
   },
   photoInfo: {
     fontSize: fontSizeResponsive(3.8),
-    color: '#ffffff',
+    color: '#fff',
     fontWeight: 'bold'
   },
   photoStar: {
@@ -520,16 +533,6 @@ const styles = StyleSheet.create({
   },
   movieLastInfo: {
     marginBottom: 15
-  },
-  errorInfo: {
-    fontSize: fontSizeResponsive(2.6),
-    color: '#8190A5',
-    textAlign: 'center',
-    padding: 25
-  },
-  containerModal: {
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   bottomModal: {
     justifyContent: 'flex-end',

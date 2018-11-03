@@ -147,8 +147,8 @@ export default class Filter extends Component {
 const styles = StyleSheet.create({
   containerModal: {
     backgroundColor: 'white',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     borderColor: 'rgba(0, 0, 0, 0.1)',
     height: height * 0.7
   },
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     width: '45%'
   },
   buttonClose: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#47525E'
   },
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   buttonTextSave: {
-    color: '#ffffff',
+    color: '#fff',
     fontWeight: 'bold'
   },
   buttonTextClose: {

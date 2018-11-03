@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     margin: 0
   },
   containerError: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
   },
