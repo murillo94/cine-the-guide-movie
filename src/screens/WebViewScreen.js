@@ -16,6 +16,7 @@ export default class WebViewScreen extends Component {
     }?start=0`;
     return (
       <WebView
+        useWebKit={true}
         source={{ uri: key }}
         startInLoadingState
         renderLoading={this.renderLoading}

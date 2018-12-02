@@ -4,7 +4,7 @@
     "description": "Cine is your movie guide. The fastest and easiest way to find Movies, Actors and Series on your device. Know about ratings and reviews from The Movie Database (TMDb).",
     "slug": "cine-the-movie-guide",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": [
       "ios",
       "android"
