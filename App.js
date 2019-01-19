@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { useScreens } from 'react-native-screens';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -11,6 +12,8 @@ import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import SearchResultsScreen from './src/screens/SearchResultsScreen';
 import WebViewScreen from './src/screens/WebViewScreen';
+
+useScreens();
 
 const TitleMovieTab = 'Home';
 const TitleConfigTab = 'More';
@@ -157,7 +160,7 @@ const MainNavigator =  Platform.OS === 'ios' ? createBottomTabNavigator({
     screen: ConfigurationTab,
     navigationOptions: {
       title: TitleConfigTab,
-    }, 
+    },
   },
 }, {
   tabBarOptions: {
@@ -165,8 +168,8 @@ const MainNavigator =  Platform.OS === 'ios' ? createBottomTabNavigator({
     inactiveTintColor: '#8190A5',
     showIcon: true,
     labelStyle: {
-      margin: 0, 
-      padding: 2 
+      margin: 0,
+      padding: 2
     },
     style: {
       backgroundColor: '#ffffff',
@@ -176,7 +179,7 @@ const MainNavigator =  Platform.OS === 'ios' ? createBottomTabNavigator({
   swipeEnabled: false,
 }) : createMaterialBottomTabNavigator({
   Movie: {
-    screen: MoviesTab, 
+    screen: MoviesTab,
     navigationOptions: ({ navigation }) => ({
       title: TitleMovieTab,
       tabBarVisible: MovieListTabBarVisible(navigation),
@@ -188,12 +191,12 @@ const MainNavigator =  Platform.OS === 'ios' ? createBottomTabNavigator({
       title: TitleSearchTab,
       tabBarVisible: MovieListTabBarVisible(navigation),
     }),
-  },  
+  },
   Config: {
     screen: ConfigurationTab,
     navigationOptions: {
       title: TitleConfigTab,
-    }, 
+    },
   },
 }, {
   initialRouteName: 'Movie',
