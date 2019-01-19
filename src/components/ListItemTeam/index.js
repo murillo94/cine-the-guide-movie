@@ -3,9 +3,10 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import styles from './styles';
 
+const uninformed = 'Uninformed';
+
 const getImageApi = image => {
-  image = image || '';
-  return image !== ''
+  return image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
     : require('../../assets/images/not_found.png');
 };
@@ -26,7 +27,7 @@ export default class ListItemTeam extends React.PureComponent {
               numberOfLines={1}
               style={[styles.titleCast, styles.titleCharacter]}
             >
-              {item.character || 'Uninformed'}
+              {item.character || uninformed}
             </Text>
           )}
           {type === 'job' && (
@@ -34,7 +35,7 @@ export default class ListItemTeam extends React.PureComponent {
               numberOfLines={1}
               style={[styles.titleCast, styles.titleCharacter]}
             >
-              {item.job || 'Uninformed'}
+              {item.job || uninformed}
             </Text>
           )}
           <Image
@@ -42,7 +43,7 @@ export default class ListItemTeam extends React.PureComponent {
             style={styles.castPhoto}
           />
           <Text numberOfLines={1} style={styles.titleCast}>
-            {item.name || 'Uninformed'}
+            {item.name || uninformed}
           </Text>
         </TouchableOpacity>
       );
@@ -55,7 +56,7 @@ export default class ListItemTeam extends React.PureComponent {
           resizeMode="contain"
         />
         <Text numberOfLines={2} style={styles.titleCast}>
-          {item.name || 'Uninformed'}
+          {item.name || uninformed}
         </Text>
       </View>
     );

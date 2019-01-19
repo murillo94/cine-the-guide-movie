@@ -131,9 +131,7 @@ export default class MovieListScreen extends Component {
   renderFooter = () => {
     const { isLoadingMore, total_pages, page, results } = this.state;
 
-    if (isLoadingMore) {
-      return <Spinner size={'small'} />;
-    }
+    if (isLoadingMore) return <Spinner size={'small'} />;
 
     if (total_pages !== page && results.length > 0) {
       return (
@@ -149,9 +147,7 @@ export default class MovieListScreen extends Component {
       );
     }
 
-    if (results.length > 0) {
-      return <View style={styles.loadingMore} />;
-    }
+    if (results.length > 0) return <View style={styles.loadingMore} />;
 
     return null;
   };

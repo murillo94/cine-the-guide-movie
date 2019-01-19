@@ -14,9 +14,21 @@ export default class Search extends Component {
     this.setState({ search: '' });
   };
 
-  render() {
+  actionSubmit = () => {
     const { search } = this.state;
     const { navigate, typeRequest } = this.props;
+
+    if (search) {
+      navigate('SearchResults', {
+        typeRequest,
+        name: search,
+        id: null
+      });
+    }
+  };
+
+  render() {
+    const { search } = this.state;
 
     return (
       <View style={styles.container}>
@@ -30,14 +42,7 @@ export default class Search extends Component {
             />
             <TextInput
               style={styles.textInput}
-              onSubmitEditing={() =>
-                search.length > 0 &&
-                navigate('SearchResults', {
-                  typeRequest: typeRequest,
-                  name: search,
-                  id: null
-                })
-              }
+              onSubmitEditing={this.actionSubmit}
               onChangeText={search => this.setState({ search })}
               value={search}
               returnKeyType="search"

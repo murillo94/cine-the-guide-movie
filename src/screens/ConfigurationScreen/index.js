@@ -21,9 +21,10 @@ export default class ConfigurationScreen extends Component {
     hasAdultContent: false
   };
 
-  /*shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.hasAdultContent !== nextState.hasAdultContent) return true;
     return false;
-  }*/
+  }
 
   async componentDidMount() {
     try {

@@ -9,8 +9,7 @@ import { width } from '../../config/Metrics';
 import styles from './styles';
 
 const getImageApi = image => {
-  image = image || '';
-  return image !== ''
+  return image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
     : require('../../assets/images/not_found.png');
 };
@@ -21,15 +20,12 @@ const convertToDate = value => {
 };
 
 const convertToUpperCaseFirstLetter = str => {
-  str = language[str] || '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return language[str] ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
 
 const convertGenre = (arr, type, isSearch) => {
   if (type === 'normal' || isSearch) {
-    if (arr.length > 1) {
-      return `${genre[arr[0]].name}, ${genre[arr[1]].name}`;
-    }
+    if (arr.length > 1) return `${genre[arr[0]].name}, ${genre[arr[1]].name}`;
     return arr.length !== 0 ? `${genre[arr[0]].name}` : '';
   }
   return arr.length !== 0

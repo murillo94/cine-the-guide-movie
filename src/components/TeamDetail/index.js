@@ -20,23 +20,18 @@ export default class TeamDetail extends Component {
   }
 
   getImageApi(image) {
-    image = image || '';
-    return image !== ''
+    return image
       ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
       : require('../../assets/images/not_found.png');
   }
 
   getAge(birthday) {
-    birthday = birthday || '';
-
-    if (birthday !== '') {
+    if (birthday) {
       var today = new Date();
       var birthDate = new Date(birthday);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
       return `${age} years`;
     }
     return 'Uninformed age';
