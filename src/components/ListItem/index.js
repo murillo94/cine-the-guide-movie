@@ -19,8 +19,8 @@ const convertToDate = value => {
   return date.getFullYear() || '';
 };
 
-const convertToUpperCaseFirstLetter = str => {
-  return language[str] ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+const convertToUpperCaseFirstLetter = (str = language[str]) => {
+  return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
 
 const convertGenre = (arr, type, isSearch) => {
