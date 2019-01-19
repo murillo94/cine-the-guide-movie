@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Text
-} from 'react-native';
+import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 
-import Search from './../components/Search';
-import { fontSizeResponsive } from './../config/Metrics';
-import genre from './../assets/genre/genre_ids.json';
+import Search from '../../components/Search';
+
+import genre from '../../assets/genre/genre_ids.json';
+import styles from './styles';
 
 export default class SearchScreen extends Component {
   shouldComponentUpdate() {
@@ -54,22 +49,3 @@ export default class SearchScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  containerList: {
-    marginTop: 25
-  },
-  item: {
-    alignItems: 'center',
-    marginBottom: 25
-  },
-  itemText: {
-    fontSize: fontSizeResponsive(2.5),
-    color: '#47525E',
-    textAlign: 'center'
-  }
-});

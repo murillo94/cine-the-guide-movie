@@ -1,42 +1,58 @@
 import React, { Component } from 'react';
-import {
-  AsyncStorage,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity
-} from 'react-native';
+import { Asset } from 'expo';
+import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
 
-import { Spinner } from './../components/Spinner';
-import { Error } from './../components/Error';
-import List from './../components/List';
+import { Spinner } from '../../components/Spinner';
+import { Error } from '../../components/Error';
+import Filter from '../../components/Filter';
+import List from '../../components/List';
 
-import { fontSizeResponsive } from './../config/Metrics';
+import styles from './styles';
 
-export default class SearchResultsScreen extends Component {
+export default class MovieListScreen extends Component {
   state = {
+    isVisible: false,
     isLoading: false,
+    isRefresh: false,
     isLoadingMore: false,
     isError: false,
     hasAdultContent: false,
+    filterType: 'popularity.desc',
+    filterName: 'Most popular',
     results: [],
     page: 1,
     numColumns: 1,
-    keyGrid: 1,
-    id: this.props.navigation.state.params.id,
-    name: this.props.navigation.state.params.name,
-    typeRequest: this.props.navigation.state.params.typeRequest
+    keyGrid: 1
   };
 
-  static navigationOptions = () => {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
     return {
-      title: 'Search result'
+      headerRight: (
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={{ paddingRight: 15, paddingLeft: 20 }}
+          onPress={params.actionFilter}
+        >
+          <Feather name="filter" size={23} color="#47525E" />
+        </TouchableOpacity>
+      )
     };
   };
 
   async componentDidMount() {
+    Asset.fromModule(
+      require('react-navigation/src/views/assets/back-icon-mask.png')
+    ).downloadAsync();
+    Asset.fromModule(
+      require('react-navigation/src/views/assets/back-icon.png')
+    ).downloadAsync();
+    this.props.navigation.setParams({ actionFilter: this.actionFilter });
+
     try {
       const value = await AsyncStorage.getItem('@ConfigKey');
       if (value !== null) {
@@ -60,7 +76,9 @@ export default class SearchResultsScreen extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (
       this.state.results !== nextState.results ||
+      this.state.isVisible !== nextState.isVisible ||
       this.state.isLoading !== nextState.isLoading ||
+      this.state.isRefresh !== nextState.isRefresh ||
       this.state.isLoadingMore !== nextState.isLoadingMore ||
       this.state.isError !== nextState.isError ||
       this.state.keyGrid !== nextState.keyGrid
@@ -71,29 +89,29 @@ export default class SearchResultsScreen extends Component {
   }
 
   requestMoviesList = async () => {
-    const { page, name, id, typeRequest, hasAdultContent } = this.state;
+    const { page, filterType, hasAdultContent } = this.state;
     const date_release = new Date().toISOString().slice(0, 10);
-    const query =
-      typeRequest === 'search'
-        ? `query=${encodeURIComponent(name)}`
-        : `with_genres=${id}`;
 
     try {
       this.setState({ isLoading: true });
+
       let response = await fetch(
-        `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
+        `https://api.themoviedb.org/3/discover/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&sort_by=${filterType}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
       );
+
       let data = await response.json();
-      this.setState(({ results }) => ({
+      this.setState(({ isRefresh, results }) => ({
         isLoading: false,
+        isRefresh: false,
         isLoadingMore: false,
         isError: false,
         total_pages: data.total_pages,
-        results: [...results, ...data.results]
+        results: isRefresh ? data.results : [...results, ...data.results]
       }));
     } catch (err) {
       this.setState({
         isLoading: false,
+        isRefresh: false,
         isLoadingMore: false,
         isError: true
       });
@@ -138,6 +156,18 @@ export default class SearchResultsScreen extends Component {
     return null;
   };
 
+  actionRefresh = () => {
+    this.setState(
+      {
+        isRefresh: true,
+        page: 1
+      },
+      () => {
+        this.requestMoviesList();
+      }
+    );
+  };
+
   actionLoadMore = () => {
     this.setState(
       ({ page }) => ({
@@ -156,22 +186,43 @@ export default class SearchResultsScreen extends Component {
     });
   };
 
+  actionFilter = () => {
+    this.setState(({ isVisible }) => {
+      return { isVisible: !isVisible };
+    });
+  };
+
+  actionSwitchMovie = (filterType, filterName, isVisible) => {
+    if (this.state.filterType !== filterType) {
+      this.setState(
+        { filterType, filterName, isVisible, page: 1, results: [] },
+        () => {
+          this.requestMoviesList();
+        }
+      );
+    } else {
+      this.setState({ isVisible });
+    }
+  };
+
   render() {
     const { navigate } = this.props.navigation;
     const {
-      name,
-      typeRequest,
       isLoading,
+      isRefresh,
       isLoadingMore,
       isError,
       results,
+      filterName,
+      isVisible,
+      filterType,
       numColumns,
       keyGrid
     } = this.state;
 
     return (
       <View style={styles.container}>
-        {isLoading && !isLoadingMore ? (
+        {isLoading && !isRefresh && !isLoadingMore ? (
           this.renderLoading()
         ) : isError ? (
           this.renderErrorMessage()
@@ -182,7 +233,7 @@ export default class SearchResultsScreen extends Component {
             {results.length > 0 && (
               <View style={styles.containerMainText}>
                 <Text style={styles.textMain} numberOfLines={1}>
-                  {name}
+                  {filterName}
                 </Text>
                 <TouchableOpacity
                   style={[
@@ -198,68 +249,33 @@ export default class SearchResultsScreen extends Component {
             )}
             <List
               data={results}
-              type={name}
-              isSearch={typeRequest === 'search' ? true : false}
+              type="normal"
+              isSearch={false}
               keyGrid={keyGrid}
               numColumns={numColumns}
-              refreshing={null}
-              onRefresh={null}
+              refreshing={isRefresh}
+              onRefresh={this.actionRefresh}
               ListFooterComponent={this.renderFooter}
               navigate={navigate}
             />
+            <Modal
+              isVisible={isVisible}
+              onBackdropPress={() => this.setState({ isVisible: false })}
+              useNativeDriver={true}
+              hideModalContentWhileAnimating={true}
+              backdropOpacity={0.5}
+              style={styles.bottomModal}
+            >
+              <Filter
+                actionFilter={this.actionFilter}
+                actionSwitchMovie={this.actionSwitchMovie}
+                filterType={filterType}
+                filterName={filterName}
+              />
+            </Modal>
           </View>
         )}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center'
-  },
-  containerList: {
-    justifyContent: 'center',
-    flex: 1
-  },
-  containerMainText: {
-    paddingVertical: 25,
-    paddingHorizontal: 20
-  },
-  textMain: {
-    fontSize: fontSizeResponsive(3),
-    fontWeight: 'bold',
-    color: '#47525E',
-    width: '80%'
-  },
-  buttonGrid: {
-    position: 'absolute',
-    right: 12,
-    top: 18,
-    padding: 8,
-    borderRadius: 100
-  },
-  buttonGridActive: {
-    backgroundColor: '#efefef'
-  },
-  loadingMore: {
-    paddingTop: 20,
-    paddingBottom: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loadingButton: {
-    padding: 10,
-    width: '50%',
-    borderWidth: 1,
-    borderRadius: 100,
-    borderColor: '#efefef'
-  },
-  loadingText: {
-    fontSize: fontSizeResponsive(2.1),
-    color: '#47525E',
-    textAlign: 'center'
-  }
-});

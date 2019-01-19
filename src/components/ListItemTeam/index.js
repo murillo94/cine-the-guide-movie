@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+
+import styles from './styles';
 
 const getImageApi = image => {
   image = image || '';
   return image !== ''
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('./../assets/images/not_found.png');
+    : require('../../assets/images/not_found.png');
 };
 
 export default class ListItemTeam extends React.PureComponent {
@@ -59,31 +61,3 @@ export default class ListItemTeam extends React.PureComponent {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  containerCast: {
-    marginRight: 30,
-    alignItems: 'center',
-    width: 80
-  },
-  titleCast: {
-    marginTop: 10,
-    color: '#8190A5',
-    textAlign: 'center'
-  },
-  titleCharacter: {
-    fontWeight: 'bold'
-  },
-  castPhoto: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginTop: 13
-  },
-  productionCompaniesPhoto: {
-    width: '100%',
-    height: 60,
-    borderRadius: 4,
-    marginTop: 13
-  }
-});
