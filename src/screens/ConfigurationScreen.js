@@ -100,7 +100,7 @@ export default class ConfigurationScreen extends Component {
               <Switch
                 onValueChange={this.actionChangeAdultContent}
                 value={hasAdultContent}
-                trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                trackColor={{ false: '#e9e9e9', true: '#47525E' }}
               />
             </View>
           </View>

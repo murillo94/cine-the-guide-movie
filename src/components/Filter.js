@@ -39,7 +39,7 @@ export default class Filter extends Component {
                   Releases
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('release_date.desc', 'Releases')
                   }
@@ -51,7 +51,7 @@ export default class Filter extends Component {
                   Old
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('release_date.asc', 'Old')
                   }
@@ -68,7 +68,7 @@ export default class Filter extends Component {
                   Most popular
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('popularity.desc', 'Most popular')
                   }
@@ -80,7 +80,7 @@ export default class Filter extends Component {
                   Less popular
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('popularity.asc', 'Less popular')
                   }
@@ -97,7 +97,7 @@ export default class Filter extends Component {
                   Higher revenue
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('revenue.desc', 'Higher revenue')
                   }
@@ -109,7 +109,7 @@ export default class Filter extends Component {
                   Lowest revenue
                 </Text>
                 <Switch
-                  trackColor={{false: '#e9e9e9', true: '#47525E'}}
+                  trackColor={{ false: '#e9e9e9', true: '#47525E' }}
                   onValueChange={() =>
                     this.changeValues('revenue.asc', 'Lowest revenue')
                   }
