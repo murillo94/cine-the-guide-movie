@@ -6,7 +6,6 @@ import {
   createSwitchNavigator
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { useScreens } from 'react-native-screens';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -16,8 +15,6 @@ import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import SearchResultsScreen from './src/screens/SearchResultsScreen';
 import WebViewScreen from './src/screens/WebViewScreen';
-
-useScreens();
 
 const TitleMovieTab = 'Home';
 const TitleConfigTab = 'More';
