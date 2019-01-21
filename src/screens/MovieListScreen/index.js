@@ -4,6 +4,7 @@ import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
+import { Assets as StackAssets } from 'react-navigation-stack';
 
 import { Spinner } from '../../components/Spinner';
 import { Error } from '../../components/Error';
@@ -45,12 +46,7 @@ export default class MovieListScreen extends Component {
   };
 
   async componentDidMount() {
-    Asset.fromModule(
-      require('react-navigation/src/views/assets/back-icon-mask.png')
-    ).downloadAsync();
-    Asset.fromModule(
-      require('react-navigation/src/views/assets/back-icon.png')
-    ).downloadAsync();
+    Asset.loadAsync(StackAssets);
     this.props.navigation.setParams({ actionFilter: this.actionFilter });
 
     try {
