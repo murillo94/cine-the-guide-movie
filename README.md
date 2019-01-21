@@ -5,8 +5,6 @@
 
 ---
 
-## About
-
 Cine is your movie guide. The fastest and easiest way to find Movies, Actors and Series on your device. Know about ratings and reviews from The Movie Database (TMDb).
 
 ![Cine: The Movie Guide](./resources/demo.png)
