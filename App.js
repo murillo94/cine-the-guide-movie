@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import {
+  createAppContainer,
   createStackNavigator,
   createBottomTabNavigator,
   createSwitchNavigator
@@ -242,8 +243,4 @@ const AppNavigator = createSwitchNavigator(
   }
 );
 
-export default class Screen extends Component {
-  render() {
-    return <AppNavigator />;
-  }
-}
+export default createAppContainer(AppNavigator);
