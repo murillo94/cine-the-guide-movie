@@ -3,7 +3,7 @@ import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
 
 import Search from '../../components/Search';
 
-import genre from '../../assets/genre/genre_ids.json';
+import genre from '../../assets/genre/ids.json';
 import styles from './styles';
 
 export default class SearchScreen extends Component {

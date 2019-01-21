@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "~32.0.0",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.5.0"
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -15,7 +15,10 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -25,6 +28,7 @@
     "react-native-modal": "^7.0.2",
     "react-native-read-more-text": "^1.1.0",
     "react-native-scalable-image": "^0.4.0",
+    "react-native-testing-library": "^1.5.0",
     "react-navigation": "^2.18.3",
     "react-navigation-material-bottom-tabs": "^0.3.0"
   }

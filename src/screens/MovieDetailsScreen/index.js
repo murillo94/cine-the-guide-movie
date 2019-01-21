@@ -19,7 +19,7 @@ import TeamDetail from '../../components/TeamDetail';
 import ListTeam from '../../components/ListTeam';
 import SlideImages from '../../components/SlideImages';
 
-import language from '../../assets/language/iso-langague.json';
+import language from '../../assets/language/iso.json';
 import { width } from '../../config/Metrics';
 import styles from './styles';
 

@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 import Image from 'react-native-scalable-image';
 
-import language from '../../assets/language/iso-langague.json';
-import genre from '../../assets/genre/genre_ids.json';
+import language from '../../assets/language/iso.json';
+import genre from '../../assets/genre/ids.json';
 import { width } from '../../config/Metrics';
 import styles from './styles';
 

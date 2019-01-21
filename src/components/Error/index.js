@@ -8,7 +8,7 @@ import styles from './styles';
 
 export const Error = ({
   style = styles.containerError,
-  icon = '',
+  icon = 'alert-octagon',
   textError = 'Something wrong has happened, please try again later.',
   textButton = 'Load',
   action = null
