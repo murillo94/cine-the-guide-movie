@@ -20,7 +20,7 @@ import ListTeam from '../../components/ListTeam';
 import SlideImages from '../../components/SlideImages';
 
 import language from '../../assets/language/iso.json';
-import { width } from '../../config/Metrics';
+import { width } from '../../utils/Metrics';
 import styles from './styles';
 
 export default class MovieDetailsScreen extends Component {

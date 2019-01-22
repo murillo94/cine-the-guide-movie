@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import {
   createAppContainer,
@@ -10,12 +10,12 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 
 import { Feather } from '@expo/vector-icons';
 
-import MovieListScreen from './src/screens/MovieListScreen';
-import ConfigurationScreen from './src/screens/ConfigurationScreen';
-import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
-import SearchScreen from './src/screens/SearchScreen';
-import SearchResultsScreen from './src/screens/SearchResultsScreen';
-import WebViewScreen from './src/screens/WebViewScreen';
+import MovieListScreen from './app/screens/MovieListScreen';
+import ConfigurationScreen from './app/screens/ConfigurationScreen';
+import MovieDetailsScreen from './app/screens/MovieDetailsScreen';
+import SearchScreen from './app/screens/SearchScreen';
+import SearchResultsScreen from './app/screens/SearchResultsScreen';
+import WebViewScreen from './app/screens/WebViewScreen';
 
 const TitleMovieTab = 'Home';
 const TitleConfigTab = 'More';

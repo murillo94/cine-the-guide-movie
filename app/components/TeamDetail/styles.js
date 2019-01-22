@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { fontSizeResponsive, height } from '../../config/Metrics';
+import { fontSizeResponsive, height } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   containerModal: {

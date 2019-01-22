@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
-import { width } from '../../config/Metrics';
+import { width } from '../../utils/Metrics';
 import styles from './styles';
 
 export const Error = ({

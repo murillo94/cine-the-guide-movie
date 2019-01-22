@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive, width } from '../../config/Metrics';
+import { fontSizeResponsive, width } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   container: {

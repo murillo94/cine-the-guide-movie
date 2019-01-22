@@ -6,7 +6,7 @@ import Image from 'react-native-scalable-image';
 import { Spinner } from '../Spinner';
 import { Error } from '../Error';
 
-import { width } from '../../config/Metrics';
+import { width } from '../../utils/Metrics';
 import styles from './styles';
 
 export default class TeamDetail extends Component {

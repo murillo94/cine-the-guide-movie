@@ -5,7 +5,7 @@ import Image from 'react-native-scalable-image';
 
 import language from '../../assets/language/iso.json';
 import genre from '../../assets/genre/ids.json';
-import { width } from '../../config/Metrics';
+import { width } from '../../utils/Metrics';
 import styles from './styles';
 
 const getImageApi = image => {
