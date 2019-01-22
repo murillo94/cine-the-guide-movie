@@ -21,7 +21,7 @@ export default class Search extends Component {
     if (search) {
       navigate('SearchResults', {
         typeRequest,
-        name: search,
+        name: search.trim(),
         id: null
       });
     }
