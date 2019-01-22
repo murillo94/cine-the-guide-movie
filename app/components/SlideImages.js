@@ -7,6 +7,7 @@ import { Spinner } from './Spinner';
 export default class SlideImages extends React.PureComponent {
   render() {
     const { showImage, images, actionClose } = this.props;
+
     return (
       <Modal
         visible={showImage}

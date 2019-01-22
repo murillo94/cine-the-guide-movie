@@ -200,16 +200,16 @@ export default class MovieDetailsScreen extends Component {
   );
 
   actionPlayVideo = () => {
-    const { video } = this.state;
+    const { key } = this.state.video;
     const { navigate } = this.props.navigation;
 
-    if (video && video.site === 'YouTube') {
-      navigate('WebView', { key: video.key });
-    } else {
-      Alert.alert('Attention', 'This movie has no trailer to show.', [], {
-        cancelable: true
-      });
-    }
+    navigate('WebView', { key });
+  };
+
+  actionImage = () => {
+    this.setState(({ showImage }) => {
+      return { showImage: !showImage };
+    });
   };
 
   actionShare = () => {
@@ -242,25 +242,12 @@ export default class MovieDetailsScreen extends Component {
     });
   };
 
-  actionImage = () => {
-    const { images } = this.state;
-
-    if (images.length) {
-      this.setState(({ showImage }) => {
-        return { showImage: !showImage };
-      });
-    } else {
-      Alert.alert('Attention', 'This movie has no photos to show.', [], {
-        cancelable: true
-      });
-    }
-  };
-
   render() {
     const {
       isLoading,
       isError,
       backdrop_path,
+      video,
       title,
       vote_average,
       runtime,
@@ -293,22 +280,24 @@ export default class MovieDetailsScreen extends Component {
                 style={styles.mainPhoto}
                 resizeMode="cover"
               />
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.play}
-                onPress={this.actionPlayVideo}
-              >
-                <FontAwesome
-                  name="play"
-                  size={width * 0.07}
-                  color="#fff"
-                  style={{ marginLeft: 5 }}
-                />
-              </TouchableOpacity>
+              {video && video.site === 'YouTube' && (
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.play}
+                  onPress={this.actionPlayVideo}
+                >
+                  <FontAwesome
+                    name="play"
+                    size={width * 0.07}
+                    color="#fff"
+                    style={{ marginLeft: 5 }}
+                  />
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 style={styles.containerMainPhotoInfo}
-                activeOpacity={0.5}
-                onPress={this.actionImage}
+                activeOpacity={images.length ? 0.5 : 1}
+                onPress={images.length ? this.actionImage : null}
               >
                 <View style={styles.containerBackgroundPhotoInfo}>
                   <Text numberOfLines={2} style={styles.photoInfo}>
@@ -425,11 +414,13 @@ export default class MovieDetailsScreen extends Component {
                 actionClose={this.actionPerson}
               />
             </Modal>
-            <SlideImages
-              showImage={showImage}
-              images={images}
-              actionClose={this.actionImage}
-            />
+            {images.length ? (
+              <SlideImages
+                showImage={showImage}
+                images={images}
+                actionClose={this.actionImage}
+              />
+            ) : null}
           </ScrollView>
         )}
       </View>
