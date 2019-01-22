@@ -11,6 +11,7 @@ import {
   Switch,
   TouchableOpacity
 } from 'react-native';
+import { Constants } from 'expo';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -139,7 +140,7 @@ export default class ConfigurationScreen extends Component {
             </TouchableOpacity>
             <View style={[styles.item, styles.itemNoBorder]}>
               <Text style={styles.itemTextVersion} numberOfLines={2}>
-                Version 1.0.0
+                Version {Constants.manifest.version}
               </Text>
             </View>
           </View>
