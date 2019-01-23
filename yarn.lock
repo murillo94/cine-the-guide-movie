@@ -5786,10 +5786,10 @@ react-native-image-pan-zoom@^2.1.9:
   resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.11.tgz#61bcb69219d95e76a9797d23e4a2e8e0bd654ae9"
   integrity sha512-ZCisGUFpPchHXsjT7ZI0anlSLPgcTmjRKXqpVnPu3RDWFXfKjuL4zpY57DX4Y8YgGZCpbf9fApN7KjVYody2Mw==
 
-react-native-image-zoom-viewer@^2.2.24:
-  version "2.2.24"
-  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.24.tgz#a405852fad76e543ed5345e8b55cf859b67c182e"
-  integrity sha512-kySTnc2AttTG6Ed0VRj1Fnrer5kwv28VOyyYkSxmZy0hTiLSZEHIDCkeowvTjDTkQZc0wKRMK7/Y5diEgpuDCg==
+react-native-image-zoom-viewer@^2.2.25:
+  version "2.2.25"
+  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.25.tgz#61d0978b26d5a07bbbdfe04791818e49d1e538a0"
+  integrity sha512-/w3GsUD9F5c6ZE+3GC1UmE0I9yCAfTf/5Jjz5bDCvIQFp2MoMod3BQzRnZ1PjZbCq6a90eZ5rnB2Zvm1rFOgeQ==
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 

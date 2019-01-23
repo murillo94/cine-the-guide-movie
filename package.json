@@ -24,7 +24,7 @@
     "expo": "^32.0.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-image-zoom-viewer": "^2.2.24",
+    "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-modal": "^7.0.2",
     "react-native-read-more-text": "^1.1.0",
     "react-native-scalable-image": "^0.4.0",
