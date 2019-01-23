@@ -3,7 +3,6 @@ import { Asset } from 'expo';
 import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
-import Modal from 'react-native-modal';
 import { Assets as StackAssets } from 'react-navigation-stack';
 
 import { Spinner } from '../../components/Spinner';
@@ -250,24 +249,16 @@ export default class MovieListScreen extends Component {
               ListFooterComponent={this.renderFooter}
               navigate={navigate}
             />
-            <Modal
-              isVisible={isVisible}
-              onBackdropPress={this.actionFilter}
-              onBackButtonPress={this.actionFilter}
-              useNativeDriver={true}
-              hideModalContentWhileAnimating={true}
-              backdropOpacity={0.5}
-              style={styles.bottomModal}
-            >
-              <Filter
-                actionFilter={this.actionFilter}
-                actionSwitchMovie={this.actionSwitchMovie}
-                filterType={filterType}
-                filterName={filterName}
-              />
-            </Modal>
           </View>
         )}
+        <Filter
+          isVisible={isVisible}
+          filterType={filterType}
+          filterName={filterName}
+          actionFilter={this.actionFilter}
+          actionSwitchMovie={this.actionSwitchMovie}
+          style={styles.bottomModal}
+        />
       </View>
     );
   }

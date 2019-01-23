@@ -11,7 +11,6 @@ import {
 
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
-import Modal from 'react-native-modal';
 
 import { Spinner } from '../../components/Spinner';
 import { Error } from '../../components/Error';
@@ -23,11 +22,27 @@ import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
 import styles from './styles';
 
+const renderTruncatedFooter = handlePress => {
+  return (
+    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+      <Text style={styles.readMore}>Read more</Text>
+    </TouchableOpacity>
+  );
+};
+
+const renderRevealedFooter = handlePress => {
+  return (
+    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+      <Text style={styles.readMore}>Read less</Text>
+    </TouchableOpacity>
+  );
+};
+
 export default class MovieDetailsScreen extends Component {
   state = {
     isLoading: true,
     isError: false,
-    showPerson: false,
+    isVisible: false,
     showImage: false,
     credit_id: null
   };
@@ -56,7 +71,7 @@ export default class MovieDetailsScreen extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (
-      this.state.showPerson !== nextState.showPerson ||
+      this.state.isVisible !== nextState.isVisible ||
       this.state.showImage !== nextState.showImage ||
       this.state.isLoading !== nextState.isLoading ||
       this.state.isError !== nextState.isError
@@ -237,8 +252,8 @@ export default class MovieDetailsScreen extends Component {
   };
 
   actionPerson = (credit_id = '') => {
-    this.setState(({ showPerson }) => {
-      return { credit_id, showPerson: !showPerson };
+    this.setState(({ isVisible }) => {
+      return { credit_id, isVisible: !isVisible };
     });
   };
 
@@ -262,7 +277,7 @@ export default class MovieDetailsScreen extends Component {
       production_companies,
       images,
       credit_id,
-      showPerson,
+      isVisible,
       showImage
     } = this.state;
 
@@ -401,20 +416,6 @@ export default class MovieDetailsScreen extends Component {
                 />
               </View>
             </View>
-            <Modal
-              isVisible={showPerson}
-              onBackdropPress={this.actionPerson}
-              onBackButtonPress={this.actionPerson}
-              useNativeDriver={true}
-              hideModalContentWhileAnimating={true}
-              backdropOpacity={0.5}
-              style={styles.bottomModal}
-            >
-              <TeamDetail
-                credit_id={credit_id}
-                actionClose={this.actionPerson}
-              />
-            </Modal>
             {images.length ? (
               <SlideImages
                 showImage={showImage}
@@ -424,23 +425,13 @@ export default class MovieDetailsScreen extends Component {
             ) : null}
           </ScrollView>
         )}
+        <TeamDetail
+          isVisible={isVisible}
+          credit_id={credit_id}
+          actionClose={this.actionPerson}
+          style={styles.bottomModal}
+        />
       </View>
     );
   }
 }
-
-const renderTruncatedFooter = handlePress => {
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>Read more</Text>
-    </TouchableOpacity>
-  );
-};
-
-const renderRevealedFooter = handlePress => {
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>Read less</Text>
-    </TouchableOpacity>
-  );
-};
