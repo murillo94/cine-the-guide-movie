@@ -16,13 +16,15 @@ export default class SlideImages extends React.PureComponent {
       >
         <ImageViewer
           imageUrls={images}
-          index={0}
-          maxOverflow={60}
-          loadingRender={() => <Spinner color={'#fff'} />}
           enableSwipeDown={true}
           enableImageZoom={true}
           enablePreload={true}
           saveToLocalByLongPress={false}
+          pageAnimateTime={200}
+          flipThreshold={10}
+          maxOverflow={5}
+          swipeDownThreshold={25}
+          loadingRender={() => <Spinner color={'#fff'} />}
           onCancel={actionClose}
         />
       </Modal>
