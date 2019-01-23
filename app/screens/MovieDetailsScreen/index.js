@@ -403,7 +403,8 @@ export default class MovieDetailsScreen extends Component {
             </View>
             <Modal
               isVisible={showPerson}
-              onBackdropPress={() => this.setState({ showPerson: false })}
+              onBackdropPress={this.actionPerson}
+              onBackButtonPress={this.actionPerson}
               useNativeDriver={true}
               hideModalContentWhileAnimating={true}
               backdropOpacity={0.5}

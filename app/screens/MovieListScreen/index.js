@@ -252,7 +252,8 @@ export default class MovieListScreen extends Component {
             />
             <Modal
               isVisible={isVisible}
-              onBackdropPress={() => this.setState({ isVisible: false })}
+              onBackdropPress={this.actionFilter}
+              onBackButtonPress={this.actionFilter}
               useNativeDriver={true}
               hideModalContentWhileAnimating={true}
               backdropOpacity={0.5}
