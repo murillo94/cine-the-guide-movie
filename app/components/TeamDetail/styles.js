@@ -59,20 +59,22 @@ const styles = StyleSheet.create({
     marginBottom: 7
   },
   containerRow: {
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 22
   },
   button: {
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#47525E',
-    padding: 10,
+    paddingVertical: 9.1,
     borderRadius: 100,
-    width: '100%'
+    width: '60%'
   },
-  buttonText: {
-    fontSize: fontSizeResponsive(2.1),
-    textAlign: 'center',
-    color: '#47525E'
+  icon: {
+    fontSize: fontSizeResponsive(2.8)
   }
 });
 

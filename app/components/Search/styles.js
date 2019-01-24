@@ -4,7 +4,7 @@ import { fontSizeResponsive } from '../../utils/Metrics';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    padding: 20,
+    paddingHorizontal: 20,
     paddingTop: 25,
     paddingBottom: 5
   },

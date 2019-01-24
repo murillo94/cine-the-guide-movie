@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Switch, TouchableOpacity } from 'react-native';
 
+import { Feather } from '@expo/vector-icons';
+
 import { Modal } from '../Modal';
 
 import styles from './styles';
@@ -125,9 +127,11 @@ export default class Filter extends Component {
               style={[styles.button, styles.buttonClose]}
               onPress={actionFilter}
             >
-              <Text style={[styles.buttonText, styles.buttonTextClose]}>
-                Close
-              </Text>
+              <Feather
+                name="chevron-down"
+                size={styles.icon.fontSize}
+                color="#47525E"
+              />
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.5}

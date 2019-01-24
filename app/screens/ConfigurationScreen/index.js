@@ -11,8 +11,8 @@ import {
   Switch,
   TouchableOpacity
 } from 'react-native';
-import { Constants } from 'expo';
 
+import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
 
 import styles from './styles';

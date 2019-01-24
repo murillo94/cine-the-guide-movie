@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 
+import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
 import { Spinner } from '../Spinner';
@@ -69,6 +70,26 @@ export default class TeamDetail extends Component {
     return 'Uninformed age';
   }
 
+  renderFooter() {
+    const { actionClose } = this.state;
+
+    return (
+      <View style={styles.containerRow}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={actionClose}
+        >
+          <Feather
+            name="chevron-down"
+            size={styles.icon.fontSize}
+            color="#47525E"
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   render() {
     const {
       isLoading,
@@ -98,15 +119,7 @@ export default class TeamDetail extends Component {
               <ScrollView style={styles.containerScroll}>
                 <Error icon="alert-octagon" action={this.requestTeamInfo} />
               </ScrollView>
-              <View style={styles.containerRow}>
-                <TouchableOpacity
-                  activeOpacity={0.5}
-                  style={styles.button}
-                  onPress={actionClose}
-                >
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
+              {this.renderFooter()}
             </View>
           ) : (
             <View style={styles.containerModal}>
@@ -156,15 +169,7 @@ export default class TeamDetail extends Component {
                   {biography}
                 </Text>
               </ScrollView>
-              <View style={styles.containerRow}>
-                <TouchableOpacity
-                  activeOpacity={0.5}
-                  style={styles.button}
-                  onPress={actionClose}
-                >
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
+              {this.renderFooter()}
             </View>
           )}
         </View>

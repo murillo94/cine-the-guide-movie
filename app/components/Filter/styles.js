@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 22,
-    paddingLeft: 10,
-    paddingRight: 10
+    paddingHorizontal: 10
   },
   optionSectionTitle: {
     fontSize: fontSizeResponsive(2.4),
@@ -43,23 +42,29 @@ const styles = StyleSheet.create({
   },
   containerButton: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     padding: 22
   },
   button: {
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 100,
-    width: '45%'
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 100
   },
   buttonClose: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#47525E'
+    borderColor: '#47525E',
+    paddingVertical: 9.1,
+    flex: 0.23
   },
   buttonSave: {
-    backgroundColor: '#47525E'
+    backgroundColor: '#47525E',
+    borderWidth: 1,
+    borderColor: '#47525E',
+    flex: 0.67
   },
   buttonText: {
     fontSize: fontSizeResponsive(2.1),
@@ -69,8 +74,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold'
   },
-  buttonTextClose: {
-    color: '#47525E'
+  icon: {
+    fontSize: fontSizeResponsive(2.8)
   }
 });
 
