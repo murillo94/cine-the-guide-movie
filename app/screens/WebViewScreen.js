@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native';
 
-import { Spinner } from './../components/Spinner';
+import Spinner from './../components/Spinner';
 
 export default class WebViewScreen extends Component {
   renderLoading = () => (
@@ -11,13 +11,12 @@ export default class WebViewScreen extends Component {
   );
 
   render() {
-    const key = `https://www.youtube.com/embed/${
-      this.props.navigation.state.params.key
-    }?start=0`;
+    const { key } = this.props.navigation.state.params;
+
     return (
       <WebView
         useWebKit={true}
-        source={{ uri: key }}
+        source={{ uri: `https://www.youtube.com/embed/${key}?start=0` }}
         startInLoadingState
         renderLoading={this.renderLoading}
       />

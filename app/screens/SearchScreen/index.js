@@ -14,8 +14,8 @@ export default class SearchScreen extends Component {
   convertArray = () => {
     const list = [];
     for (let obj of Object.values([genre])) {
-      for (let value of Object.values(obj)) {
-        list.push({ name: value.name, id: value.id });
+      for (let { name, id } of Object.values(obj)) {
+        list.push({ name, id });
       }
     }
     return list;

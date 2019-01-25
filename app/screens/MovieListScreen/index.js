@@ -5,8 +5,8 @@ import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
 
-import { Spinner } from '../../components/Spinner';
-import { Error } from '../../components/Error';
+import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
 import Filter from '../../components/Filter';
 import List from '../../components/List';
 
@@ -50,8 +50,10 @@ export default class MovieListScreen extends Component {
 
     try {
       const value = await AsyncStorage.getItem('@ConfigKey');
-      if (value !== null) {
+
+      if (value) {
         const arr = JSON.parse(value);
+
         this.setState(
           {
             hasAdultContent: arr.hasAdultContent
@@ -84,17 +86,17 @@ export default class MovieListScreen extends Component {
   }
 
   requestMoviesList = async () => {
-    const { page, filterType, hasAdultContent } = this.state;
-    const date_release = new Date().toISOString().slice(0, 10);
-
     try {
       this.setState({ isLoading: true });
+
+      const { page, filterType, hasAdultContent } = this.state;
+      const date_release = new Date().toISOString().slice(0, 10);
 
       let response = await fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&sort_by=${filterType}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
       );
-
       let data = await response.json();
+
       this.setState(({ isRefresh, results }) => ({
         isLoading: false,
         isRefresh: false,

@@ -3,8 +3,8 @@ import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
-import { Spinner } from '../../components/Spinner';
-import { Error } from '../../components/Error';
+import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
 import List from '../../components/List';
 
 import styles from './styles';
@@ -33,8 +33,10 @@ export default class SearchResultsScreen extends Component {
   async componentDidMount() {
     try {
       const value = await AsyncStorage.getItem('@ConfigKey');
-      if (value !== null) {
+
+      if (value) {
         const arr = JSON.parse(value);
+
         this.setState(
           {
             hasAdultContent: arr.hasAdultContent
@@ -74,10 +76,12 @@ export default class SearchResultsScreen extends Component {
 
     try {
       this.setState({ isLoading: true });
+
       let response = await fetch(
         `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
       );
       let data = await response.json();
+
       this.setState(({ results }) => ({
         isLoading: false,
         isLoadingMore: false,

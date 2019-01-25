@@ -12,8 +12,8 @@ import {
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 
-import { Spinner } from '../../components/Spinner';
-import { Error } from '../../components/Error';
+import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
 import TeamDetail from '../../components/TeamDetail';
 import ListTeam from '../../components/ListTeam';
 import SlideImages from '../../components/SlideImages';
@@ -22,21 +22,19 @@ import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
 import styles from './styles';
 
-const renderTruncatedFooter = handlePress => {
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>Read more</Text>
-    </TouchableOpacity>
-  );
-};
+const uninformed = 'Uninformed';
 
-const renderRevealedFooter = handlePress => {
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-      <Text style={styles.readMore}>Read less</Text>
-    </TouchableOpacity>
-  );
-};
+const renderTruncatedFooter = handlePress => (
+  <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+    <Text style={styles.readMore}>Read more</Text>
+  </TouchableOpacity>
+);
+
+const renderRevealedFooter = handlePress => (
+  <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+    <Text style={styles.readMore}>Read less</Text>
+  </TouchableOpacity>
+);
 
 export default class MovieDetailsScreen extends Component {
   state = {
@@ -85,7 +83,9 @@ export default class MovieDetailsScreen extends Component {
     return arr.length > num ? arr.slice(0, num) : arr;
   }
 
-  convertRatingToStars(vote_average) {
+  convertRatingToStars() {
+    let { vote_average } = this.state;
+
     vote_average = vote_average > 5 ? Math.round(vote_average) : vote_average;
     const length =
       vote_average !== 10
@@ -104,54 +104,66 @@ export default class MovieDetailsScreen extends Component {
         ));
   }
 
-  convertMinsToHrsMins(mins) {
-    let h = Math.floor(mins / 60);
-    let m = mins % 60;
+  convertMinsToHrsMins() {
+    const { runtime } = this.state;
+
+    let h = Math.floor(runtime / 60);
+    let m = runtime % 60;
     h = h < 10 ? '0' + h : h;
     m = m < 10 ? '0' + m : m;
-    return h && m ? `${h}h ${m}m` : 'Uninformed';
+    return h && m ? `${h}h ${m}m` : uninformed;
   }
 
   convertToGenre() {
     const { genre } = this.state;
+
     return genre.length > 0
       ? genre.length > 1
         ? `${genre[0].name}, ${genre[1].name}`
         : genre[0].name
-      : 'Uninformed';
+      : uninformed;
   }
 
-  convertToUpperCaseFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  convertToUpperCaseFirstLetter() {
+    let { original_language } = this.state;
+
+    return (
+      original_language.charAt(0).toUpperCase() + original_language.slice(1)
+    );
   }
 
-  convertToDate(value) {
-    const date = new Date(value);
+  convertToDate() {
+    const { release_date } = this.state;
+
+    const date = new Date(release_date);
     return (
       date.getDate() +
         1 +
         '/' +
         (date.getMonth() + 1) +
         '/' +
-        date.getFullYear() || 'Uninformed'
+        date.getFullYear() || uninformed
     );
   }
 
   convertToDolar(value) {
     return (
       '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') ||
-      'Uninformed'
+      uninformed
     );
   }
 
-  convertAdult(value) {
-    return value === false ? 'Yes' : 'No' || 'Uninformed';
+  convertAdult() {
+    const { adult } = this.state;
+
+    return adult === false ? 'Yes' : 'No' || uninformed;
   }
 
-  getImageApi(image) {
-    image = image || '';
-    return image !== ''
-      ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
+  getImageApi() {
+    const { backdrop_path } = this.state;
+
+    return backdrop_path
+      ? { uri: `https://image.tmdb.org/t/p/w500/${backdrop_path}` }
       : require('../../assets/images/not_found.png');
   }
 
@@ -162,14 +174,16 @@ export default class MovieDetailsScreen extends Component {
   }
 
   requestMoviesInfo = async () => {
-    this.setState({ isLoading: true });
-    const { id } = this.props.navigation.state.params;
-
     try {
+      this.setState({ isLoading: true });
+
+      const { id } = this.props.navigation.state.params;
+
       let response = await fetch(
         `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&language=en-US&include_image_language=en,null&append_to_response=credits,videos,images`
       );
       let data = await response.json();
+
       this.setState({
         isLoading: false,
         isError: false,
@@ -261,16 +275,10 @@ export default class MovieDetailsScreen extends Component {
     const {
       isLoading,
       isError,
-      backdrop_path,
       video,
       title,
-      vote_average,
-      runtime,
-      original_language,
-      release_date,
       budget,
       revenue,
-      adult,
       overview,
       cast,
       crew,
@@ -291,7 +299,7 @@ export default class MovieDetailsScreen extends Component {
           <ScrollView>
             <View style={styles.containerMainPhoto}>
               <Image
-                source={this.getImageApi(backdrop_path)}
+                source={this.getImageApi()}
                 style={styles.mainPhoto}
                 resizeMode="cover"
               />
@@ -319,7 +327,7 @@ export default class MovieDetailsScreen extends Component {
                     {title}
                   </Text>
                   <View style={styles.photoStar}>
-                    {this.convertRatingToStars(vote_average)}
+                    {this.convertRatingToStars()}
                   </View>
                 </View>
               </TouchableOpacity>
@@ -333,7 +341,7 @@ export default class MovieDetailsScreen extends Component {
                 <View style={styles.movieInfo}>
                   <Text style={styles.titleInfo}>Duration</Text>
                   <Text style={styles.subTitleInfo}>
-                    {this.convertMinsToHrsMins(runtime)}
+                    {this.convertMinsToHrsMins()}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
@@ -345,13 +353,13 @@ export default class MovieDetailsScreen extends Component {
                 <View style={styles.movieInfo}>
                   <Text style={styles.titleInfo}>Language</Text>
                   <Text style={styles.subTitleInfo}>
-                    {this.convertToUpperCaseFirstLetter(original_language)}
+                    {this.convertToUpperCaseFirstLetter()}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
                   <Text style={styles.titleInfo}>Release</Text>
                   <Text style={styles.subTitleInfo}>
-                    {this.convertToDate(release_date)}
+                    {this.convertToDate()}
                   </Text>
                 </View>
                 <View style={styles.movieInfo}>
@@ -368,9 +376,7 @@ export default class MovieDetailsScreen extends Component {
                 </View>
                 <View style={styles.movieInfo}>
                   <Text style={styles.titleInfo}>Adult</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertAdult(adult)}
-                  </Text>
+                  <Text style={styles.subTitleInfo}>{this.convertAdult()}</Text>
                 </View>
               </ScrollView>
               <View style={styles.movieSecondInfo}>
@@ -381,7 +387,7 @@ export default class MovieDetailsScreen extends Component {
                   renderRevealedFooter={renderRevealedFooter}
                 >
                   <Text style={styles.subTitleInfo}>
-                    {overview || 'Uninformed'}
+                    {overview || uninformed}
                   </Text>
                 </ReadMore>
               </View>

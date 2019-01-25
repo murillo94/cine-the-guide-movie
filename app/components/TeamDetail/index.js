@@ -4,12 +4,14 @@ import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
-import { Spinner } from '../Spinner';
-import { Error } from '../Error';
+import Spinner from '../Spinner';
+import Error from '../Error';
 import { Modal } from '../Modal';
 
 import { width } from '../../utils/Metrics';
 import styles from './styles';
+
+const uninformed = 'Uninformed';
 
 export default class TeamDetail extends Component {
   state = {
@@ -37,12 +39,12 @@ export default class TeamDetail extends Component {
         isError: false,
         credit_id: this.props.credit_id,
         profile_path: data.profile_path || '',
-        name: data.name || 'Uninformed name',
+        name: data.name || `${uninformed} name`,
         known_for_department:
-          data.known_for_department || 'Uninformed department',
+          data.known_for_department || `${uninformed} department`,
         birthday: data.birthday || '',
-        place_of_birth: data.place_of_birth || 'Uninformed place of birth',
-        biography: data.biography || 'Uninformed'
+        place_of_birth: data.place_of_birth || `${uninformed} place of birth`,
+        biography: data.biography || uninformed
       });
     } catch (err) {
       this.setState({
@@ -67,7 +69,7 @@ export default class TeamDetail extends Component {
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
       return `${age} years`;
     }
-    return 'Uninformed age';
+    return `${uninformed} age`;
   }
 
   renderFooter() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, ActivityIndicator, View } from 'react-native';
 
-export const Spinner = ({ style = {}, size = 50, color = '#47525E' }) => (
+const Spinner = ({ style = {}, size = 50, color = '#47525E' }) => (
   <View style={style}>
     {Platform.OS === 'ios' ? (
       <ActivityIndicator size="small" color={color} />
@@ -10,3 +10,5 @@ export const Spinner = ({ style = {}, size = 50, color = '#47525E' }) => (
     )}
   </View>
 );
+
+export default Spinner;
