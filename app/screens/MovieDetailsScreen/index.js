@@ -199,7 +199,7 @@ export default class MovieDetailsScreen extends Component {
         budget: data.budget || 0,
         revenue: data.revenue || 0,
         adult: data.adult || '',
-        overview: data.overview || '',
+        overview: data.overview || uninformed,
         cast: this.sliceArrayLength(data.credits.cast, 15),
         crew: this.sliceArrayLength(data.credits.crew, 15),
         production_companies: this.sliceArrayLength(
@@ -386,9 +386,7 @@ export default class MovieDetailsScreen extends Component {
                   renderTruncatedFooter={renderTruncatedFooter}
                   renderRevealedFooter={renderRevealedFooter}
                 >
-                  <Text style={styles.subTitleInfo}>
-                    {overview || uninformed}
-                  </Text>
+                  <Text style={styles.subTitleInfo}>{overview}</Text>
                 </ReadMore>
               </View>
               <View style={styles.movieSecondInfo}>
