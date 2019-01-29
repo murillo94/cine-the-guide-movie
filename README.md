@@ -30,3 +30,31 @@ or
 Scan the below QR code to open the project on Android:
 
 ![](./resources/qrcode.png)
+
+## Contributing
+
+Any bug reports, feature requests and other contributions are more than welcome! <br/>
+Whenever possible, please make a pull request with the implementation instead of just requesting it.
+
+If the feature is big, open an issue first for discussion.
+
+### Running it locally
+
+#### Requirements
+
+- [Node.js](https://nodejs.org/) (latest)
+- [Yarn](https://yarnpkg.com/)
+- [Expo](https://expo.io/) (latest)
+
+#### How to run
+
+- `git clone git@github.com:murillo94/cine-the-guide-movie.git`
+- `yarn install`
+
+To open the mobile projects, use:
+
+- `yarn ios` or `yarn android`
+
+## License
+
+AGPL-3.0, see the [LICENSE](./LICENSE.md) file.
