@@ -43,8 +43,8 @@ If the feature is big, open an issue first for discussion.
 #### Requirements
 
 - [Node.js](https://nodejs.org/) (latest)
-- [Yarn](https://yarnpkg.com/)
 - [Expo](https://expo.io/) (latest)
+- [Yarn](https://yarnpkg.com/)
 
 #### How to run
 
