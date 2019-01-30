@@ -22,10 +22,10 @@ export default class TeamDetail extends Component {
   };
 
   requestTeamInfo = async () => {
-    const { credit_id } = this.props;
-
     try {
       this.setState({ isLoading: true });
+
+      const { credit_id } = this.props;
 
       let response = await fetch(
         `https://api.themoviedb.org/3/person/${parseInt(

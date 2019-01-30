@@ -168,8 +168,8 @@ export default class MovieDetailsScreen extends Component {
   }
 
   formatImageUrl(images) {
-    return this.sliceArrayLength(images, 15).map(x => {
-      return { url: `https://image.tmdb.org/t/p/original/${x.file_path}` };
+    return this.sliceArrayLength(images, 15).map(({ file_path }) => {
+      return { url: `https://image.tmdb.org/t/p/original/${file_path}` };
     });
   }
 
@@ -180,7 +180,7 @@ export default class MovieDetailsScreen extends Component {
       const { id } = this.props.navigation.state.params;
 
       let response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&language=en-US&include_image_language=en,null&append_to_response=credits,videos,images`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&include_image_language=en,null&append_to_response=credits,videos,images&language=en-US`
       );
       let data = await response.json();
 

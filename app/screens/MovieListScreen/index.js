@@ -45,10 +45,10 @@ export default class MovieListScreen extends Component {
   };
 
   async componentDidMount() {
-    Asset.loadAsync(StackAssets);
-    this.props.navigation.setParams({ actionFilter: this.actionFilter });
-
     try {
+      Asset.loadAsync(StackAssets);
+      this.props.navigation.setParams({ actionFilter: this.actionFilter });
+
       const value = await AsyncStorage.getItem('@ConfigKey');
 
       if (value) {
@@ -93,7 +93,7 @@ export default class MovieListScreen extends Component {
       const date_release = new Date().toISOString().slice(0, 10);
 
       let response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&sort_by=${filterType}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
+        `https://api.themoviedb.org/3/discover/movie?api_key=024d69b581633d457ac58359146c43f6&sort_by=${filterType}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7&language=en-US`
       );
       let data = await response.json();
 
