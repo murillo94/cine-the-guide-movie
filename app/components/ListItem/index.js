@@ -5,21 +5,19 @@ import Image from 'react-native-scalable-image';
 
 import language from '../../assets/language/iso.json';
 import genre from '../../assets/genre/ids.json';
+
 import { width } from '../../utils/Metrics';
 import styles from './styles';
 
-const getImageApi = image => {
-  return image
+const getImageApi = image =>
+  image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
     : require('../../assets/images/not_found.png');
-};
 
-const convertToDate = value => {
-  const date = new Date(value);
-  return date.getFullYear() || '';
-};
+const convertToDate = date => new Date(date).getFullYear() || '';
 
-const convertToUpperCaseFirstLetter = (str = language[str]) => {
+const convertToUpperCaseFirstLetter = str => {
+  str = language[str] || '';
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
 
@@ -28,16 +26,15 @@ const convertGenre = (arr, type, isSearch) => {
     if (arr.length > 1) return `${genre[arr[0]].name}, ${genre[arr[1]].name}`;
     return arr.length !== 0 ? `${genre[arr[0]].name}` : '';
   }
-  return arr.length !== 0
-    ? type !== genre[arr[0]].name
-      ? `${type}, ${genre[arr[0]].name}`
-      : type
+  return arr.length !== 0 && type !== genre[arr[0]].name
+    ? `${type}, ${genre[arr[0]].name}`
     : type;
 };
 
 export default class ListItem extends React.PureComponent {
   render() {
     const { numColumns, item, type, isSearch, navigate } = this.props;
+
     if (numColumns === 1) {
       return (
         <TouchableOpacity
@@ -59,10 +56,9 @@ export default class ListItem extends React.PureComponent {
                   <Text style={styles.textSmall}>
                     {convertToDate(item.release_date)}
                   </Text>
-                  {item.release_date !== '' &&
-                    item.original_language !== 'xx' && (
-                      <Text style={styles.trace}>|</Text>
-                    )}
+                  {item.release_date && item.original_language !== 'xx' && (
+                    <Text style={styles.trace}>|</Text>
+                  )}
                   <Text numberOfLines={1} style={styles.textSmall}>
                     {convertToUpperCaseFirstLetter(item.original_language)}
                   </Text>

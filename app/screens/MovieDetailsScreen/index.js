@@ -216,12 +216,6 @@ export default class MovieDetailsScreen extends Component {
     }
   };
 
-  renderLoading = () => <Spinner />;
-
-  renderErrorMessage = () => (
-    <Error icon="alert-octagon" action={this.requestMoviesInfo} />
-  );
-
   renderListEmpty = () => (
     <View>
       <Text style={styles.subTitleInfo}>Uninformed</Text>
@@ -292,9 +286,9 @@ export default class MovieDetailsScreen extends Component {
     return (
       <View style={styles.container}>
         {isLoading ? (
-          this.renderLoading()
+          <Spinner />
         ) : isError ? (
-          this.renderErrorMessage()
+          <Error icon="alert-octagon" action={this.requestMoviesInfo} />
         ) : (
           <ScrollView>
             <View style={styles.containerMainPhoto}>

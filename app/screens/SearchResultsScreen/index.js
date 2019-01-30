@@ -80,7 +80,6 @@ export default class SearchResultsScreen extends Component {
       let response = await fetch(
         `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7&language=en-US`
       );
-      console.log(response);
       let data = await response.json();
 
       this.setState(({ results }) => ({
@@ -98,16 +97,6 @@ export default class SearchResultsScreen extends Component {
       });
     }
   };
-
-  renderLoading = () => <Spinner />;
-
-  renderErrorMessage = () => (
-    <Error icon="alert-octagon" action={this.requestMoviesList} />
-  );
-
-  renderListEmpty = () => (
-    <Error icon="thumbs-down" textError="No results available." />
-  );
 
   renderFooter = () => {
     const { isLoadingMore, total_pages, page, results } = this.state;
@@ -167,11 +156,11 @@ export default class SearchResultsScreen extends Component {
     return (
       <View style={styles.container}>
         {isLoading && !isLoadingMore ? (
-          this.renderLoading()
+          <Spinner />
         ) : isError ? (
-          this.renderErrorMessage()
+          <Error icon="alert-octagon" action={this.requestMoviesList} />
         ) : results.length === 0 ? (
-          this.renderListEmpty()
+          <Error icon="thumbs-down" textError="No results available." />
         ) : (
           <View style={styles.containerList}>
             {results.length > 0 && (

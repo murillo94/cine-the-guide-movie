@@ -115,16 +115,6 @@ export default class MovieListScreen extends Component {
     }
   };
 
-  renderLoading = () => <Spinner />;
-
-  renderErrorMessage = () => (
-    <Error icon="alert-octagon" action={this.requestMoviesList} />
-  );
-
-  renderListEmpty = () => (
-    <Error icon="thumbs-down" textError="No results available." />
-  );
-
   renderFooter = () => {
     const { isLoadingMore, total_pages, page, results } = this.state;
 
@@ -216,11 +206,11 @@ export default class MovieListScreen extends Component {
     return (
       <View style={styles.container}>
         {isLoading && !isRefresh && !isLoadingMore ? (
-          this.renderLoading()
+          <Spinner />
         ) : isError ? (
-          this.renderErrorMessage()
+          <Error icon="alert-octagon" action={this.requestMoviesList} />
         ) : results.length === 0 ? (
-          this.renderListEmpty()
+          <Error icon="thumbs-down" textError="No results available." />
         ) : (
           <View style={styles.containerList}>
             {results.length > 0 && (
