@@ -67,19 +67,20 @@ export default class SearchResultsScreen extends Component {
   }
 
   requestMoviesList = async () => {
-    const { page, name, id, typeRequest, hasAdultContent } = this.state;
-    const date_release = new Date().toISOString().slice(0, 10);
-    const query =
-      typeRequest === 'search'
-        ? `query=${encodeURIComponent(name)}`
-        : `with_genres=${id}`;
-
     try {
       this.setState({ isLoading: true });
 
+      const { page, name, id, typeRequest, hasAdultContent } = this.state;
+      const date_release = new Date().toISOString().slice(0, 10);
+      const query =
+        typeRequest === 'search'
+          ? `query='${name.trim()}'`
+          : `with_genres=${id}`;
+
       let response = await fetch(
-        `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&language=en-US&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7`
+        `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7&language=en-US`
       );
+      console.log(response);
       let data = await response.json();
 
       this.setState(({ results }) => ({
