@@ -11,16 +11,6 @@ export default class SearchScreen extends Component {
     return false;
   }
 
-  convertArray = () => {
-    const list = [];
-    for (let obj of Object.values([genre])) {
-      for (let { name, id } of Object.values(obj)) {
-        list.push({ name, id });
-      }
-    }
-    return list;
-  };
-
   render() {
     const { navigate } = this.props.navigation;
 
@@ -28,20 +18,20 @@ export default class SearchScreen extends Component {
       <View style={styles.container}>
         <Search typeRequest={'search'} navigate={navigate} />
         <ScrollView style={styles.containerList}>
-          {this.convertArray().map(x => (
+          {Object.keys(genre).map(id => (
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.item}
-              key={x.id}
+              key={id}
               onPress={() =>
                 navigate('SearchResults', {
                   typeRequest: 'discover',
-                  name: x.name,
-                  id: x.id
+                  name: genre[id].name,
+                  id
                 })
               }
             >
-              <Text style={styles.itemText}>{x.name}</Text>
+              <Text style={styles.itemText}>{genre[id].name}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
