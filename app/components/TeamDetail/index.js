@@ -8,6 +8,8 @@ import Spinner from '../Spinner';
 import Error from '../Error';
 import { Modal } from '../Modal';
 
+import request from '../../services/Api';
+
 import { width } from '../../utils/Metrics';
 import styles from './styles';
 
@@ -27,12 +29,7 @@ export default class TeamDetail extends Component {
 
       const { credit_id } = this.props;
 
-      let response = await fetch(
-        `https://api.themoviedb.org/3/person/${parseInt(
-          credit_id
-        )}?api_key=024d69b581633d457ac58359146c43f6&language=en-US`
-      );
-      let data = await response.json();
+      let data = await request(`person/${parseInt(credit_id)}`);
 
       this.setState({
         isLoading: false,

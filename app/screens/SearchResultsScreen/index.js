@@ -7,6 +7,8 @@ import Spinner from '../../components/Spinner';
 import Error from '../../components/Error';
 import List from '../../components/List';
 
+import request from '../../services/Api';
+
 import styles from './styles';
 
 export default class SearchResultsScreen extends Component {
@@ -74,13 +76,16 @@ export default class SearchResultsScreen extends Component {
       const date_release = new Date().toISOString().slice(0, 10);
       const query =
         typeRequest === 'search'
-          ? `query='${name.trim()}'`
-          : `with_genres=${id}`;
+          ? { query: `${name.trim()}` }
+          : { with_genres: `${id}` };
 
-      let response = await fetch(
-        `https://api.themoviedb.org/3/${typeRequest}/movie?api_key=024d69b581633d457ac58359146c43f6&${query}&page=${page}&release_date.lte=${date_release}&include_adult=${hasAdultContent}&with_release_type=1|2|3|4|5|6|7&language=en-US`
-      );
-      let data = await response.json();
+      let data = await request(`${typeRequest}/movie`, {
+        page: page,
+        'release_date.lte': date_release,
+        with_release_type: '1|2|3|4|5|6|7',
+        include_adult: hasAdultContent,
+        ...{ ...query }
+      });
 
       this.setState(({ results }) => ({
         isLoading: false,

@@ -18,6 +18,8 @@ import TeamDetail from '../../components/TeamDetail';
 import ListTeam from '../../components/ListTeam';
 import SlideImages from '../../components/SlideImages';
 
+import request from '../../services/Api';
+
 import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
 import styles from './styles';
@@ -179,10 +181,10 @@ export default class MovieDetailsScreen extends Component {
 
       const { id } = this.props.navigation.state.params;
 
-      let response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=024d69b581633d457ac58359146c43f6&include_image_language=en,null&append_to_response=credits,videos,images&language=en-US`
-      );
-      let data = await response.json();
+      let data = await request(`movie/${id}`, {
+        include_image_language: 'en,null',
+        append_to_response: 'credits,videos,images'
+      });
 
       this.setState({
         isLoading: false,
