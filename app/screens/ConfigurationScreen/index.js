@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
-  Share,
   Platform,
   Linking,
-  Alert,
   ScrollView,
   View,
   Text,
@@ -15,6 +13,8 @@ import {
 import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
 
+import { Alert } from '../../utils/Alert';
+import { Share } from '../../utils/Share';
 import styles from './styles';
 
 export default class ConfigurationScreen extends Component {
@@ -44,12 +44,10 @@ export default class ConfigurationScreen extends Component {
   }
 
   showError = () => {
-    Alert.alert(
-      'Attention',
-      'Something wrong has happened, please try again later.',
-      [],
-      { cancelable: true }
-    );
+    Alert({
+      title: 'Attention',
+      description: 'Something wrong has happened, please try again later.'
+    });
   };
 
   actionChangeAdultContent = async value => {
@@ -62,16 +60,12 @@ export default class ConfigurationScreen extends Component {
   };
 
   actionShare = () => {
-    Share.share(
-      {
-        message: 'Learn all about movies and series \u{1F37F}',
-        url: 'https://www.themoviedb.org/',
-        title: 'AmoCinema'
-      },
-      {
-        dialogTitle: 'Learn all about movies and series \u{1F37F}'
-      }
-    );
+    Share({
+      message: 'Learn all about movies and series \u{1F37F}',
+      url: 'https://www.themoviedb.org/',
+      title: 'AmoCinema',
+      dialogTitle: 'Learn all about movies and series \u{1F37F}'
+    });
   };
 
   actionRating = () => {

@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Alert,
-  Share,
-  ScrollView,
-  View,
-  Text,
-  Image,
-  TouchableOpacity
-} from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
 
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
@@ -22,6 +14,8 @@ import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
+import { Alert } from '../../utils/Alert';
+import { Share } from '../../utils/Share';
 import styles from './styles';
 
 const uninformed = 'Uninformed';
@@ -241,23 +235,17 @@ export default class MovieDetailsScreen extends Component {
     const { isError, title, id } = this.state;
 
     if (isError) {
-      Alert.alert(
-        'Attention',
-        'Something wrong has happened, please try again later.',
-        [],
-        { cancelable: true }
-      );
+      Alert({
+        title: 'Attention',
+        description: 'Something wrong has happened, please try again later.'
+      });
     } else {
-      Share.share(
-        {
-          message: `${title}, know everything about this movie \u{1F37F}`,
-          url: `https://www.themoviedb.org/movie/${id}`,
-          title: 'AmoCinema'
-        },
-        {
-          dialogTitle: `${title}, know everything about this movie \u{1F37F}`
-        }
-      );
+      Share({
+        message: `${title}, know everything about this movie \u{1F37F}`,
+        url: `https://www.themoviedb.org/movie/${id}`,
+        title: 'AmoCinema',
+        dialogTitle: `${title}, know everything about this movie \u{1F37F}`
+      });
     }
   };
 
