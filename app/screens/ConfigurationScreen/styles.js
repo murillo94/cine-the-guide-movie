@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { white, darkBlue, blue, freeze } from '../../styles/Colors';
+import { white, darkBlue, blue, lightGray } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 25,
     borderBottomWidth: 1,
-    borderBottomColor: freeze
+    borderBottomColor: lightGray
   },
   itemText: {
     fontSize: fontSizeResponsive(2.5),
