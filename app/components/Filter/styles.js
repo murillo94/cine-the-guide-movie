@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
+
+import { white, darkBlue } from '../../styles/Colors';
 import { fontSizeResponsive, height } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   containerModal: {
-    backgroundColor: 'white',
+    backgroundColor: white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: fontSizeResponsive(2.5),
     fontWeight: 'bold',
-    color: '#47525E',
+    color: darkBlue,
     padding: 22,
     paddingBottom: 18
   },
@@ -31,13 +33,13 @@ const styles = StyleSheet.create({
   },
   optionSectionTitle: {
     fontSize: fontSizeResponsive(2.4),
-    color: '#47525E',
+    color: darkBlue,
     fontWeight: 'bold',
     width: '100%'
   },
   optionTitle: {
     fontSize: fontSizeResponsive(2.3),
-    color: '#47525E',
+    color: darkBlue,
     width: '80%'
   },
   containerButton: {
@@ -54,16 +56,16 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   buttonClose: {
-    backgroundColor: '#fff',
+    backgroundColor: white,
     borderWidth: 1,
-    borderColor: '#47525E',
+    borderColor: darkBlue,
     paddingVertical: 9.1,
     flex: 0.23
   },
   buttonSave: {
-    backgroundColor: '#47525E',
+    backgroundColor: darkBlue,
     borderWidth: 1,
-    borderColor: '#47525E',
+    borderColor: darkBlue,
     flex: 0.67
   },
   buttonText: {
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   buttonTextSave: {
-    color: '#fff',
+    color: white,
     fontWeight: 'bold'
   },
   icon: {

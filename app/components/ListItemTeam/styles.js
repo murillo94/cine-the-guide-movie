@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { blue } from '../../styles/Colors';
+
 const styles = StyleSheet.create({
   containerCast: {
     marginRight: 30,
@@ -8,7 +10,7 @@ const styles = StyleSheet.create({
   },
   titleCast: {
     marginTop: 10,
-    color: '#8190A5',
+    color: blue,
     textAlign: 'center'
   },
   titleCharacter: {

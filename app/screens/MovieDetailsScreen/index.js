@@ -17,6 +17,7 @@ import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
+import { darkBlue, white } from '../../styles/Colors';
 
 import styles from './styles';
 
@@ -53,7 +54,7 @@ export default class MovieDetailsScreen extends Component {
           style={{ paddingRight: 15, paddingLeft: 20 }}
           onPress={params.actionShare}
         >
-          <Feather name="share" size={23} color="#47525E" />
+          <Feather name="share" size={23} color={darkBlue} />
         </TouchableOpacity>
       )
     };
@@ -95,7 +96,7 @@ export default class MovieDetailsScreen extends Component {
             key={i}
             name="star"
             size={width * 0.06}
-            color="#fff"
+            color={white}
             style={{ marginRight: 5 }}
           />
         ));
@@ -296,7 +297,7 @@ export default class MovieDetailsScreen extends Component {
                   <FontAwesome
                     name="play"
                     size={width * 0.07}
-                    color="#fff"
+                    color={white}
                     style={{ marginLeft: 5 }}
                   />
                 </TouchableOpacity>

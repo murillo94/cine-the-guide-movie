@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+
+import { darkBlue, blue, white } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
@@ -28,13 +30,13 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: fontSizeResponsive(2.6),
-    color: '#47525E',
+    color: darkBlue,
     fontWeight: 'bold'
   },
   textTwoTitle: {
     textAlign: 'center',
     fontSize: fontSizeResponsive(2),
-    color: '#47525E',
+    color: darkBlue,
     fontWeight: 'bold',
     paddingRight: 20,
     paddingLeft: 20,
@@ -53,17 +55,17 @@ const styles = StyleSheet.create({
   },
   textSmall: {
     fontSize: fontSizeResponsive(2.1),
-    color: '#8190A5'
+    color: blue
   },
   trace: {
     marginLeft: 5,
     marginRight: 5,
     fontSize: fontSizeResponsive(2.1),
-    color: '#8190A5'
+    color: blue
   },
   textPercent: {
     fontSize: fontSizeResponsive(2.1),
-    color: '#8190A5',
+    color: blue,
     fontWeight: 'bold',
     marginBottom: 3
   },
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     margin: 0
   },
   containerError: {
-    backgroundColor: '#fff',
+    backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center'
   },

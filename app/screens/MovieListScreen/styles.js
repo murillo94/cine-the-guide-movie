@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { white, lightGray, darkBlue } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: white,
     justifyContent: 'center'
   },
   containerList: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
   textMain: {
     fontSize: fontSizeResponsive(3),
     fontWeight: 'bold',
-    color: '#47525E',
+    color: darkBlue,
     width: '80%'
   },
   buttonGrid: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   buttonGridActive: {
-    backgroundColor: '#efefef'
+    backgroundColor: lightGray
   },
   bottomModal: {
     justifyContent: 'flex-end',
@@ -47,11 +48,11 @@ const styles = StyleSheet.create({
     width: '50%',
     borderWidth: 1,
     borderRadius: 100,
-    borderColor: '#efefef'
+    borderColor: lightGray
   },
   loadingText: {
     fontSize: fontSizeResponsive(2.1),
-    color: '#47525E',
+    color: darkBlue,
     textAlign: 'center'
   }
 });

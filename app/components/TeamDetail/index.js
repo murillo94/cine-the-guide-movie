@@ -12,6 +12,7 @@ import { TouchableOpacity } from '../TouchableOpacity';
 import request from '../../services/Api';
 
 import { width } from '../../utils/Metrics';
+import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
@@ -80,7 +81,7 @@ export default class TeamDetail extends Component {
           <Feather
             name="chevron-down"
             size={styles.icon.fontSize}
-            color="#47525E"
+            color={darkBlue}
           />
         </TouchableOpacity>
       </View>

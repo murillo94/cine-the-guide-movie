@@ -13,6 +13,8 @@ import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
+import { darkBlue } from '../../styles/Colors';
+
 import styles from './styles';
 
 export default class MovieListScreen extends Component {
@@ -40,7 +42,7 @@ export default class MovieListScreen extends Component {
           style={{ paddingRight: 15, paddingLeft: 20 }}
           onPress={params.actionFilter}
         >
-          <Feather name="filter" size={23} color="#47525E" />
+          <Feather name="filter" size={23} color={darkBlue} />
         </TouchableOpacity>
       )
     };
@@ -229,7 +231,7 @@ export default class MovieListScreen extends Component {
                   ]}
                   onPress={this.actionGrid}
                 >
-                  <Feather name="grid" size={22} color="#47525E" />
+                  <Feather name="grid" size={22} color={darkBlue} />
                 </TouchableOpacity>
               </View>
             )}

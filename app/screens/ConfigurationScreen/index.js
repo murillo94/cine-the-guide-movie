@@ -9,6 +9,8 @@ import { Share } from '../../components/Share';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Switch } from '../../components/Switch';
 
+import { darkBlue } from '../../styles/Colors';
+
 import styles from './styles';
 
 export default class ConfigurationScreen extends Component {
@@ -108,7 +110,7 @@ export default class ConfigurationScreen extends Component {
                 <Feather
                   name="share"
                   size={22}
-                  color="#47525E"
+                  color={darkBlue}
                   style={styles.icon}
                 />
               </View>
@@ -121,7 +123,7 @@ export default class ConfigurationScreen extends Component {
                 <Feather
                   name="star"
                   size={22}
-                  color="#47525E"
+                  color={darkBlue}
                   style={styles.icon}
                 />
               </View>

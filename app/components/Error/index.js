@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from '../TouchableOpacity';
 
 import { width } from '../../utils/Metrics';
+import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
@@ -17,7 +18,7 @@ const Error = ({
   action = null
 }) => (
   <View style={style}>
-    <Feather name={icon} size={width * 0.2} color="#47525E" />
+    <Feather name={icon} size={width * 0.2} color={darkBlue} />
     <Text style={styles.errorInfo}>{textError}</Text>
     {action && (
       <TouchableOpacity style={styles.loadingButton} onPress={action}>

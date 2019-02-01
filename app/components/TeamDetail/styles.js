@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
+
+import { white, darkBlue, blue } from '../../styles/Colors';
 import { fontSizeResponsive, height } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   containerModal: {
-    backgroundColor: 'white',
+    backgroundColor: white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -30,13 +32,13 @@ const styles = StyleSheet.create({
   titleInfo: {
     fontSize: fontSizeResponsive(2.4),
     fontWeight: 'bold',
-    color: '#47525E',
+    color: darkBlue,
     marginBottom: 7
   },
   titleName: {
     fontSize: fontSizeResponsive(2.6),
     fontWeight: 'bold',
-    color: '#47525E',
+    color: darkBlue,
     marginBottom: 10
   },
   textItens: {
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   },
   textSmall: {
     fontSize: fontSizeResponsive(2.1),
-    color: '#8190A5'
+    color: blue
   },
   textJustify: {
     textAlign: 'justify'
@@ -66,9 +68,9 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: white,
     borderWidth: 1,
-    borderColor: '#47525E',
+    borderColor: darkBlue,
     paddingVertical: 9.1,
     borderRadius: 100,
     width: '60%'

@@ -5,6 +5,8 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../TouchableOpacity';
 
+import { darkGray } from '../../styles/Colors';
+
 import styles from './styles';
 
 export default class Search extends Component {
@@ -40,7 +42,7 @@ export default class Search extends Component {
               style={styles.icon}
               name="search"
               size={20}
-              color="#a1a1a4"
+              color={darkGray}
             />
             <TextInput
               style={styles.textInput}
@@ -53,7 +55,7 @@ export default class Search extends Component {
               multiline={false}
               autoCorrect={false}
               underlineColorAndroid="transparent"
-              placeholderTextColor="#a1a1a4"
+              placeholderTextColor={darkGray}
               placeholder="Search"
             />
             {search.length > 0 && (
@@ -62,7 +64,7 @@ export default class Search extends Component {
                   style={styles.icon}
                   name="x"
                   size={20}
-                  color="#a1a1a4"
+                  color={darkGray}
                 />
               </TouchableOpacity>
             )}

@@ -7,6 +7,8 @@ import { Modal } from '../Modal';
 import { TouchableOpacity } from '../TouchableOpacity';
 import { Switch } from '../Switch';
 
+import { darkBlue } from '../../styles/Colors';
+
 import styles from './styles';
 
 export default class Filter extends Component {
@@ -125,7 +127,7 @@ export default class Filter extends Component {
               <Feather
                 name="chevron-down"
                 size={styles.icon.fontSize}
-                color="#47525E"
+                color={darkBlue}
               />
             </TouchableOpacity>
             <TouchableOpacity

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+import { white, pink, blue, darkBlue } from '../../styles/Colors';
 import { fontSizeResponsive, width } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
@@ -7,7 +8,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: white
   },
   containerMainPhoto: {
     width: width,
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     bottom: -20,
     right: 15,
     borderRadius: width * 0.32,
-    backgroundColor: '#F95F62',
+    backgroundColor: pink,
     width: width * 0.16,
     height: width * 0.16,
     justifyContent: 'center',
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   },
   photoInfo: {
     fontSize: fontSizeResponsive(3.8),
-    color: '#fff',
+    color: white,
     fontWeight: 'bold'
   },
   photoStar: {
@@ -63,16 +64,16 @@ const styles = StyleSheet.create({
   titleInfo: {
     fontSize: fontSizeResponsive(2.6),
     fontWeight: 'bold',
-    color: '#47525E',
+    color: darkBlue,
     marginBottom: 7
   },
   subTitleInfo: {
     fontSize: fontSizeResponsive(2.1),
-    color: '#8190A5',
+    color: blue,
     textAlign: 'justify'
   },
   readMore: {
-    color: '#ff6a6a',
+    color: pink,
     marginTop: 5,
     textAlign: 'right'
   },

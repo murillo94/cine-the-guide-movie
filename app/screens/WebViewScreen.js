@@ -3,10 +3,12 @@ import { WebView } from 'react-native';
 
 import Spinner from './../components/Spinner';
 
+import { white } from './../styles/Colors';
+
 export default class WebViewScreen extends Component {
   renderLoading = () => (
     <Spinner
-      style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center' }}
+      style={{ flex: 1, backgroundColor: white, justifyContent: 'center' }}
     />
   );
 

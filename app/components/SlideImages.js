@@ -4,6 +4,8 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import Spinner from './Spinner';
 
+import { white } from './../styles/Colors';
+
 const SlideImages = ({
   showImage = false,
   images = [],
@@ -20,7 +22,7 @@ const SlideImages = ({
       flipThreshold={10}
       maxOverflow={5}
       swipeDownThreshold={25}
-      loadingRender={() => <Spinner color={'#fff'} />}
+      loadingRender={() => <Spinner color={white} />}
       onCancel={actionClose}
     />
   </Modal>

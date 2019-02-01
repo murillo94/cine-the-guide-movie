@@ -10,6 +10,8 @@ import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
+import { darkBlue } from '../../styles/Colors';
+
 import styles from './styles';
 
 export default class SearchResultsScreen extends Component {
@@ -180,7 +182,7 @@ export default class SearchResultsScreen extends Component {
                   ]}
                   onPress={this.actionGrid}
                 >
-                  <Feather name="grid" size={22} color="#47525E" />
+                  <Feather name="grid" size={22} color={darkBlue} />
                 </TouchableOpacity>
               </View>
             )}

@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import { white, darkBlue, blue, freeze } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
   bgWhite: {
-    backgroundColor: '#fff'
+    backgroundColor: white
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: white,
     padding: 20,
     paddingTop: 25
   },
@@ -21,22 +22,22 @@ const styles = StyleSheet.create({
     fontSize: fontSizeResponsive(3)
   },
   item: {
-    backgroundColor: '#fff',
+    backgroundColor: white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 25,
     paddingBottom: 25,
     borderBottomWidth: 1,
-    borderBottomColor: '#f3f3f3'
+    borderBottomColor: freeze
   },
   itemText: {
     fontSize: fontSizeResponsive(2.5),
-    color: '#47525E',
+    color: darkBlue,
     width: '80%'
   },
   itemTextVersion: {
     fontSize: fontSizeResponsive(2.5),
-    color: '#8190A5'
+    color: blue
   },
   itemNoBorder: {
     borderBottomWidth: 0
