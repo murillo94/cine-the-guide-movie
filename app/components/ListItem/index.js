@@ -52,7 +52,7 @@ export default class ListItem extends React.PureComponent {
             <Image
               source={getImageApi(item.poster_path)}
               style={styles.photo}
-              width={width * 0.33}
+              width={width * 0.3}
             />
             <View style={styles.item}>
               <View>
