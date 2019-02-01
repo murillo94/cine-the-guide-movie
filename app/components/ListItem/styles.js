@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-import { darkBlue, blue, white } from '../../styles/Colors';
+import {
+  darkBlue,
+  blue,
+  white,
+  lightRed,
+  lightYellow,
+  lightGreen
+} from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
@@ -70,13 +77,13 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   low: {
-    backgroundColor: '#ff7f7f'
+    backgroundColor: lightRed
   },
   mid: {
-    backgroundColor: '#EAB079'
+    backgroundColor: lightYellow
   },
   high: {
-    backgroundColor: '#82c596'
+    backgroundColor: lightGreen
   },
   textPercent: {
     fontSize: fontSizeResponsive(2.1),
