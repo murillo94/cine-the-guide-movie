@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Switch, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Switch } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
 import { Modal } from '../Modal';
+import { TouchableOpacity } from '../TouchableOpacity';
 
 import styles from './styles';
 
@@ -123,7 +124,6 @@ export default class Filter extends Component {
           </ScrollView>
           <View style={styles.containerButton}>
             <TouchableOpacity
-              activeOpacity={0.5}
               style={[styles.button, styles.buttonClose]}
               onPress={actionFilter}
             >
@@ -134,7 +134,6 @@ export default class Filter extends Component {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              activeOpacity={0.5}
               style={[styles.button, styles.buttonSave]}
               onPress={() => actionSwitchMovie(filter, name, false)}
             >

@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
+
+import { TouchableOpacity } from '../TouchableOpacity';
 
 import styles from './styles';
 
@@ -18,7 +20,6 @@ export default class ListItemTeam extends React.PureComponent {
     if (type === 'character' || type === 'job') {
       return (
         <TouchableOpacity
-          activeOpacity={0.5}
           style={styles.containerCast}
           onPress={() => actionTeamDetail(item.id)}
         >

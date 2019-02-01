@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
@@ -7,10 +7,12 @@ import Image from 'react-native-scalable-image';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import { Modal } from '../Modal';
+import { TouchableOpacity } from '../TouchableOpacity';
 
 import request from '../../services/Api';
 
 import { width } from '../../utils/Metrics';
+
 import styles from './styles';
 
 const uninformed = 'Uninformed';
@@ -74,11 +76,7 @@ export default class TeamDetail extends Component {
 
     return (
       <View style={styles.containerRow}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.button}
-          onPress={actionClose}
-        >
+        <TouchableOpacity style={styles.button} onPress={actionClose}>
           <Feather
             name="chevron-down"
             size={styles.icon.fontSize}

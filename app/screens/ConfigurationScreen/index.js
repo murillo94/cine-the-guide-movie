@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import {
-  AsyncStorage,
-  Platform,
-  Linking,
-  ScrollView,
-  View,
-  Text,
-  Switch,
-  TouchableOpacity
-} from 'react-native';
+import { AsyncStorage, ScrollView, View, Text, Switch } from 'react-native';
 
 import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
 
-import { Alert } from '../../utils/Alert';
-import { Share } from '../../utils/Share';
+import { Alert } from '../../components/Alert';
+import { Share } from '../../components/Share';
+import { TouchableOpacity } from '../../components/TouchableOpacity';
+
 import styles from './styles';
 
 export default class ConfigurationScreen extends Component {
@@ -69,12 +62,11 @@ export default class ConfigurationScreen extends Component {
   };
 
   actionRating = () => {
-    const url =
-      Platform.OS == 'ios'
-        ? 'https://itunes.apple.com/br/app/adorocinema/id926254990?mt=8'
-        : 'https://play.google.com/store/apps/details?id=com.adorocinema.android&hl=pt_BR';
-
-    Linking.openURL(url).catch(err => this.showError());
+    Alert({
+      title: 'Attention',
+      description:
+        'Nothing happens now. In the future you will be redirected to store.'
+    });
   };
 
   render() {
@@ -108,7 +100,7 @@ export default class ConfigurationScreen extends Component {
             >
               Application
             </Text>
-            <TouchableOpacity activeOpacity={0.5} onPress={this.actionShare}>
+            <TouchableOpacity onPress={this.actionShare}>
               <View style={styles.item}>
                 <Text style={styles.itemText} numberOfLines={2}>
                   Tell a friend
@@ -121,7 +113,7 @@ export default class ConfigurationScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.5} onPress={this.actionRating}>
+            <TouchableOpacity onPress={this.actionRating}>
               <View style={styles.item}>
                 <Text style={styles.itemText} numberOfLines={2}>
                   Rate the app

@@ -1,33 +1,35 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, Image } from 'react-native';
 
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 
+import { Alert } from '../../components/Alert';
+import { Share } from '../../components/Share';
 import Spinner from '../../components/Spinner';
 import Error from '../../components/Error';
 import TeamDetail from '../../components/TeamDetail';
 import ListTeam from '../../components/ListTeam';
 import SlideImages from '../../components/SlideImages';
+import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
 import { width } from '../../utils/Metrics';
-import { Alert } from '../../utils/Alert';
-import { Share } from '../../utils/Share';
+
 import styles from './styles';
 
 const uninformed = 'Uninformed';
 
 const renderTruncatedFooter = handlePress => (
-  <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+  <TouchableOpacity onPress={handlePress}>
     <Text style={styles.readMore}>Read more</Text>
   </TouchableOpacity>
 );
 
 const renderRevealedFooter = handlePress => (
-  <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+  <TouchableOpacity onPress={handlePress}>
     <Text style={styles.readMore}>Read less</Text>
   </TouchableOpacity>
 );
@@ -48,7 +50,6 @@ export default class MovieDetailsScreen extends Component {
       title: 'Movie details',
       headerRight: (
         <TouchableOpacity
-          activeOpacity={0.5}
           style={{ paddingRight: 15, paddingLeft: 20 }}
           onPress={params.actionShare}
         >
@@ -289,7 +290,6 @@ export default class MovieDetailsScreen extends Component {
               />
               {video && video.site === 'YouTube' && (
                 <TouchableOpacity
-                  activeOpacity={0.5}
                   style={styles.play}
                   onPress={this.actionPlayVideo}
                 >

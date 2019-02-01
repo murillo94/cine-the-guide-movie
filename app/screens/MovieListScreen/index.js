@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Asset } from 'expo';
-import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
+import { AsyncStorage, View, Text } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
@@ -9,6 +9,7 @@ import Spinner from '../../components/Spinner';
 import Error from '../../components/Error';
 import Filter from '../../components/Filter';
 import List from '../../components/List';
+import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
@@ -36,7 +37,6 @@ export default class MovieListScreen extends Component {
     return {
       headerRight: (
         <TouchableOpacity
-          activeOpacity={0.5}
           style={{ paddingRight: 15, paddingLeft: 20 }}
           onPress={params.actionFilter}
         >
@@ -130,7 +130,6 @@ export default class MovieListScreen extends Component {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            activeOpacity={0.5}
             onPress={this.actionLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
@@ -228,7 +227,6 @@ export default class MovieListScreen extends Component {
                     styles.buttonGrid,
                     numColumns === 2 && styles.buttonGridActive
                   ]}
-                  activeOpacity={0.5}
                   onPress={this.actionGrid}
                 >
                   <Feather name="grid" size={22} color="#47525E" />

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View, Text, TouchableOpacity } from 'react-native';
+import { AsyncStorage, View, Text } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
 import Spinner from '../../components/Spinner';
 import Error from '../../components/Error';
 import List from '../../components/List';
+import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
@@ -113,7 +114,6 @@ export default class SearchResultsScreen extends Component {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            activeOpacity={0.5}
             onPress={this.actionLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
@@ -178,7 +178,6 @@ export default class SearchResultsScreen extends Component {
                     styles.buttonGrid,
                     numColumns === 2 && styles.buttonGridActive
                   ]}
-                  activeOpacity={0.5}
                   onPress={this.actionGrid}
                 >
                   <Feather name="grid" size={22} color="#47525E" />

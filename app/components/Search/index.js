@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
+
+import { TouchableOpacity } from '../TouchableOpacity';
 
 import styles from './styles';
 
@@ -55,10 +57,7 @@ export default class Search extends Component {
               placeholder="Search"
             />
             {search.length > 0 && (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={this.actionClearSearch}
-              >
+              <TouchableOpacity onPress={this.actionClearSearch}>
                 <Feather
                   style={styles.icon}
                   name="x"

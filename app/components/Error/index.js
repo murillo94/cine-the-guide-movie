@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
+import { TouchableOpacity } from '../TouchableOpacity';
+
 import { width } from '../../utils/Metrics';
+
 import styles from './styles';
 
 const Error = ({
@@ -17,11 +20,7 @@ const Error = ({
     <Feather name={icon} size={width * 0.2} color="#47525E" />
     <Text style={styles.errorInfo}>{textError}</Text>
     {action && (
-      <TouchableOpacity
-        style={styles.loadingButton}
-        activeOpacity={0.5}
-        onPress={action}
-      >
+      <TouchableOpacity style={styles.loadingButton} onPress={action}>
         <Text style={styles.loadingText}>{textButton}</Text>
       </TouchableOpacity>
     )}
