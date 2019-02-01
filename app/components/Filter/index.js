@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Switch } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
 import { Modal } from '../Modal';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { Switch } from '../Switch';
 
 import styles from './styles';
 
@@ -42,11 +43,10 @@ export default class Filter extends Component {
                     Releases
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'release_date.desc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('release_date.desc', 'Releases')
                     }
-                    value={filter === 'release_date.desc' ? true : false}
                   />
                 </View>
                 <View style={styles.containerRow}>
@@ -54,11 +54,10 @@ export default class Filter extends Component {
                     Old
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'release_date.asc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('release_date.asc', 'Old')
                     }
-                    value={filter === 'release_date.asc' ? true : false}
                   />
                 </View>
               </View>
@@ -71,11 +70,10 @@ export default class Filter extends Component {
                     Most popular
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'popularity.desc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('popularity.desc', 'Most popular')
                     }
-                    value={filter === 'popularity.desc' ? true : false}
                   />
                 </View>
                 <View style={styles.containerRow}>
@@ -83,11 +81,10 @@ export default class Filter extends Component {
                     Less popular
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'popularity.asc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('popularity.asc', 'Less popular')
                     }
-                    value={filter === 'popularity.asc' ? true : false}
                   />
                 </View>
               </View>
@@ -100,11 +97,10 @@ export default class Filter extends Component {
                     Higher revenue
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'revenue.desc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('revenue.desc', 'Higher revenue')
                     }
-                    value={filter === 'revenue.desc' ? true : false}
                   />
                 </View>
                 <View style={styles.containerRow}>
@@ -112,11 +108,10 @@ export default class Filter extends Component {
                     Lowest revenue
                   </Text>
                   <Switch
-                    trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                    value={filter === 'revenue.asc' ? true : false}
                     onValueChange={() =>
                       this.changeValues('revenue.asc', 'Lowest revenue')
                     }
-                    value={filter === 'revenue.asc' ? true : false}
                   />
                 </View>
               </View>

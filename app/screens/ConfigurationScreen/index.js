@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, View, Text, Switch } from 'react-native';
+import { AsyncStorage, ScrollView, View, Text } from 'react-native';
 
 import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { Feather } from '@expo/vector-icons';
 import { Alert } from '../../components/Alert';
 import { Share } from '../../components/Share';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
+import { Switch } from '../../components/Switch';
 
 import styles from './styles';
 
@@ -87,9 +88,8 @@ export default class ConfigurationScreen extends Component {
                 Include adult content
               </Text>
               <Switch
-                onValueChange={this.actionChangeAdultContent}
                 value={hasAdultContent}
-                trackColor={{ false: '#e9e9e9', true: '#47525E' }}
+                onValueChange={this.actionChangeAdultContent}
               />
             </View>
           </View>
