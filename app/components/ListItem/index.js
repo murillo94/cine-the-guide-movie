@@ -39,6 +39,21 @@ const renderDivider = (release_date, original_language) =>
     <Text style={styles.trace}>|</Text>
   ) : null;
 
+const renderScore = vote_average => {
+  let color =
+    vote_average < 5
+      ? 'low'
+      : vote_average >= 5 && vote_average < 7
+      ? 'mid'
+      : 'high';
+
+  return (
+    <View style={[styles.score, styles[color]]}>
+      <Text style={styles.textPercent}>{vote_average}</Text>
+    </View>
+  );
+};
+
 export default class ListItem extends React.PureComponent {
   render() {
     const { numColumns, item, type, isSearch, navigate } = this.props;
@@ -73,10 +88,7 @@ export default class ListItem extends React.PureComponent {
                 </Text>
               </View>
               <View style={[styles.textRow, styles.containerReview]}>
-                <View>
-                  <Text style={styles.textPercent}>{item.vote_average}</Text>
-                  <Text style={styles.textSmall}>Public</Text>
-                </View>
+                {renderScore(item.vote_average)}
               </View>
             </View>
           </View>

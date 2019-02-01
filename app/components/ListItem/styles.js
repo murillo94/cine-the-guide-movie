@@ -63,11 +63,26 @@ const styles = StyleSheet.create({
     fontSize: fontSizeResponsive(2.1),
     color: blue
   },
+  score: {
+    minWidth: '25%',
+    paddingVertical: 2,
+    paddingHorizontal: 4,
+    borderRadius: 100
+  },
+  low: {
+    backgroundColor: '#ff7f7f'
+  },
+  mid: {
+    backgroundColor: '#EAB079'
+  },
+  high: {
+    backgroundColor: '#82c596'
+  },
   textPercent: {
     fontSize: fontSizeResponsive(2.1),
-    color: blue,
-    fontWeight: 'bold',
-    marginBottom: 3
+    fontWeight: '500',
+    color: white,
+    textAlign: 'center'
   },
   containerModal: {
     justifyContent: 'center',
