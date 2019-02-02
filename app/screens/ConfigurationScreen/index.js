@@ -26,14 +26,10 @@ export default class ConfigurationScreen extends Component {
   async componentDidMount() {
     try {
       const value = await AsyncStorage.getItem('@ConfigKey');
+      const item = JSON.parse(value) || false;
+      const { hasAdultContent } = item;
 
-      if (value) {
-        const arr = JSON.parse(value);
-
-        this.setState({
-          hasAdultContent: arr.hasAdultContent
-        });
-      }
+      this.setState({ hasAdultContent: !!hasAdultContent });
     } catch (error) {
       this.showError();
     }

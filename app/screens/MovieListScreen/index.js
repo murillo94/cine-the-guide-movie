@@ -54,21 +54,12 @@ export default class MovieListScreen extends Component {
       this.props.navigation.setParams({ actionFilter: this.actionFilter });
 
       const value = await AsyncStorage.getItem('@ConfigKey');
+      const item = JSON.parse(value) || false;
+      const { hasAdultContent } = item;
 
-      if (value) {
-        const arr = JSON.parse(value);
-
-        this.setState(
-          {
-            hasAdultContent: arr.hasAdultContent
-          },
-          () => {
-            this.requestMoviesList();
-          }
-        );
-      } else {
+      this.setState({ hasAdultContent: !!hasAdultContent }, () => {
         this.requestMoviesList();
-      }
+      });
     } catch (error) {
       this.requestMoviesList();
     }

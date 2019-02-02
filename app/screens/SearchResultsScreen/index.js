@@ -38,21 +38,12 @@ export default class SearchResultsScreen extends Component {
   async componentDidMount() {
     try {
       const value = await AsyncStorage.getItem('@ConfigKey');
+      const item = JSON.parse(value) || false;
+      const { hasAdultContent } = item;
 
-      if (value) {
-        const arr = JSON.parse(value);
-
-        this.setState(
-          {
-            hasAdultContent: arr.hasAdultContent
-          },
-          () => {
-            this.requestMoviesList();
-          }
-        );
-      } else {
+      this.setState({ hasAdultContent: !!hasAdultContent }, () => {
         this.requestMoviesList();
-      }
+      });
     } catch (error) {
       this.requestMoviesList();
     }
