@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -10,6 +10,7 @@ import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
+import { getItem } from '../../utils/AsyncStorage';
 import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
@@ -37,11 +38,9 @@ export default class SearchResultsScreen extends Component {
 
   async componentDidMount() {
     try {
-      const value = await AsyncStorage.getItem('@ConfigKey');
-      const item = JSON.parse(value) || false;
-      const { hasAdultContent } = item;
+      const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
 
-      this.setState({ hasAdultContent: !!hasAdultContent }, () => {
+      this.setState({ hasAdultContent }, () => {
         this.requestMoviesList();
       });
     } catch (error) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import { Share } from '../../components/Share';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Switch } from '../../components/Switch';
 
+import { getItem, setItem } from '../../utils/AsyncStorage';
 import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
@@ -25,11 +26,9 @@ export default class ConfigurationScreen extends Component {
 
   async componentDidMount() {
     try {
-      const value = await AsyncStorage.getItem('@ConfigKey');
-      const item = JSON.parse(value) || false;
-      const { hasAdultContent } = item;
+      const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
 
-      this.setState({ hasAdultContent: !!hasAdultContent });
+      this.setState({ hasAdultContent });
     } catch (error) {
       this.showError();
     }
@@ -45,7 +44,7 @@ export default class ConfigurationScreen extends Component {
   actionChangeAdultContent = async value => {
     try {
       this.setState({ hasAdultContent: value });
-      await AsyncStorage.setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
+      await setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
     } catch (error) {
       this.showError();
     }
