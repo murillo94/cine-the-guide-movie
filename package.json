@@ -2,6 +2,7 @@
   "name": "cine-the-movie-guide",
   "version": "0.1.0",
   "private": true,
+  "main": "node_modules/expo/AppEntry.js",
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "eslint": "^5.13.0",
@@ -12,22 +13,11 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-native": "^3.6.0",
+    "husky": "^1.3.1",
     "jest-expo": "~32.0.0",
+    "lint-staged": "^8.1.3",
+    "prettier": "^1.16.4",
     "react-test-renderer": "16.5.0"
-  },
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "eject": "expo eject",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-    }
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -40,5 +30,31 @@
     "react-native-testing-library": "^1.5.0",
     "react-navigation": "^3.1.0",
     "react-navigation-material-bottom-tabs": "^0.3.0"
+  },
+  "scripts": {
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
