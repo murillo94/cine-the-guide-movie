@@ -4,7 +4,5 @@ export const { width, height } = Dimensions.get('screen');
 
 export const fontSizeResponsive = value => {
   const tempHeight = (16 / 9) * width;
-  return (
-    Math.sqrt(Math.pow(tempHeight, 2) + Math.pow(width, 2)) * (value / 100)
-  );
+  return Math.sqrt(tempHeight ** 2 + width ** 2) * (value / 100);
 };

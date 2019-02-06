@@ -16,6 +16,12 @@ import { darkBlue } from '../../styles/Colors';
 import styles from './styles';
 
 export default class SearchResultsScreen extends Component {
+  static navigationOptions = () => {
+    return {
+      title: 'Search result'
+    };
+  };
+
   state = {
     isLoading: false,
     isLoadingMore: false,
@@ -28,12 +34,6 @@ export default class SearchResultsScreen extends Component {
     id: this.props.navigation.state.params.id,
     name: this.props.navigation.state.params.name,
     typeRequest: this.props.navigation.state.params.typeRequest
-  };
-
-  static navigationOptions = () => {
-    return {
-      title: 'Search result'
-    };
   };
 
   async componentDidMount() {
@@ -49,12 +49,14 @@ export default class SearchResultsScreen extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const { results, isLoading, isLoadingMore, isError, keyGrid } = this.state;
+
     if (
-      this.state.results !== nextState.results ||
-      this.state.isLoading !== nextState.isLoading ||
-      this.state.isLoadingMore !== nextState.isLoadingMore ||
-      this.state.isError !== nextState.isError ||
-      this.state.keyGrid !== nextState.keyGrid
+      results !== nextState.results ||
+      isLoading !== nextState.isLoading ||
+      isLoadingMore !== nextState.isLoadingMore ||
+      isError !== nextState.isError ||
+      keyGrid !== nextState.keyGrid
     ) {
       return true;
     }
@@ -66,15 +68,15 @@ export default class SearchResultsScreen extends Component {
       this.setState({ isLoading: true });
 
       const { page, name, id, typeRequest, hasAdultContent } = this.state;
-      const date_release = new Date().toISOString().slice(0, 10);
+      const dateRelease = new Date().toISOString().slice(0, 10);
       const query =
         typeRequest === 'search'
           ? { query: `${name.trim()}` }
           : { with_genres: `${id}` };
 
-      let data = await request(`${typeRequest}/movie`, {
-        page: page,
-        'release_date.lte': date_release,
+      const data = await request(`${typeRequest}/movie`, {
+        page,
+        'release_date.lte': dateRelease,
         with_release_type: '1|2|3|4|5|6|7',
         include_adult: hasAdultContent,
         ...{ ...query }
@@ -84,7 +86,7 @@ export default class SearchResultsScreen extends Component {
         isLoading: false,
         isLoadingMore: false,
         isError: false,
-        total_pages: data.total_pages,
+        totalPages: data.total_pages,
         results: [...results, ...data.results]
       }));
     } catch (err) {
@@ -97,11 +99,11 @@ export default class SearchResultsScreen extends Component {
   };
 
   renderFooter = () => {
-    const { isLoadingMore, total_pages, page, results } = this.state;
+    const { isLoadingMore, totalPages, page, results } = this.state;
 
-    if (isLoadingMore) return <Spinner size={'small'} />;
+    if (isLoadingMore) return <Spinner size="small" />;
 
-    if (total_pages !== page && results.length > 0) {
+    if (totalPages !== page && results.length > 0) {
       return (
         <View style={styles.loadingMore}>
           <TouchableOpacity
@@ -179,7 +181,7 @@ export default class SearchResultsScreen extends Component {
             <List
               data={results}
               type={name}
-              isSearch={typeRequest === 'search' ? true : false}
+              isSearch={typeRequest === 'search'}
               keyGrid={keyGrid}
               numColumns={numColumns}
               refreshing={null}

@@ -1,0 +1,36 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["react", "react-native", "jsx-a11y"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier",
+    "plugin:jest/recommended"
+  ],
+  "rules": {
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-indent": ["error", 2],
+    "react/destructuring-assignment": 0,
+    "react-native/no-unused-styles": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2,
+    "react-native/no-raw-text": 2,
+    "import/no-extraneous-dependencies": [0],
+    "import/extensions": ["error", { "js": "never", "json": "always" }],
+    "no-undef": 0,
+    "no-nested-ternary": 0,
+    "radix": ["error", "as-needed"],
+    "comma-dangle": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"]
+  }
+}

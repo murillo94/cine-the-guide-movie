@@ -19,6 +19,21 @@ import { darkBlue } from '../../styles/Colors';
 import styles from './styles';
 
 export default class MovieListScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+      headerRight: (
+        <TouchableOpacity
+          style={styles.buttonFilter}
+          onPress={params.actionFilter}
+        >
+          <Feather name="filter" size={23} color={darkBlue} />
+        </TouchableOpacity>
+      )
+    };
+  };
+
   state = {
     isVisible: false,
     isLoading: false,
@@ -32,21 +47,6 @@ export default class MovieListScreen extends Component {
     page: 1,
     numColumns: 1,
     keyGrid: 1
-  };
-
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-
-    return {
-      headerRight: (
-        <TouchableOpacity
-          style={{ paddingRight: 15, paddingLeft: 20 }}
-          onPress={params.actionFilter}
-        >
-          <Feather name="filter" size={23} color={darkBlue} />
-        </TouchableOpacity>
-      )
-    };
   };
 
   async componentDidMount() {
@@ -65,14 +65,24 @@ export default class MovieListScreen extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const {
+      results,
+      isVisible,
+      isLoading,
+      isRefresh,
+      isLoadingMore,
+      isError,
+      keyGrid
+    } = this.state;
+
     if (
-      this.state.results !== nextState.results ||
-      this.state.isVisible !== nextState.isVisible ||
-      this.state.isLoading !== nextState.isLoading ||
-      this.state.isRefresh !== nextState.isRefresh ||
-      this.state.isLoadingMore !== nextState.isLoadingMore ||
-      this.state.isError !== nextState.isError ||
-      this.state.keyGrid !== nextState.keyGrid
+      results !== nextState.results ||
+      isVisible !== nextState.isVisible ||
+      isLoading !== nextState.isLoading ||
+      isRefresh !== nextState.isRefresh ||
+      isLoadingMore !== nextState.isLoadingMore ||
+      isError !== nextState.isError ||
+      keyGrid !== nextState.keyGrid
     ) {
       return true;
     }
@@ -84,11 +94,11 @@ export default class MovieListScreen extends Component {
       this.setState({ isLoading: true });
 
       const { page, filterType, hasAdultContent } = this.state;
-      const date_release = new Date().toISOString().slice(0, 10);
+      const dateRelease = new Date().toISOString().slice(0, 10);
 
-      let data = await request('discover/movie', {
-        page: page,
-        'release_date.lte': date_release,
+      const data = await request('discover/movie', {
+        page,
+        'release_date.lte': dateRelease,
         sort_by: filterType,
         with_release_type: '1|2|3|4|5|6|7',
         include_adult: hasAdultContent
@@ -99,7 +109,7 @@ export default class MovieListScreen extends Component {
         isRefresh: false,
         isLoadingMore: false,
         isError: false,
-        total_pages: data.total_pages,
+        totalPages: data.total_pages,
         results: isRefresh ? data.results : [...results, ...data.results]
       }));
     } catch (err) {
@@ -113,11 +123,11 @@ export default class MovieListScreen extends Component {
   };
 
   renderFooter = () => {
-    const { isLoadingMore, total_pages, page, results } = this.state;
+    const { isLoadingMore, totalPages, page, results } = this.state;
 
-    if (isLoadingMore) return <Spinner size={'small'} />;
+    if (isLoadingMore) return <Spinner size="small" />;
 
-    if (total_pages !== page && results.length > 0) {
+    if (totalPages !== page && results.length > 0) {
       return (
         <View style={styles.loadingMore}>
           <TouchableOpacity

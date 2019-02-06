@@ -16,11 +16,11 @@ const ListTeam = ({
 }) => (
   <FlatList
     data={data}
-    horizontal={true}
+    horizontal
     showsHorizontalScrollIndicator={false}
-    removeClippedSubviews={true}
+    removeClippedSubviews
     keyExtractor={item =>
-      keyItem === 'credit_id' ? item.credit_id.toString() : item.id.toString()
+      keyItem === 'creditId' ? item.credit_id.toString() : item.id.toString()
     }
     ListEmptyComponent={ListEmptyComponent}
     renderItem={({ item }) => renderItem(item, type, actionTeamDetail)}

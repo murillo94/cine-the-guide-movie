@@ -142,13 +142,13 @@ ConfigurationTab.navigationOptions = {
 };
 
 const MovieListTabBarVisible = navigation => {
-  const routes = navigation.state.routes;
+  const { routes } = navigation.state;
   if (routes && routes.length > 0) {
     const route = routes[routes.length - 1];
     if (
-      route.routeName == 'MovieDetails' ||
-      route.routeName == 'WebView' ||
-      route.routeName == 'SearchResults'
+      route.routeName === 'MovieDetails' ||
+      route.routeName === 'WebView' ||
+      route.routeName === 'SearchResults'
     ) {
       return false;
     }

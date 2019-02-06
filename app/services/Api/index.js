@@ -10,15 +10,15 @@ const defaultContent = {
 
 function queryString(obj) {
   return Object.entries(obj)
-    .map(([key, val]) => `${key}=${val}`)
+    .map(([index, val]) => `${index}=${val}`)
     .join('&');
 }
 
 export default async function request(url, content = {}) {
   const obj = { ...defaultContent, ...content };
 
-  let response = await fetch(`${api}/${url}?${queryString(obj)}`);
-  let data = await response.json();
+  const response = await fetch(`${api}/${url}?${queryString(obj)}`);
+  const data = await response.json();
 
   return data;
 }

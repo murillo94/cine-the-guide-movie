@@ -4,19 +4,19 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import Spinner from './Spinner';
 
-import { white } from './../styles/Colors';
+import { white } from "../styles/Colors";
 
 const SlideImages = ({
   showImage = false,
   images = [],
   actionClose = null
 }) => (
-  <Modal visible={showImage} transparent={true} onRequestClose={actionClose}>
+  <Modal visible={showImage} transparent onRequestClose={actionClose}>
     <ImageViewer
       imageUrls={images}
-      enableSwipeDown={true}
-      enableImageZoom={true}
-      enablePreload={true}
+      enableSwipeDown
+      enableImageZoom
+      enablePreload
       saveToLocalByLongPress={false}
       pageAnimateTime={200}
       flipThreshold={10}

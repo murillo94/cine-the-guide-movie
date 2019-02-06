@@ -36,14 +36,6 @@ const renderRevealedFooter = handlePress => (
 );
 
 export default class MovieDetailsScreen extends Component {
-  state = {
-    isLoading: true,
-    isError: false,
-    isVisible: false,
-    showImage: false,
-    credit_id: null
-  };
-
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
 
@@ -51,13 +43,21 @@ export default class MovieDetailsScreen extends Component {
       title: 'Movie details',
       headerRight: (
         <TouchableOpacity
-          style={{ paddingRight: 15, paddingLeft: 20 }}
+          style={styles.buttonShare}
           onPress={params.actionShare}
         >
           <Feather name="share" size={23} color={darkBlue} />
         </TouchableOpacity>
       )
     };
+  };
+
+  state = {
+    isLoading: true,
+    isError: false,
+    isVisible: false,
+    showImage: false,
+    creditId: null
   };
 
   componentDidMount() {
@@ -77,107 +77,13 @@ export default class MovieDetailsScreen extends Component {
     return false;
   }
 
-  sliceArrayLength(arr, num) {
-    return arr.length > num ? arr.slice(0, num) : arr;
-  }
-
-  convertRatingToStars() {
-    let { vote_average } = this.state;
-
-    vote_average = vote_average > 5 ? Math.round(vote_average) : vote_average;
-    const length =
-      vote_average !== 10
-        ? parseInt((vote_average + '').charAt(0)) - 5
-        : vote_average - 5;
-    return vote_average <= 5
-      ? null
-      : [...Array(length)].map((e, i) => (
-          <FontAwesome
-            key={i}
-            name="star"
-            size={width * 0.06}
-            color={white}
-            style={{ marginRight: 5 }}
-          />
-        ));
-  }
-
-  convertMinsToHrsMins() {
-    const { runtime } = this.state;
-
-    let h = Math.floor(runtime / 60);
-    let m = runtime % 60;
-    h = h < 10 ? '0' + h : h;
-    m = m < 10 ? '0' + m : m;
-    return h && m ? `${h}h ${m}m` : uninformed;
-  }
-
-  convertToGenre() {
-    const { genre } = this.state;
-
-    return genre.length > 0
-      ? genre.length > 1
-        ? `${genre[0].name}, ${genre[1].name}`
-        : genre[0].name
-      : uninformed;
-  }
-
-  convertToUpperCaseFirstLetter() {
-    let { original_language } = this.state;
-
-    return (
-      original_language.charAt(0).toUpperCase() + original_language.slice(1)
-    );
-  }
-
-  convertToDate() {
-    const { release_date } = this.state;
-
-    const date = new Date(release_date);
-    return (
-      date.getDate() +
-        1 +
-        '/' +
-        (date.getMonth() + 1) +
-        '/' +
-        date.getFullYear() || uninformed
-    );
-  }
-
-  convertToDolar(value) {
-    return (
-      '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') ||
-      uninformed
-    );
-  }
-
-  convertAdult() {
-    const { adult } = this.state;
-
-    return adult === false ? 'Yes' : 'No' || uninformed;
-  }
-
-  getImageApi() {
-    const { backdrop_path } = this.state;
-
-    return backdrop_path
-      ? { uri: `https://image.tmdb.org/t/p/w500/${backdrop_path}` }
-      : require('../../assets/images/not_found.png');
-  }
-
-  formatImageUrl(images) {
-    return this.sliceArrayLength(images, 15).map(({ file_path }) => {
-      return { url: `https://image.tmdb.org/t/p/original/${file_path}` };
-    });
-  }
-
   requestMoviesInfo = async () => {
     try {
       this.setState({ isLoading: true });
 
       const { id } = this.props.navigation.state.params;
 
-      let data = await request(`movie/${id}`, {
+      const data = await request(`movie/${id}`, {
         include_image_language: 'en,null',
         append_to_response: 'credits,videos,images'
       });
@@ -185,22 +91,22 @@ export default class MovieDetailsScreen extends Component {
       this.setState({
         isLoading: false,
         isError: false,
-        id: id,
-        backdrop_path: data.backdrop_path || '',
+        id,
+        backdropPath: data.backdrop_path || '',
         title: data.title || '',
-        vote_average: data.vote_average || 0,
+        voteAverage: data.vote_average || 0,
         video: data.videos.results[0] || [],
         runtime: data.runtime || 0,
-        original_language: language[data.original_language] || '',
+        originalLanguage: language[data.original_language] || '',
         genre: this.sliceArrayLength(data.genres, 2) || '',
-        release_date: data.release_date || '',
+        releaseDate: data.release_date || '',
         budget: data.budget || 0,
         revenue: data.revenue || 0,
         adult: data.adult || '',
         overview: data.overview || uninformed,
         cast: this.sliceArrayLength(data.credits.cast, 15),
         crew: this.sliceArrayLength(data.credits.crew, 15),
-        production_companies: this.sliceArrayLength(
+        productionCompanies: this.sliceArrayLength(
           data.production_companies,
           10
         ),
@@ -214,11 +120,101 @@ export default class MovieDetailsScreen extends Component {
     }
   };
 
-  renderListEmpty = () => (
-    <View>
-      <Text style={styles.subTitleInfo}>Uninformed</Text>
-    </View>
-  );
+  getImageApi = () => {
+    const { backdropPath } = this.state;
+
+    return backdropPath
+      ? { uri: `https://image.tmdb.org/t/p/w500/${backdropPath}` }
+      : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+  };
+
+  formatImageUrl = images => {
+    return this.sliceArrayLength(images, 15).map(item => {
+      return { url: `https://image.tmdb.org/t/p/original/${item.file_path}` };
+    });
+  };
+
+  sliceArrayLength = (arr, num) => {
+    return arr.length > num ? arr.slice(0, num) : arr;
+  };
+
+  convertToDolar = value => {
+    return (
+      `$${value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}` ||
+      uninformed
+    );
+  };
+
+  convertAdult = () => {
+    const { adult } = this.state;
+
+    return adult === false ? 'Yes' : 'No' || uninformed;
+  };
+
+  convertRatingToStars = () => {
+    let { voteAverage } = this.state;
+
+    voteAverage = voteAverage > 5 ? Math.round(voteAverage) : voteAverage;
+    const length =
+      voteAverage !== 10
+        ? parseInt(`${voteAverage}`.charAt(0)) - 5
+        : voteAverage - 5;
+    return voteAverage <= 5
+      ? null
+      : /* eslint-disable react/no-array-index-key */
+        [...Array(length)].map((e, i) => (
+          <FontAwesome
+            key={i}
+            name="star"
+            size={width * 0.06}
+            color={white}
+            style={styles.star}
+          />
+        ));
+    /* eslint-enable react/no-array-index-key */
+  };
+
+  convertMinsToHrsMins = () => {
+    const { runtime } = this.state;
+
+    let h = Math.floor(runtime / 60);
+    let m = runtime % 60;
+    h = h < 10 ? `0${h}` : h;
+    m = m < 10 ? `0${m}` : m;
+    return h && m ? `${h}h ${m}m` : uninformed;
+  };
+
+  convertToGenre = () => {
+    const { genre } = this.state;
+
+    return genre.length > 0
+      ? genre.length > 1
+        ? `${genre[0].name}, ${genre[1].name}`
+        : genre[0].name
+      : uninformed;
+  };
+
+  convertToUpperCaseFirstLetter = () => {
+    const { originalLanguage } = this.state;
+
+    return originalLanguage.charAt(0).toUpperCase() + originalLanguage.slice(1);
+  };
+
+  convertToDate = () => {
+    const { releaseDate } = this.state;
+
+    const date = new Date(releaseDate);
+    return (
+      `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}` ||
+      uninformed
+    );
+  };
+
+  actionPerson = (creditId = '') => {
+    this.setState(({ isVisible }) => {
+      return { creditId, isVisible: !isVisible };
+    });
+  };
 
   actionPlayVideo = () => {
     const { key } = this.state.video;
@@ -251,11 +247,11 @@ export default class MovieDetailsScreen extends Component {
     }
   };
 
-  actionPerson = (credit_id = '') => {
-    this.setState(({ isVisible }) => {
-      return { credit_id, isVisible: !isVisible };
-    });
-  };
+  renderListEmpty = () => (
+    <View>
+      <Text style={styles.subTitleInfo}>Uninformed</Text>
+    </View>
+  );
 
   render() {
     const {
@@ -268,9 +264,9 @@ export default class MovieDetailsScreen extends Component {
       overview,
       cast,
       crew,
-      production_companies,
+      productionCompanies,
       images,
-      credit_id,
+      creditId,
       isVisible,
       showImage
     } = this.state;
@@ -298,7 +294,7 @@ export default class MovieDetailsScreen extends Component {
                     name="play"
                     size={width * 0.07}
                     color={white}
-                    style={{ marginLeft: 5 }}
+                    style={styles.buttonPlay}
                   />
                 </TouchableOpacity>
               )}
@@ -319,7 +315,7 @@ export default class MovieDetailsScreen extends Component {
             </View>
             <View style={styles.containerMovieInfo}>
               <ScrollView
-                horizontal={true}
+                horizontal
                 showsHorizontalScrollIndicator={false}
                 style={styles.movieFirstInfo}
               >
@@ -379,7 +375,7 @@ export default class MovieDetailsScreen extends Component {
                 <ListTeam
                   data={cast}
                   type="character"
-                  keyItem="credit_id"
+                  keyItem="creditId"
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
                 />
@@ -389,7 +385,7 @@ export default class MovieDetailsScreen extends Component {
                 <ListTeam
                   data={crew}
                   type="job"
-                  keyItem="credit_id"
+                  keyItem="creditId"
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
                 />
@@ -397,7 +393,7 @@ export default class MovieDetailsScreen extends Component {
               <View style={[styles.movieSecondInfo, styles.movieLastInfo]}>
                 <Text style={styles.titleInfo}>Producer</Text>
                 <ListTeam
-                  data={production_companies}
+                  data={productionCompanies}
                   type="production"
                   keyItem="id"
                   ListEmptyComponent={this.renderListEmpty}
@@ -416,7 +412,7 @@ export default class MovieDetailsScreen extends Component {
         )}
         <TeamDetail
           isVisible={isVisible}
-          credit_id={credit_id}
+          creditId={creditId}
           actionClose={this.actionPerson}
           style={styles.bottomModal}
         />

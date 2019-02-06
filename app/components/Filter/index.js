@@ -25,13 +25,10 @@ export default class Filter extends Component {
 
   render() {
     const { filter, name, actionFilter, actionSwitchMovie } = this.state;
+    const { isVisible, style } = this.props;
 
     return (
-      <Modal
-        isVisible={this.props.isVisible}
-        actionOpenClose={actionFilter}
-        style={this.props.style}
-      >
+      <Modal isVisible={isVisible} actionOpenClose={actionFilter} style={style}>
         <View style={styles.containerModal}>
           <Text style={styles.modalTitle}>Filter</Text>
           <ScrollView>
@@ -45,7 +42,7 @@ export default class Filter extends Component {
                     Releases
                   </Text>
                   <Switch
-                    value={filter === 'release_date.desc' ? true : false}
+                    value={filter === 'release_date.desc'}
                     onValueChange={() =>
                       this.changeValues('release_date.desc', 'Releases')
                     }
@@ -56,7 +53,7 @@ export default class Filter extends Component {
                     Old
                   </Text>
                   <Switch
-                    value={filter === 'release_date.asc' ? true : false}
+                    value={filter === 'release_date.asc'}
                     onValueChange={() =>
                       this.changeValues('release_date.asc', 'Old')
                     }
@@ -72,7 +69,7 @@ export default class Filter extends Component {
                     Most popular
                   </Text>
                   <Switch
-                    value={filter === 'popularity.desc' ? true : false}
+                    value={filter === 'popularity.desc'}
                     onValueChange={() =>
                       this.changeValues('popularity.desc', 'Most popular')
                     }
@@ -83,7 +80,7 @@ export default class Filter extends Component {
                     Less popular
                   </Text>
                   <Switch
-                    value={filter === 'popularity.asc' ? true : false}
+                    value={filter === 'popularity.asc'}
                     onValueChange={() =>
                       this.changeValues('popularity.asc', 'Less popular')
                     }
@@ -99,7 +96,7 @@ export default class Filter extends Component {
                     Higher revenue
                   </Text>
                   <Switch
-                    value={filter === 'revenue.desc' ? true : false}
+                    value={filter === 'revenue.desc'}
                     onValueChange={() =>
                       this.changeValues('revenue.desc', 'Higher revenue')
                     }
@@ -110,7 +107,7 @@ export default class Filter extends Component {
                     Lowest revenue
                   </Text>
                   <Switch
-                    value={filter === 'revenue.asc' ? true : false}
+                    value={filter === 'revenue.asc'}
                     onValueChange={() =>
                       this.changeValues('revenue.asc', 'Lowest revenue')
                     }

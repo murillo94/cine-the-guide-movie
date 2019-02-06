@@ -4,6 +4,10 @@ import { white, lightGray, darkBlue } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
 
 const styles = StyleSheet.create({
+  buttonFilter: {
+    paddingRight: 15,
+    paddingLeft: 20
+  },
   container: {
     flex: 1,
     backgroundColor: white,

@@ -19,11 +19,6 @@ export default class ConfigurationScreen extends Component {
     hasAdultContent: false
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.hasAdultContent !== nextState.hasAdultContent) return true;
-    return false;
-  }
-
   async componentDidMount() {
     try {
       const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
@@ -32,6 +27,11 @@ export default class ConfigurationScreen extends Component {
     } catch (error) {
       this.showError();
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.hasAdultContent !== nextState.hasAdultContent) return true;
+    return false;
   }
 
   showError = () => {
@@ -125,7 +125,9 @@ export default class ConfigurationScreen extends Component {
             </TouchableOpacity>
             <View style={[styles.item, styles.itemNoBorder]}>
               <Text style={styles.itemTextVersion} numberOfLines={2}>
-                Version {Constants.manifest.version}
+                Version
+                {' '}
+                {Constants.manifest.version}
               </Text>
             </View>
           </View>

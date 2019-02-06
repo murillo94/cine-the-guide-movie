@@ -15,12 +15,12 @@ import styles from './styles';
 const getImageApi = image =>
   image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../assets/images/not_found.png');
+    : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
 
 const convertToDate = date => new Date(date).getFullYear() || '';
 
-const convertToUpperCaseFirstLetter = str => {
-  str = language[str] || '';
+const convertToUpperCaseFirstLetter = value => {
+  const str = language[value] || '';
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
 
@@ -34,22 +34,22 @@ const convertGenre = (arr, type, isSearch) => {
     : type;
 };
 
-const renderDivider = (release_date, original_language) =>
-  release_date && original_language !== 'xx' ? (
+const renderDivider = (releaseDate, originalLanguage) =>
+  releaseDate && originalLanguage !== 'xx' ? (
     <Text style={styles.trace}>|</Text>
   ) : null;
 
-const renderScore = vote_average => {
-  let color =
-    vote_average < 5
+const renderScore = voteAverage => {
+  const color =
+    voteAverage < 5
       ? 'low'
-      : vote_average >= 5 && vote_average < 7
+      : voteAverage >= 5 && voteAverage < 7
       ? 'mid'
       : 'high';
 
   return (
     <View style={[styles.score, styles[color]]}>
-      <Text style={styles.textPercent}>{vote_average}</Text>
+      <Text style={styles.textPercent}>{voteAverage}</Text>
     </View>
   );
 };

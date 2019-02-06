@@ -11,28 +11,28 @@ import styles from './styles';
 
 export default class Search extends Component {
   state = {
-    search: ''
+    value: ''
   };
 
   actionClearSearch = () => {
-    this.setState({ search: '' });
+    this.setState({ value: '' });
   };
 
   actionSubmit = () => {
-    const { search } = this.state;
+    const { value } = this.state;
     const { navigate, typeRequest } = this.props;
 
-    if (search) {
+    if (value) {
       navigate('SearchResults', {
         typeRequest,
-        name: search,
+        name: value,
         id: null
       });
     }
   };
 
   render() {
-    const { search } = this.state;
+    const { value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -47,18 +47,18 @@ export default class Search extends Component {
             <TextInput
               style={styles.textInput}
               onSubmitEditing={this.actionSubmit}
-              onChangeText={search => this.setState({ search })}
-              value={search}
+              onChangeText={search => this.setState({ value: search })}
+              value={value}
               returnKeyType="search"
               keyboardType="default"
-              blurOnSubmit={true}
+              blurOnSubmit
               multiline={false}
               autoCorrect={false}
               underlineColorAndroid="transparent"
               placeholderTextColor={darkGray}
               placeholder="Search"
             />
-            {search.length > 0 && (
+            {value.length > 0 && (
               <TouchableOpacity onPress={this.actionClearSearch}>
                 <Feather
                   style={styles.icon}

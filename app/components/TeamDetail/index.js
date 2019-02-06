@@ -22,28 +22,49 @@ export default class TeamDetail extends Component {
   state = {
     isLoading: false,
     isError: false,
-    credit_id: this.props.credit_id,
-    actionClose: this.props.actionClose
+    id: this.props.creditId
+  };
+
+  getImageApi = () => {
+    const { profilePath } = this.state;
+
+    return profilePath
+      ? { uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }
+      : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+  };
+
+  getAge = () => {
+    const { birthday } = this.state;
+
+    if (birthday) {
+      const today = new Date();
+      const birthDate = new Date(birthday);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age -= 1;
+      return `${age} years`;
+    }
+    return `${uninformed} age`;
   };
 
   requestTeamInfo = async () => {
     try {
       this.setState({ isLoading: true });
 
-      const { credit_id } = this.props;
+      const { creditId } = this.props;
 
-      let data = await request(`person/${parseInt(credit_id)}`);
+      const data = await request(`person/${parseInt(creditId)}`);
 
       this.setState({
         isLoading: false,
         isError: false,
-        credit_id: this.props.credit_id,
-        profile_path: data.profile_path || '',
+        id: creditId,
+        profilePath: data.profile_path || '',
         name: data.name || `${uninformed} name`,
-        known_for_department:
+        knownForDepartment:
           data.known_for_department || `${uninformed} department`,
         birthday: data.birthday || '',
-        place_of_birth: data.place_of_birth || `${uninformed} place of birth`,
+        placeOfBirth: data.place_of_birth || `${uninformed} place of birth`,
         biography: data.biography || uninformed
       });
     } catch (err) {
@@ -54,26 +75,8 @@ export default class TeamDetail extends Component {
     }
   };
 
-  getImageApi(image) {
-    return image
-      ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-      : require('../../assets/images/not_found.png');
-  }
-
-  getAge(birthday) {
-    if (birthday) {
-      var today = new Date();
-      var birthDate = new Date(birthday);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
-      return `${age} years`;
-    }
-    return `${uninformed} age`;
-  }
-
-  renderFooter() {
-    const { actionClose } = this.state;
+  renderFooter = () => {
+    const { actionClose } = this.props;
 
     return (
       <View style={styles.containerRow}>
@@ -86,31 +89,30 @@ export default class TeamDetail extends Component {
         </TouchableOpacity>
       </View>
     );
-  }
+  };
 
   render() {
     const {
       isLoading,
       isError,
-      credit_id,
-      profile_path,
+      id,
       name,
-      known_for_department,
-      birthday,
-      place_of_birth,
-      biography,
-      actionClose
+      knownForDepartment,
+      placeOfBirth,
+      biography
     } = this.state;
+
+    const { isVisible, actionClose, style, creditId } = this.props;
 
     return (
       <Modal
-        isVisible={this.props.isVisible}
+        isVisible={isVisible}
         onModalShow={this.requestTeamInfo}
         actionOpenClose={actionClose}
-        style={this.props.style}
+        style={style}
       >
         <View style={styles.containerModal}>
-          {isLoading || this.props.credit_id !== credit_id ? (
+          {isLoading || creditId !== id ? (
             <Spinner style={styles.containerCenter} />
           ) : isError ? (
             <View style={styles.containerModal}>
@@ -124,7 +126,7 @@ export default class TeamDetail extends Component {
               <ScrollView style={styles.containerScroll}>
                 <View style={styles.containerMainText}>
                   <Image
-                    source={this.getImageApi(profile_path)}
+                    source={this.getImageApi()}
                     style={styles.photo}
                     width={width * 0.33}
                   />
@@ -135,7 +137,7 @@ export default class TeamDetail extends Component {
                         numberOfLines={2}
                         style={[styles.textSmall, styles.textJustify]}
                       >
-                        {known_for_department}
+                        {knownForDepartment}
                       </Text>
                     </View>
                     <View style={styles.containerTitleMargin}>
@@ -143,7 +145,7 @@ export default class TeamDetail extends Component {
                         numberOfLines={2}
                         style={[styles.textSmall, styles.textJustify]}
                       >
-                        {this.getAge(birthday)}
+                        {this.getAge()}
                       </Text>
                     </View>
                     <View style={styles.containerTitleMargin}>
@@ -151,7 +153,7 @@ export default class TeamDetail extends Component {
                         numberOfLines={2}
                         style={[styles.textSmall, styles.textJustify]}
                       >
-                        {place_of_birth}
+                        {placeOfBirth}
                       </Text>
                     </View>
                   </View>

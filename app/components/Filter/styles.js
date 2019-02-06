@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
     height: height * 0.7
   },
   containerScroll: {

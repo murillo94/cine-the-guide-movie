@@ -12,4 +12,4 @@ const ShareCustom = ({ message, url, title, dialogTitle }) =>
     }
   );
 
-export { ShareCustom as Share };
+export { ShareCustom as Share }; // eslint-disable-line import/prefer-default-export

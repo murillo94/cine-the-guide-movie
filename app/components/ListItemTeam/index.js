@@ -10,7 +10,7 @@ const uninformed = 'Uninformed';
 const getImageApi = image => {
   return image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../assets/images/not_found.png');
+    : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
 };
 
 export default class ListItemTeam extends React.PureComponent {

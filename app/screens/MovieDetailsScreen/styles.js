@@ -3,7 +3,13 @@ import { StyleSheet } from 'react-native';
 import { white, pink, blue, darkBlue } from '../../styles/Colors';
 import { fontSizeResponsive, width } from '../../utils/Metrics';
 
+/* eslint-disable react-native/no-color-literals */
+
 const styles = StyleSheet.create({
+  buttonShare: {
+    paddingRight: 15,
+    paddingLeft: 20
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -11,7 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: white
   },
   containerMainPhoto: {
-    width: width,
+    width,
     height: width * 0.6
   },
   mainPhoto: {
@@ -50,6 +56,12 @@ const styles = StyleSheet.create({
   photoStar: {
     flexDirection: 'row',
     marginTop: 8
+  },
+  buttonPlay: {
+    marginLeft: 5
+  },
+  star: {
+    marginRight: 5
   },
   containerMovieInfo: {
     margin: 20,

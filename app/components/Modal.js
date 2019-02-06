@@ -13,8 +13,8 @@ const ModalCustom = ({
     onModalShow={onModalShow}
     onBackdropPress={actionOpenClose}
     onBackButtonPress={actionOpenClose}
-    hideModalContentWhileAnimating={true}
-    useNativeDriver={true}
+    hideModalContentWhileAnimating
+    useNativeDriver
     backdropOpacity={0.5}
     style={style}
   >
@@ -22,4 +22,4 @@ const ModalCustom = ({
   </Modal>
 );
 
-export { ModalCustom as Modal };
+export { ModalCustom as Modal }; // eslint-disable-line import/prefer-default-export

@@ -18,7 +18,7 @@ export default class SearchScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Search typeRequest={'search'} navigate={navigate} />
+        <Search typeRequest="search" navigate={navigate} />
         <ScrollView style={styles.containerList}>
           {Object.keys(genre).map(id => (
             <TouchableOpacity

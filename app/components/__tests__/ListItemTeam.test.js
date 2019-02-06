@@ -11,7 +11,7 @@ const props = {
 
 test('should verify if has only one Image in character mode', () => {
   const { getAllByType } = render(
-    <ListItemTeam {...props} type={'character'} />
+    <ListItemTeam {...props} type="character" />
   );
   const image = getAllByType('Image');
 
@@ -27,7 +27,7 @@ test('should verify if has only one Image in production mode', () => {
 
 test('should verify if title text has numberOfLines equal to 1 in character mode', () => {
   const { getAllByType } = render(
-    <ListItemTeam {...props} type={'character'} />
+    <ListItemTeam {...props} type="character" />
   );
   const [title, name] = getAllByType('Text');
 

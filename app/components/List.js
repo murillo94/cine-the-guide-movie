@@ -29,7 +29,7 @@ const List = ({
     data={data}
     key={keyGrid}
     numColumns={numColumns}
-    removeClippedSubviews={true}
+    removeClippedSubviews
     keyExtractor={item => item.id.toString()}
     refreshing={refreshing}
     onRefresh={onRefresh}
