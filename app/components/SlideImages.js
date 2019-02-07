@@ -4,7 +4,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import Spinner from './Spinner';
 
-import { white } from "../styles/Colors";
+import { white } from '../styles/Colors';
 
 const SlideImages = ({
   showImage = false,

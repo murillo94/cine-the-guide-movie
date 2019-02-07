@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 const ModalCustom = ({
   isVisible = false,
   onModalShow = () => null,
-  actionOpenClose = null,
+  actionOpenClose = () => null,
   style = {},
   children = null
 }) => (
