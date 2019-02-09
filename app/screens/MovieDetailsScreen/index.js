@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, Image } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
-import { FontAwesome, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 
 import { Alert } from '../../components/Alert';
 import { Share } from '../../components/Share';
 import Spinner from '../../components/Spinner';
 import Error from '../../components/Error';
+import PosterDetail from '../../components/PosterDetail';
 import TeamDetail from '../../components/TeamDetail';
 import ListTeam from '../../components/ListTeam';
-import SlideImages from '../../components/SlideImages';
+import SectionDetail from '../../components/SectionDetail';
+import ListInfoDetail from '../../components/ListInfoDetail';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 
 import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
-import { width } from '../../utils/Metrics';
-import { darkBlue, white } from '../../styles/Colors';
+import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
@@ -96,13 +97,6 @@ export default class MovieDetailsScreen extends Component {
         title: data.title || '',
         voteAverage: data.vote_average || 0,
         video: data.videos.results[0] || [],
-        runtime: data.runtime || 0,
-        originalLanguage: language[data.original_language] || '',
-        genre: this.sliceArrayLength(data.genres, 2) || '',
-        releaseDate: data.release_date || '',
-        budget: data.budget || 0,
-        revenue: data.revenue || 0,
-        adult: data.adult || '',
         overview: data.overview || uninformed,
         cast: this.sliceArrayLength(data.credits.cast, 15),
         crew: this.sliceArrayLength(data.credits.crew, 15),
@@ -110,7 +104,8 @@ export default class MovieDetailsScreen extends Component {
           data.production_companies,
           10
         ),
-        images: this.formatImageUrl(data.images.backdrops)
+        images: this.formatImageUrl(data.images.backdrops),
+        infosDetail: this.getInfosDetail(data)
       });
     } catch (err) {
       this.setState({
@@ -120,13 +115,29 @@ export default class MovieDetailsScreen extends Component {
     }
   };
 
-  getImageApi = () => {
-    const { backdropPath } = this.state;
-
-    return backdropPath
-      ? { uri: `https://image.tmdb.org/t/p/w500/${backdropPath}` }
-      : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+  /* eslint-disable camelcase */
+  getInfosDetail = ({
+    runtime,
+    genres,
+    original_language,
+    release_date,
+    budget,
+    revenue,
+    adult
+  }) => {
+    return {
+      Duration: this.convertMinsToHrsMins(runtime || 0),
+      Genre: this.convertToGenre(this.sliceArrayLength(genres, 2) || ''),
+      Language: this.convertToUpperCaseFirstLetter(
+        language[original_language] || ''
+      ),
+      Release: this.convertToDate(release_date || ''),
+      Budget: this.convertToDolar(budget || 0),
+      Revenue: this.convertToDolar(revenue || 0),
+      Adult: this.convertAdult(adult || '')
+    };
   };
+  /* eslint-enable camelcase */
 
   formatImageUrl = images => {
     return this.sliceArrayLength(images, 15).map(item => {
@@ -145,38 +156,9 @@ export default class MovieDetailsScreen extends Component {
     );
   };
 
-  convertAdult = () => {
-    const { adult } = this.state;
+  convertAdult = adult => (adult === false ? 'Yes' : 'No' || uninformed);
 
-    return adult === false ? 'Yes' : 'No' || uninformed;
-  };
-
-  convertRatingToStars = () => {
-    let { voteAverage } = this.state;
-
-    voteAverage = voteAverage > 5 ? Math.round(voteAverage) : voteAverage;
-    const length =
-      voteAverage !== 10
-        ? parseInt(`${voteAverage}`.charAt(0)) - 5
-        : voteAverage - 5;
-    return voteAverage <= 5
-      ? null
-      : /* eslint-disable react/no-array-index-key */
-        [...Array(length)].map((e, i) => (
-          <FontAwesome
-            key={i}
-            name="star"
-            size={width * 0.06}
-            color={white}
-            style={styles.star}
-          />
-        ));
-    /* eslint-enable react/no-array-index-key */
-  };
-
-  convertMinsToHrsMins = () => {
-    const { runtime } = this.state;
-
+  convertMinsToHrsMins = runtime => {
     let h = Math.floor(runtime / 60);
     let m = runtime % 60;
     h = h < 10 ? `0${h}` : h;
@@ -184,9 +166,7 @@ export default class MovieDetailsScreen extends Component {
     return h && m ? `${h}h ${m}m` : uninformed;
   };
 
-  convertToGenre = () => {
-    const { genre } = this.state;
-
+  convertToGenre = genre => {
     return genre.length > 0
       ? genre.length > 1
         ? `${genre[0].name}, ${genre[1].name}`
@@ -194,15 +174,11 @@ export default class MovieDetailsScreen extends Component {
       : uninformed;
   };
 
-  convertToUpperCaseFirstLetter = () => {
-    const { originalLanguage } = this.state;
-
+  convertToUpperCaseFirstLetter = originalLanguage => {
     return originalLanguage.charAt(0).toUpperCase() + originalLanguage.slice(1);
   };
 
-  convertToDate = () => {
-    const { releaseDate } = this.state;
-
+  convertToDate = releaseDate => {
     const date = new Date(releaseDate);
     return (
       `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}` ||
@@ -214,13 +190,6 @@ export default class MovieDetailsScreen extends Component {
     this.setState(({ isVisible }) => {
       return { creditId, isVisible: !isVisible };
     });
-  };
-
-  actionPlayVideo = () => {
-    const { key } = this.state.video;
-    const { navigate } = this.props.navigation;
-
-    navigate('WebView', { key });
   };
 
   actionImage = () => {
@@ -257,10 +226,11 @@ export default class MovieDetailsScreen extends Component {
     const {
       isLoading,
       isError,
+      backdropPath,
+      voteAverage,
       video,
       title,
-      budget,
-      revenue,
+      infosDetail,
       overview,
       cast,
       crew,
@@ -271,6 +241,8 @@ export default class MovieDetailsScreen extends Component {
       showImage
     } = this.state;
 
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
         {isLoading ? (
@@ -279,89 +251,19 @@ export default class MovieDetailsScreen extends Component {
           <Error icon="alert-octagon" action={this.requestMoviesInfo} />
         ) : (
           <ScrollView>
-            <View style={styles.containerMainPhoto}>
-              <Image
-                source={this.getImageApi()}
-                style={styles.mainPhoto}
-                resizeMode="cover"
-              />
-              {video && video.site === 'YouTube' && (
-                <TouchableOpacity
-                  style={styles.play}
-                  onPress={this.actionPlayVideo}
-                >
-                  <FontAwesome
-                    name="play"
-                    size={width * 0.07}
-                    color={white}
-                    style={styles.buttonPlay}
-                  />
-                </TouchableOpacity>
-              )}
-              <TouchableOpacity
-                style={styles.containerMainPhotoInfo}
-                activeOpacity={images.length ? 0.5 : 1}
-                onPress={images.length ? this.actionImage : null}
-              >
-                <View style={styles.containerBackgroundPhotoInfo}>
-                  <Text numberOfLines={2} style={styles.photoInfo}>
-                    {title}
-                  </Text>
-                  <View style={styles.photoStar}>
-                    {this.convertRatingToStars()}
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <PosterDetail
+              title={title}
+              backdropPath={backdropPath}
+              voteAverage={voteAverage}
+              images={images}
+              video={video}
+              navigate={navigate}
+              showImage={showImage}
+              onPress={this.actionImage}
+            />
             <View style={styles.containerMovieInfo}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={styles.movieFirstInfo}
-              >
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Duration</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertMinsToHrsMins()}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Genre</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertToGenre()}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Language</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertToUpperCaseFirstLetter()}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Release</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertToDate()}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Budget</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertToDolar(budget)}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Revenue</Text>
-                  <Text style={styles.subTitleInfo}>
-                    {this.convertToDolar(revenue)}
-                  </Text>
-                </View>
-                <View style={styles.movieInfo}>
-                  <Text style={styles.titleInfo}>Adult</Text>
-                  <Text style={styles.subTitleInfo}>{this.convertAdult()}</Text>
-                </View>
-              </ScrollView>
-              <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>Synopsis</Text>
+              <ListInfoDetail data={infosDetail} />
+              <SectionDetail title="Synopsis">
                 <ReadMore
                   numberOfLines={3}
                   renderTruncatedFooter={renderTruncatedFooter}
@@ -369,9 +271,8 @@ export default class MovieDetailsScreen extends Component {
                 >
                   <Text style={styles.subTitleInfo}>{overview}</Text>
                 </ReadMore>
-              </View>
-              <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>Main cast</Text>
+              </SectionDetail>
+              <SectionDetail title="Main cast">
                 <ListTeam
                   data={cast}
                   type="character"
@@ -379,9 +280,8 @@ export default class MovieDetailsScreen extends Component {
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
                 />
-              </View>
-              <View style={styles.movieSecondInfo}>
-                <Text style={styles.titleInfo}>Main technical team</Text>
+              </SectionDetail>
+              <SectionDetail title="Main technical team">
                 <ListTeam
                   data={crew}
                   type="job"
@@ -389,9 +289,8 @@ export default class MovieDetailsScreen extends Component {
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
                 />
-              </View>
-              <View style={[styles.movieSecondInfo, styles.movieLastInfo]}>
-                <Text style={styles.titleInfo}>Producer</Text>
+              </SectionDetail>
+              <SectionDetail title="Producer" isLast>
                 <ListTeam
                   data={productionCompanies}
                   type="production"
@@ -399,15 +298,8 @@ export default class MovieDetailsScreen extends Component {
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
                 />
-              </View>
+              </SectionDetail>
             </View>
-            {images.length ? (
-              <SlideImages
-                showImage={showImage}
-                images={images}
-                actionClose={this.actionImage}
-              />
-            ) : null}
           </ScrollView>
         )}
         <TeamDetail
