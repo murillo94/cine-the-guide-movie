@@ -2,11 +2,11 @@ import React from 'react';
 import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
-import Spinner from './Spinner';
+import Spinner from '../common/Spinner';
 
-import { white } from '../styles/Colors';
+import { white } from '../../styles/Colors';
 
-const SlideImages = ({
+const ImagesModal = ({
   showImage = false,
   images = [],
   actionClose = null
@@ -28,4 +28,4 @@ const SlideImages = ({
   </Modal>
 );
 
-export default SlideImages;
+export default ImagesModal;

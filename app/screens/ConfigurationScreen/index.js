@@ -4,10 +4,10 @@ import { ScrollView, View, Text } from 'react-native';
 import { Constants } from 'expo';
 import { Feather } from '@expo/vector-icons';
 
-import { Alert } from '../../components/Alert';
-import { Share } from '../../components/Share';
-import { TouchableOpacity } from '../../components/TouchableOpacity';
-import { Switch } from '../../components/Switch';
+import { Alert } from '../../components/common/Alert';
+import { Share } from '../../components/common/Share';
+import { TouchableOpacity } from '../../components/common/TouchableOpacity';
+import { Switch } from '../../components/common/Switch';
 
 import { getItem, setItem } from '../../utils/AsyncStorage';
 import { darkBlue } from '../../styles/Colors';
@@ -125,9 +125,7 @@ export default class ConfigurationScreen extends Component {
             </TouchableOpacity>
             <View style={[styles.item, styles.itemNoBorder]}>
               <Text style={styles.itemTextVersion} numberOfLines={2}>
-                Version
-                {' '}
-                {Constants.manifest.version}
+                Version {Constants.manifest.version}
               </Text>
             </View>
           </View>

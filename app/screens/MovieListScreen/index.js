@@ -5,11 +5,12 @@ import { View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
 
-import Spinner from '../../components/Spinner';
+import Spinner from '../../components/common/Spinner';
 import Error from '../../components/Error';
-import Filter from '../../components/Filter';
+import FilterModal from '../../components/modals/FilterModal';
 import List from '../../components/List';
-import { TouchableOpacity } from '../../components/TouchableOpacity';
+import CardMovie from '../../components/cards/CardMovie';
+import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/Api';
 
@@ -121,6 +122,16 @@ export default class MovieListScreen extends Component {
       });
     }
   };
+
+  renderItem = (item, type, isSearch, numColumns, navigate) => (
+    <CardMovie
+      item={item}
+      type={type}
+      isSearch={isSearch}
+      numColumns={numColumns}
+      navigate={navigate}
+    />
+  );
 
   renderFooter = () => {
     const { isLoadingMore, totalPages, page, results } = this.state;
@@ -245,10 +256,11 @@ export default class MovieListScreen extends Component {
               onRefresh={this.actionRefresh}
               ListFooterComponent={this.renderFooter}
               navigate={navigate}
+              renderItem={this.renderItem}
             />
           </View>
         )}
-        <Filter
+        <FilterModal
           isVisible={isVisible}
           filterType={filterType}
           filterName={filterName}

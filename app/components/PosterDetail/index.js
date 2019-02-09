@@ -3,8 +3,8 @@ import { View, Text, Image } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 
-import SlideImages from '../SlideImages';
-import { TouchableOpacity } from '../TouchableOpacity';
+import ImagesModal from '../modals/ImagesModal';
+import { TouchableOpacity } from '../common/TouchableOpacity';
 
 import { width } from '../../utils/Metrics';
 import { white } from '../../styles/Colors';
@@ -86,7 +86,7 @@ const PosterDetail = ({
       </View>
     </TouchableOpacity>
     {images.length ? (
-      <SlideImages
+      <ImagesModal
         showImage={showImage}
         images={images}
         actionClose={onPress}

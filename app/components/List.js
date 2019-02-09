@@ -1,18 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-import ListItem from './ListItem';
-
-const renderItem = (item, type, isSearch, numColumns, navigate) => (
-  <ListItem
-    item={item}
-    type={type}
-    isSearch={isSearch}
-    numColumns={numColumns}
-    navigate={navigate}
-  />
-);
-
 const List = ({
   data,
   type,
@@ -23,7 +11,8 @@ const List = ({
   onRefresh,
   ListFooterComponent,
   ListEmptyComponent,
-  navigate
+  navigate,
+  renderItem
 }) => (
   <FlatList
     data={data}

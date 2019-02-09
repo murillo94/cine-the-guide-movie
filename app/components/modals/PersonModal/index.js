@@ -4,21 +4,21 @@ import { ScrollView, View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
-import Spinner from '../Spinner';
-import Error from '../Error';
+import Spinner from '../../common/Spinner';
+import Error from '../../Error';
 import { Modal } from '../Modal';
-import { TouchableOpacity } from '../TouchableOpacity';
+import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import request from '../../services/Api';
+import request from '../../../services/Api';
 
-import { width } from '../../utils/Metrics';
-import { darkBlue } from '../../styles/Colors';
+import { width } from '../../../utils/Metrics';
+import { darkBlue } from '../../../styles/Colors';
 
 import styles from './styles';
 
 const uninformed = 'Uninformed';
 
-export default class TeamDetail extends Component {
+export default class PersonModal extends Component {
   state = {
     isLoading: false,
     isError: false,
@@ -30,7 +30,7 @@ export default class TeamDetail extends Component {
 
     return profilePath
       ? { uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }
-      : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+      : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
   };
 
   getAge = () => {

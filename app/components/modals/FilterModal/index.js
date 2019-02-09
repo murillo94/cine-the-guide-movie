@@ -4,14 +4,14 @@ import { View, Text, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import { Modal } from '../Modal';
-import { TouchableOpacity } from '../TouchableOpacity';
-import { Switch } from '../Switch';
+import { TouchableOpacity } from '../../common/TouchableOpacity';
+import { Switch } from '../../common/Switch';
 
-import { darkBlue } from '../../styles/Colors';
+import { darkBlue } from '../../../styles/Colors';
 
 import styles from './styles';
 
-export default class Filter extends Component {
+export default class FilterModal extends Component {
   state = {
     filter: this.props.filterType,
     name: this.props.filterName,

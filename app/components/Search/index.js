@@ -3,7 +3,7 @@ import { View, TextInput } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
-import { TouchableOpacity } from '../TouchableOpacity';
+import { TouchableOpacity } from '../common/TouchableOpacity';
 
 import { darkGray } from '../../styles/Colors';
 

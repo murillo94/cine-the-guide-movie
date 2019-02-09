@@ -4,16 +4,17 @@ import { ScrollView, View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 
-import { Alert } from '../../components/Alert';
-import { Share } from '../../components/Share';
-import Spinner from '../../components/Spinner';
+import { Alert } from '../../components/common/Alert';
+import { Share } from '../../components/common/Share';
+import Spinner from '../../components/common/Spinner';
 import Error from '../../components/Error';
 import PosterDetail from '../../components/PosterDetail';
-import TeamDetail from '../../components/TeamDetail';
+import PersonModal from '../../components/modals/PersonModal';
 import ListTeam from '../../components/ListTeam';
+import CardPerson from '../../components/cards/CardPerson';
 import SectionDetail from '../../components/SectionDetail';
 import ListInfoDetail from '../../components/ListInfoDetail';
-import { TouchableOpacity } from '../../components/TouchableOpacity';
+import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/Api';
 
@@ -216,6 +217,10 @@ export default class MovieDetailsScreen extends Component {
     }
   };
 
+  renderItem = (item, type, actionTeamDetail) => (
+    <CardPerson item={item} type={type} actionTeamDetail={actionTeamDetail} />
+  );
+
   renderListEmpty = () => (
     <View>
       <Text style={styles.subTitleInfo}>Uninformed</Text>
@@ -279,6 +284,7 @@ export default class MovieDetailsScreen extends Component {
                   keyItem="creditId"
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
+                  renderItem={this.renderItem}
                 />
               </SectionDetail>
               <SectionDetail title="Main technical team">
@@ -288,6 +294,7 @@ export default class MovieDetailsScreen extends Component {
                   keyItem="creditId"
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
+                  renderItem={this.renderItem}
                 />
               </SectionDetail>
               <SectionDetail title="Producer" isLast>
@@ -297,12 +304,13 @@ export default class MovieDetailsScreen extends Component {
                   keyItem="id"
                   ListEmptyComponent={this.renderListEmpty}
                   actionTeamDetail={this.actionPerson}
+                  renderItem={this.renderItem}
                 />
               </SectionDetail>
             </View>
           </ScrollView>
         )}
-        <TeamDetail
+        <PersonModal
           isVisible={isVisible}
           creditId={creditId}
           actionClose={this.actionPerson}

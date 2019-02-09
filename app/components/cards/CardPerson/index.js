@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 
-import { TouchableOpacity } from '../TouchableOpacity';
+import { TouchableOpacity } from '../../common/TouchableOpacity';
 
 import styles from './styles';
 
@@ -10,10 +10,10 @@ const uninformed = 'Uninformed';
 const getImageApi = image => {
   return image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+    : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
 };
 
-export default class ListItemTeam extends React.PureComponent {
+export default class CardPerson extends React.PureComponent {
   render() {
     const { type, item, actionTeamDetail } = this.props;
 

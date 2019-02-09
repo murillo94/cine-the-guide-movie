@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
-import SlideImages from '../SlideImages';
+import ImagesModal from '../modals/ImagesModal';
 
-test('should verify if renders slideImages', () => {
-  const { getByType } = render(<SlideImages />);
+test('should verify if renders images modal', () => {
+  const { getByType } = render(<ImagesModal />);
   const modal = getByType('Modal');
 
   expect(getByType('Modal')).toBe(modal);

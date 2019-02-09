@@ -3,19 +3,19 @@ import { View, Text } from 'react-native';
 
 import Image from 'react-native-scalable-image';
 
-import language from '../../assets/language/iso.json';
-import genre from '../../assets/genre/ids.json';
+import language from '../../../assets/language/iso.json';
+import genre from '../../../assets/genre/ids.json';
 
-import { TouchableOpacity } from '../TouchableOpacity';
+import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import { width } from '../../utils/Metrics';
+import { width } from '../../../utils/Metrics';
 
 import styles from './styles';
 
 const getImageApi = image =>
   image
     ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+    : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
 
 const convertToDate = date => new Date(date).getFullYear() || '';
 
@@ -54,7 +54,7 @@ const renderScore = voteAverage => {
   );
 };
 
-export default class ListItem extends React.PureComponent {
+export default class CardMovie extends React.PureComponent {
   render() {
     const { numColumns, item, type, isSearch, navigate } = this.props;
 

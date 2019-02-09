@@ -1,18 +1,13 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-import ListItemTeam from './ListItemTeam';
-
-const renderItem = (item, type, actionTeamDetail) => (
-  <ListItemTeam item={item} type={type} actionTeamDetail={actionTeamDetail} />
-);
-
 const ListTeam = ({
   data,
   type,
   keyItem,
   ListEmptyComponent,
-  actionTeamDetail
+  actionTeamDetail,
+  renderItem
 }) => (
   <FlatList
     data={data}
