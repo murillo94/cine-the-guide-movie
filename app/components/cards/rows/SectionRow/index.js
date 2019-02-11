@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 import styles from './styles';
 
-const SectionDetail = ({
+const SectionRow = ({
   title = '',
   isLast = false,
   hasSubTitle = false,
@@ -21,4 +21,4 @@ const SectionDetail = ({
   </View>
 );
 
-export default SectionDetail;
+export default SectionRow;

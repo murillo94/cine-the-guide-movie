@@ -7,13 +7,13 @@ import ReadMore from 'react-native-read-more-text';
 import { Alert } from '../../components/common/Alert';
 import { Share } from '../../components/common/Share';
 import Spinner from '../../components/common/Spinner';
-import Error from '../../components/Error';
-import PosterDetail from '../../components/PosterDetail';
+import NotificationCard from '../../components/cards/NotificationCard';
+import PosterRow from '../../components/cards/rows/PosterRow';
 import PersonModal from '../../components/modals/PersonModal';
-import ListTeam from '../../components/ListTeam';
-import CardPerson from '../../components/cards/CardPerson';
-import SectionDetail from '../../components/SectionDetail';
-import ListInfoDetail from '../../components/ListInfoDetail';
+import PersonListRow from '../../components/cards/rows/PersonListRow';
+import PersonRow from '../../components/cards/rows/PersonRow';
+import SectionRow from '../../components/cards/rows/SectionRow';
+import MainInfoRow from '../../components/cards/rows/MainInfoRow';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/Api';
@@ -218,7 +218,7 @@ export default class MovieDetailsScreen extends Component {
   };
 
   renderItem = (item, type, actionTeamDetail) => (
-    <CardPerson item={item} type={type} actionTeamDetail={actionTeamDetail} />
+    <PersonRow item={item} type={type} actionTeamDetail={actionTeamDetail} />
   );
 
   renderListEmpty = () => (
@@ -253,10 +253,13 @@ export default class MovieDetailsScreen extends Component {
         {isLoading ? (
           <Spinner />
         ) : isError ? (
-          <Error icon="alert-octagon" action={this.requestMoviesInfo} />
+          <NotificationCard
+            icon="alert-octagon"
+            action={this.requestMoviesInfo}
+          />
         ) : (
           <ScrollView>
-            <PosterDetail
+            <PosterRow
               title={title}
               backdropPath={backdropPath}
               voteAverage={voteAverage}
@@ -267,8 +270,8 @@ export default class MovieDetailsScreen extends Component {
               onPress={this.actionImage}
             />
             <View style={styles.containerMovieInfo}>
-              <ListInfoDetail data={infosDetail} />
-              <SectionDetail title="Synopsis">
+              <MainInfoRow data={infosDetail} />
+              <SectionRow title="Synopsis">
                 <ReadMore
                   numberOfLines={3}
                   renderTruncatedFooter={renderTruncatedFooter}
@@ -276,9 +279,9 @@ export default class MovieDetailsScreen extends Component {
                 >
                   <Text style={styles.subTitleInfo}>{overview}</Text>
                 </ReadMore>
-              </SectionDetail>
-              <SectionDetail title="Main cast">
-                <ListTeam
+              </SectionRow>
+              <SectionRow title="Main cast">
+                <PersonListRow
                   data={cast}
                   type="character"
                   keyItem="creditId"
@@ -286,9 +289,9 @@ export default class MovieDetailsScreen extends Component {
                   actionTeamDetail={this.actionPerson}
                   renderItem={this.renderItem}
                 />
-              </SectionDetail>
-              <SectionDetail title="Main technical team">
-                <ListTeam
+              </SectionRow>
+              <SectionRow title="Main technical team">
+                <PersonListRow
                   data={crew}
                   type="job"
                   keyItem="creditId"
@@ -296,9 +299,9 @@ export default class MovieDetailsScreen extends Component {
                   actionTeamDetail={this.actionPerson}
                   renderItem={this.renderItem}
                 />
-              </SectionDetail>
-              <SectionDetail title="Producer" isLast>
-                <ListTeam
+              </SectionRow>
+              <SectionRow title="Producer" isLast>
+                <PersonListRow
                   data={productionCompanies}
                   type="production"
                   keyItem="id"
@@ -306,7 +309,7 @@ export default class MovieDetailsScreen extends Component {
                   actionTeamDetail={this.actionPerson}
                   renderItem={this.renderItem}
                 />
-              </SectionDetail>
+              </SectionRow>
             </View>
           </ScrollView>
         )}

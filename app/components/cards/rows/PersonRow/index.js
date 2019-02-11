@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 
-import { TouchableOpacity } from '../../common/TouchableOpacity';
+import { TouchableOpacity } from '../../../common/TouchableOpacity';
+
+import { notFound } from '../../../../utils/StaticImages';
 
 import styles from './styles';
 
 const uninformed = 'Uninformed';
 
 const getImageApi = image => {
-  return image
-    ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
+  return image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
 };
 
-export default class CardPerson extends React.PureComponent {
+export default class PersonRow extends React.PureComponent {
   render() {
     const { type, item, actionTeamDetail } = this.props;
 

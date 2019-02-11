@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-const List = ({
+const MovieListRow = ({
   data,
   type,
   isSearch,
@@ -30,4 +30,4 @@ const List = ({
   />
 );
 
-export default List;
+export default MovieListRow;

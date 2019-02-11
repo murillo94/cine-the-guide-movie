@@ -4,9 +4,9 @@ import { View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import Spinner from '../../components/common/Spinner';
-import Error from '../../components/Error';
-import List from '../../components/List';
-import CardMovie from '../../components/cards/CardMovie';
+import NotificationCard from '../../components/cards/NotificationCard';
+import MovieListRow from '../../components/cards/rows/MovieListRow';
+import MovieRow from '../../components/cards/rows/MovieRow';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/Api';
@@ -100,7 +100,7 @@ export default class SearchResultsScreen extends Component {
   };
 
   renderItem = (item, type, isSearch, numColumns, navigate) => (
-    <CardMovie
+    <MovieRow
       item={item}
       type={type}
       isSearch={isSearch}
@@ -168,9 +168,15 @@ export default class SearchResultsScreen extends Component {
         {isLoading && !isLoadingMore ? (
           <Spinner />
         ) : isError ? (
-          <Error icon="alert-octagon" action={this.requestMoviesList} />
+          <NotificationCard
+            icon="alert-octagon"
+            action={this.requestMoviesList}
+          />
         ) : results.length === 0 ? (
-          <Error icon="thumbs-down" textError="No results available." />
+          <NotificationCard
+            icon="thumbs-down"
+            textError="No results available."
+          />
         ) : (
           <View style={styles.containerList}>
             {results.length > 0 && (
@@ -189,7 +195,7 @@ export default class SearchResultsScreen extends Component {
                 </TouchableOpacity>
               </View>
             )}
-            <List
+            <MovieListRow
               data={results}
               type={name}
               isSearch={typeRequest === 'search'}

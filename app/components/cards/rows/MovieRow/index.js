@@ -3,19 +3,18 @@ import { View, Text } from 'react-native';
 
 import Image from 'react-native-scalable-image';
 
-import language from '../../../assets/language/iso.json';
-import genre from '../../../assets/genre/ids.json';
+import language from '../../../../assets/language/iso.json';
+import genre from '../../../../assets/genre/ids.json';
 
-import { TouchableOpacity } from '../../common/TouchableOpacity';
+import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { width } from '../../../utils/Metrics';
+import { width } from '../../../../utils/Metrics';
+import { notFound } from '../../../../utils/StaticImages';
 
 import styles from './styles';
 
 const getImageApi = image =>
-  image
-    ? { uri: `https://image.tmdb.org/t/p/w500/${image}` }
-    : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
+  image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
 
 const convertToDate = date => new Date(date).getFullYear() || '';
 
@@ -54,7 +53,7 @@ const renderScore = voteAverage => {
   );
 };
 
-export default class CardMovie extends React.PureComponent {
+export default class MovieRow extends React.PureComponent {
   render() {
     const { numColumns, item, type, isSearch, navigate } = this.props;
 

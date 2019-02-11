@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 
-import Search from '../../components/Search';
+import Search from '../../components/common/Search';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import genre from '../../assets/genre/ids.json';

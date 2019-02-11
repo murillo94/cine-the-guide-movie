@@ -5,13 +5,14 @@ import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
 import Spinner from '../../common/Spinner';
-import Error from '../../Error';
+import NotificationCard from '../../cards/NotificationCard';
 import { Modal } from '../Modal';
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 
 import request from '../../../services/Api';
 
 import { width } from '../../../utils/Metrics';
+import { notFound } from '../../../utils/StaticImages';
 import { darkBlue } from '../../../styles/Colors';
 
 import styles from './styles';
@@ -30,7 +31,7 @@ export default class PersonModal extends Component {
 
     return profilePath
       ? { uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }
-      : require('../../../assets/images/not_found.png'); // eslint-disable-line global-require
+      : notFound;
   };
 
   getAge = () => {
@@ -117,7 +118,10 @@ export default class PersonModal extends Component {
           ) : isError ? (
             <View style={styles.containerModal}>
               <ScrollView style={styles.containerScroll}>
-                <Error icon="alert-octagon" action={this.requestTeamInfo} />
+                <NotificationCard
+                  icon="alert-octagon"
+                  action={this.requestTeamInfo}
+                />
               </ScrollView>
               {this.renderFooter()}
             </View>

@@ -3,18 +3,19 @@ import { View, Text, Image } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 
-import ImagesModal from '../modals/ImagesModal';
-import { TouchableOpacity } from '../common/TouchableOpacity';
+import ImagesModal from '../../../modals/ImagesModal';
+import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { width } from '../../utils/Metrics';
-import { white } from '../../styles/Colors';
+import { width } from '../../../../utils/Metrics';
+import { notFound } from '../../../../utils/StaticImages';
+import { white } from '../../../../styles/Colors';
 
 import styles from './styles';
 
 getImageApi = backdropPath => {
   return backdropPath
     ? { uri: `https://image.tmdb.org/t/p/w500/${backdropPath}` }
-    : require('../../assets/images/not_found.png'); // eslint-disable-line global-require
+    : notFound;
 };
 
 convertRatingToStars = voteAverage => {
@@ -42,7 +43,7 @@ actionPlayVideo = (video, navigate) => {
   navigate('WebView', { key });
 };
 
-const PosterDetail = ({
+const PosterRow = ({
   title,
   backdropPath,
   voteAverage,
@@ -95,4 +96,4 @@ const PosterDetail = ({
   </View>
 );
 
-export default PosterDetail;
+export default PosterRow;

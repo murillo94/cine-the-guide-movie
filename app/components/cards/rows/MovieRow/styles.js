@@ -7,8 +7,8 @@ import {
   lightRed,
   lightYellow,
   lightGreen
-} from '../../../styles/Colors';
-import { fontSizeResponsive } from '../../../utils/Metrics';
+} from '../../../../styles/Colors';
+import { fontSizeResponsive } from '../../../../utils/Metrics';
 
 const styles = StyleSheet.create({
   containerItem: {

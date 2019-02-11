@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
-const ListTeam = ({
+const PersonListRow = ({
   data,
   type,
   keyItem,
@@ -22,4 +22,4 @@ const ListTeam = ({
   />
 );
 
-export default ListTeam;
+export default PersonListRow;
