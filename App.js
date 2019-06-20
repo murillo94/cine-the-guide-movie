@@ -1,5 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
+
+import { Feather } from '@expo/vector-icons';
 import {
   createAppContainer,
   createStackNavigator,
@@ -7,8 +9,6 @@ import {
   createSwitchNavigator
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-
-import { Feather } from '@expo/vector-icons';
 
 import MovieListScreen from './app/screens/MovieListScreen';
 import ConfigurationScreen from './app/screens/ConfigurationScreen';

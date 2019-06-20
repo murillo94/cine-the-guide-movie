@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Asset } from 'expo';
 import { View, Text } from 'react-native';
 
+import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
 

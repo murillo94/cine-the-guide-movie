@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
 
 import { Alert } from '../../components/common/Alert';
