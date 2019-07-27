@@ -51,9 +51,11 @@ If the feature is big, open an issue first for discussion.
 - `git clone git@github.com:murillo94/cine-the-guide-movie.git`
 - `yarn install`
 
-To open the project, use:
+To open the project, choose one:
 
-- `yarn ios` or `yarn android`
+- `yarn ios`
+- `yarn android`
+- `yarn start`
 
 ## License
 

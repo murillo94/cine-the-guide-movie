@@ -1,11 +1,11 @@
 {
-  presets: ['expo'],
-  plugins: [
+  "presets": ["expo"],
+  "plugins": [
     [
-      'module-resolver',
+      "module-resolver",
       {
-        alias: {
-          'react-native-vector-icons': '@expo/vector-icons'
+        "alias": {
+          "react-native-vector-icons": "@expo/vector-icons"
         }
       }
     ]

@@ -4,34 +4,34 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.2.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-native": "^3.6.0",
-    "husky": "^1.3.1",
-    "jest-expo": "~33.0.0",
-    "lint-staged": "^8.1.3",
-    "prettier": "^1.16.4",
-    "react-test-renderer": "16.5.0",
-    "w3c-xmlhttprequest": "^2.1.3"
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.14.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-native": "^3.7.0",
+    "husky": "^3.0.1",
+    "jest-expo": "^34.0.0",
+    "lint-staged": "^9.2.1",
+    "node-fetch": "^2.6.0",
+    "prettier": "^1.18.2",
+    "react-native-testing-library": "^1.11.1",
+    "react-test-renderer": "16.8.6"
   },
   "dependencies": {
-    "@expo/vector-icons": "^10.0.2",
+    "@expo/vector-icons": "^10.0.3",
     "expo": "^33.0.0",
-    "expo-asset": "^5.0.1",
-    "expo-constants": "^5.0.1",
+    "expo-asset": "^6.0.0",
+    "expo-constants": "^6.0.0",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-image-zoom-viewer": "^2.2.26",
-    "react-native-modal": "^11.0.2",
+    "react-native-modal": "^11.2.0",
     "react-native-read-more-text": "^1.1.0",
     "react-native-scalable-image": "^0.5.0",
-    "react-native-testing-library": "^1.9.1",
     "react-navigation": "^3.11.0",
     "react-navigation-material-bottom-tabs": "^0.3.0"
   },
@@ -46,10 +46,10 @@
   "jest": {
     "preset": "jest-expo",
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+      "^.+\\.js$": "<rootDir>/jest/preprocessor.js"
     },
     "setupFiles": [
-      "./setupJest.js"
+      "<rootDir>/jest/mock.js"
     ]
   },
   "husky": {
