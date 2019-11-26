@@ -2,12 +2,9 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
-import {
-  createAppContainer,
-  createStackNavigator,
-  createBottomTabNavigator,
-  createSwitchNavigator
-} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import MovieListScreen from './app/screens/MovieListScreen';
