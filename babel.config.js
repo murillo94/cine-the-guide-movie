@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 module.exports = function(api) {
   api.cache(true);
 
