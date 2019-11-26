@@ -5,6 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "devDependencies": {
     "babel-eslint": "^10.0.3",
+    "babel-preset-expo": "^7.1.0",
     "eslint": "^6.7.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.7.0",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.6",
+    "add": "^2.0.6",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
     "expo-constants": "^7.0.1",
@@ -30,10 +32,12 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-image-zoom-viewer": "^2.2.27",
     "react-native-modal": "^11.5.3",
+    "react-native-paper": "^3.2.1",
     "react-native-read-more-text": "^1.1.0",
     "react-native-scalable-image": "^1.0.0",
     "react-navigation": "^3.11.0",
-    "react-navigation-material-bottom-tabs": "^0.3.0"
+    "react-navigation-material-bottom-tabs": "^2.1.5",
+    "yarn": "^1.19.2"
   },
   "scripts": {
     "start": "expo start",
