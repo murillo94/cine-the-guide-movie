@@ -6,7 +6,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: white,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    position: 'absolute',
+    height: '100%',
+    width: '100%'
   }
 });
 
