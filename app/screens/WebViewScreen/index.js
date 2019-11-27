@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { WebView } from 'react-native-webview';
 
 import Spinner from '../../components/common/Spinner';
 
 import styles from './styles';
 
-export default class WebViewScreen extends Component {
+const WebViewScreen = ({ navigation }) => {
   renderLoading = () => <Spinner style={styles.container} />;
 
-  render() {
-    const { key } = this.props.navigation.state.params;
+  const { key } = navigation.state.params;
 
-    return (
-      <WebView
-        source={{ uri: `https://www.youtube.com/embed/${key}?start=0` }}
-        startInLoadingState
-        renderLoading={this.renderLoading}
-      />
-    );
-  }
-}
+  return (
+    <WebView
+      source={{ uri: `https://www.youtube.com/embed/${key}?start=0` }}
+      startInLoadingState
+      renderLoading={renderLoading}
+    />
+  );
+};
+
+export default WebViewScreen;

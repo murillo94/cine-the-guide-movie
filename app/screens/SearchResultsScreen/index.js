@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
@@ -16,59 +16,37 @@ import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
-export default class SearchResultsScreen extends Component {
-  static navigationOptions = () => {
-    return {
-      title: 'Search result'
-    };
-  };
+const SearchResultsScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [hasAdultContent, setHasAdultContent] = useState(false);
+  const [results, setResult] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
+  const { id, name, typeRequest } = navigation.state.params;
 
-  state = {
-    isLoading: false,
-    isLoadingMore: false,
-    isError: false,
-    hasAdultContent: false,
-    results: [],
-    page: 1,
-    numColumns: 1,
-    keyGrid: 1,
-    id: this.props.navigation.state.params.id,
-    name: this.props.navigation.state.params.name,
-    typeRequest: this.props.navigation.state.params.typeRequest
-  };
+  useEffect(() => {
+    (async () => {
+      try {
+        const adultContentStorage = await getItem(
+          '@ConfigKey',
+          'hasAdultContent'
+        );
 
-  async componentDidMount() {
-    try {
-      const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
-
-      this.setState({ hasAdultContent }, () => {
-        this.requestMoviesList();
-      });
-    } catch (error) {
-      this.requestMoviesList();
-    }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { results, isLoading, isLoadingMore, isError, keyGrid } = this.state;
-
-    if (
-      results !== nextState.results ||
-      isLoading !== nextState.isLoading ||
-      isLoadingMore !== nextState.isLoadingMore ||
-      isError !== nextState.isError ||
-      keyGrid !== nextState.keyGrid
-    ) {
-      return true;
-    }
-    return false;
-  }
+        setHasAdultContent(adultContentStorage);
+        requestMoviesList();
+      } catch (error) {
+        requestMoviesList();
+      }
+    })();
+  }, []);
 
   requestMoviesList = async () => {
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
 
-      const { page, name, id, typeRequest, hasAdultContent } = this.state;
       const dateRelease = new Date().toISOString().slice(0, 10);
       const query =
         typeRequest === 'search'
@@ -83,19 +61,15 @@ export default class SearchResultsScreen extends Component {
         ...{ ...query }
       });
 
-      this.setState(({ results }) => ({
-        isLoading: false,
-        isLoadingMore: false,
-        isError: false,
-        totalPages: data.total_pages,
-        results: [...results, ...data.results]
-      }));
+      setIsLoading(false);
+      setIsLoadingMore(false);
+      setIsError(false);
+      setTotalPages(data.total_pages);
+      setResult([...results, ...data.results]);
     } catch (err) {
-      this.setState({
-        isLoading: false,
-        isLoadingMore: false,
-        isError: true
-      });
+      setIsLoading(false);
+      setIsLoadingMore(false);
+      setIsError(true);
     }
   };
 
@@ -110,8 +84,6 @@ export default class SearchResultsScreen extends Component {
   );
 
   renderFooter = () => {
-    const { isLoadingMore, totalPages, page, results } = this.state;
-
     if (isLoadingMore) return <Spinner size="small" />;
 
     if (totalPages !== page && results.length > 0) {
@@ -119,7 +91,7 @@ export default class SearchResultsScreen extends Component {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            onPress={this.actionLoadMore}
+            onPress={actionLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
           </TouchableOpacity>
@@ -132,84 +104,70 @@ export default class SearchResultsScreen extends Component {
     return null;
   };
 
-  actionLoadMore = () => {
-    this.setState(
-      ({ page }) => ({
-        isLoadingMore: true,
-        page: page + 1
-      }),
-      () => {
-        this.requestMoviesList();
-      }
-    );
+  actionLoadMore = async () => {
+    await setIsLoadingMore(true);
+    await setPage(page + 1);
+    await requestMoviesList();
   };
 
   actionGrid = () => {
-    this.setState(({ numColumns, keyGrid }) => {
-      return { numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 };
-    });
+    const { numColumns, keyGrid } = view;
+
+    setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
   };
 
-  render() {
-    const { navigate } = this.props.navigation;
-    const {
-      name,
-      typeRequest,
-      isLoading,
-      isLoadingMore,
-      isError,
-      results,
-      numColumns,
-      keyGrid
-    } = this.state;
+  const { navigate } = navigation;
+  const { numColumns, keyGrid } = view;
 
-    return (
-      <View style={styles.container}>
-        {isLoading && !isLoadingMore ? (
-          <Spinner />
-        ) : isError ? (
-          <NotificationCard
-            icon="alert-octagon"
-            action={this.requestMoviesList}
+  return (
+    <View style={styles.container}>
+      {isLoading && !isLoadingMore ? (
+        <Spinner />
+      ) : isError ? (
+        <NotificationCard icon="alert-octagon" action={requestMoviesList} />
+      ) : results.length === 0 ? (
+        <NotificationCard
+          icon="thumbs-down"
+          textError="No results available."
+        />
+      ) : (
+        <View style={styles.containerList}>
+          {results.length > 0 && (
+            <View style={styles.containerMainText}>
+              <Text style={styles.textMain} numberOfLines={1}>
+                {name}
+              </Text>
+              <TouchableOpacity
+                style={[
+                  styles.buttonGrid,
+                  numColumns === 2 && styles.buttonGridActive
+                ]}
+                onPress={actionGrid}
+              >
+                <Feather name="grid" size={22} color={darkBlue} />
+              </TouchableOpacity>
+            </View>
+          )}
+          <MovieListRow
+            data={results}
+            type={name}
+            isSearch={typeRequest === 'search'}
+            keyGrid={keyGrid}
+            numColumns={numColumns}
+            refreshing={null}
+            onRefresh={null}
+            ListFooterComponent={renderFooter}
+            navigate={navigate}
+            renderItem={renderItem}
           />
-        ) : results.length === 0 ? (
-          <NotificationCard
-            icon="thumbs-down"
-            textError="No results available."
-          />
-        ) : (
-          <View style={styles.containerList}>
-            {results.length > 0 && (
-              <View style={styles.containerMainText}>
-                <Text style={styles.textMain} numberOfLines={1}>
-                  {name}
-                </Text>
-                <TouchableOpacity
-                  style={[
-                    styles.buttonGrid,
-                    numColumns === 2 && styles.buttonGridActive
-                  ]}
-                  onPress={this.actionGrid}
-                >
-                  <Feather name="grid" size={22} color={darkBlue} />
-                </TouchableOpacity>
-              </View>
-            )}
-            <MovieListRow
-              data={results}
-              type={name}
-              isSearch={typeRequest === 'search'}
-              keyGrid={keyGrid}
-              numColumns={numColumns}
-              refreshing={null}
-              onRefresh={null}
-              ListFooterComponent={this.renderFooter}
-              navigate={navigate}
-              renderItem={this.renderItem}
-            />
-          </View>
-        )}
-      </View>
-    );
-  }
-}
+        </View>
+      )}
+    </View>
+  );
+};
+
+SearchResultsScreen.navigationOptions = () => ({
+  title: 'Search result'
+});
+
+export default SearchResultsScreen;

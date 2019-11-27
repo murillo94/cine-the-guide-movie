@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
 
 import Search from '../../components/common/Search';
@@ -8,35 +8,33 @@ import genre from '../../assets/genre/ids.json';
 
 import styles from './styles';
 
-export default class SearchScreen extends Component {
-  shouldComponentUpdate() {
-    return false;
-  }
+const SearchScreen = ({ navigation }) => {
+  const { navigate } = navigation;
 
-  render() {
-    const { navigate } = this.props.navigation;
+  handleSearch = id => {
+    navigate('SearchResults', {
+      typeRequest: 'discover',
+      name: genre[id].name,
+      id
+    });
+  };
 
-    return (
-      <View style={styles.container}>
-        <Search typeRequest="search" navigate={navigate} />
-        <ScrollView style={styles.containerList}>
-          {Object.keys(genre).map(id => (
-            <TouchableOpacity
-              style={styles.item}
-              key={id}
-              onPress={() =>
-                navigate('SearchResults', {
-                  typeRequest: 'discover',
-                  name: genre[id].name,
-                  id
-                })
-              }
-            >
-              <Text style={styles.itemText}>{genre[id].name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Search typeRequest="search" navigate={navigate} />
+      <ScrollView style={styles.containerList}>
+        {Object.keys(genre).map(id => (
+          <TouchableOpacity
+            style={styles.item}
+            key={id}
+            onPress={() => handleSearch(id)}
+          >
+            <Text style={styles.itemText}>{genre[id].name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+export default SearchScreen;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import Constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
@@ -14,25 +14,23 @@ import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
-export default class ConfigurationScreen extends Component {
-  state = {
-    hasAdultContent: false
-  };
+const ConfigurationScreen = () => {
+  const [hasAdultContent, setHasAdultContent] = useState(false);
 
-  async componentDidMount() {
-    try {
-      const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
+  useEffect(() => {
+    (async () => {
+      try {
+        const adultContentStorage = await getItem(
+          '@ConfigKey',
+          'hasAdultContent'
+        );
 
-      this.setState({ hasAdultContent });
-    } catch (error) {
-      this.showError();
-    }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.hasAdultContent !== nextState.hasAdultContent) return true;
-    return false;
-  }
+        setHasAdultContent(adultContentStorage);
+      } catch (error) {
+        showError();
+      }
+    })();
+  }, [hasAdultContent]);
 
   showError = () => {
     Alert({
@@ -41,16 +39,16 @@ export default class ConfigurationScreen extends Component {
     });
   };
 
-  actionChangeAdultContent = async value => {
+  handleChangeAdultContent = async value => {
     try {
-      this.setState({ hasAdultContent: value });
+      setHasAdultContent(value);
       await setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
     } catch (error) {
-      this.showError();
+      showError();
     }
   };
 
-  actionShare = () => {
+  handleShare = () => {
     Share({
       message: 'Learn all about movies and series \u{1F37F}',
       url: 'https://www.themoviedb.org/',
@@ -59,7 +57,7 @@ export default class ConfigurationScreen extends Component {
     });
   };
 
-  actionRating = () => {
+  handleRating = () => {
     Alert({
       title: 'Attention',
       description:
@@ -67,70 +65,62 @@ export default class ConfigurationScreen extends Component {
     });
   };
 
-  render() {
-    const { hasAdultContent } = this.state;
-
-    return (
-      <ScrollView style={styles.bgWhite}>
-        <View style={styles.container}>
-          <View style={styles.section}>
-            <Text
-              style={[styles.itemText, styles.sectionText]}
-              numberOfLines={2}
-            >
-              Interface
+  return (
+    <ScrollView style={styles.bgWhite}>
+      <View style={styles.container}>
+        <View style={styles.section}>
+          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
+            Interface
+          </Text>
+          <View style={[styles.item, styles.itemNoBorder]}>
+            <Text style={styles.itemText} numberOfLines={2}>
+              Include adult content
             </Text>
-            <View style={[styles.item, styles.itemNoBorder]}>
-              <Text style={styles.itemText} numberOfLines={2}>
-                Include adult content
-              </Text>
-              <Switch
-                value={hasAdultContent}
-                onValueChange={this.actionChangeAdultContent}
-              />
-            </View>
-          </View>
-          <View>
-            <Text
-              style={[styles.itemText, styles.sectionText]}
-              numberOfLines={2}
-            >
-              Application
-            </Text>
-            <TouchableOpacity onPress={this.actionShare}>
-              <View style={styles.item}>
-                <Text style={styles.itemText} numberOfLines={2}>
-                  Tell a friend
-                </Text>
-                <Feather
-                  name="share"
-                  size={22}
-                  color={darkBlue}
-                  style={styles.icon}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.actionRating}>
-              <View style={styles.item}>
-                <Text style={styles.itemText} numberOfLines={2}>
-                  Rate the app
-                </Text>
-                <Feather
-                  name="star"
-                  size={22}
-                  color={darkBlue}
-                  style={styles.icon}
-                />
-              </View>
-            </TouchableOpacity>
-            <View style={[styles.item, styles.itemNoBorder]}>
-              <Text style={styles.itemTextVersion} numberOfLines={2}>
-                Version {Constants.manifest.version}
-              </Text>
-            </View>
+            <Switch
+              value={hasAdultContent}
+              onValueChange={handleChangeAdultContent}
+            />
           </View>
         </View>
-      </ScrollView>
-    );
-  }
-}
+        <View>
+          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
+            Application
+          </Text>
+          <TouchableOpacity onPress={handleShare}>
+            <View style={styles.item}>
+              <Text style={styles.itemText} numberOfLines={2}>
+                Tell a friend
+              </Text>
+              <Feather
+                name="share"
+                size={22}
+                color={darkBlue}
+                style={styles.icon}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleRating}>
+            <View style={styles.item}>
+              <Text style={styles.itemText} numberOfLines={2}>
+                Rate the app
+              </Text>
+              <Feather
+                name="star"
+                size={22}
+                color={darkBlue}
+                style={styles.icon}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={[styles.item, styles.itemNoBorder]}>
+            <Text style={styles.itemTextVersion} numberOfLines={2}>
+              Version {Constants.manifest.version}
+            </Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default ConfigurationScreen;
