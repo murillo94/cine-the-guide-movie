@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-
 import { FontAwesome } from '@expo/vector-icons';
 
 import ImagesModal from '../../../modals/ImagesModal';
@@ -8,6 +7,7 @@ import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
 import { width } from '../../../../utils/Metrics';
 import { notFound } from '../../../../utils/StaticImages';
+
 import { white } from '../../../../styles/Colors';
 
 import styles from './styles';

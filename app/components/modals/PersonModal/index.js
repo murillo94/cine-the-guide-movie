@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
@@ -13,8 +12,8 @@ import request from '../../../services/Api';
 
 import { width } from '../../../utils/Metrics';
 import { notFound } from '../../../utils/StaticImages';
-import { darkBlue } from '../../../styles/Colors';
 
+import { darkBlue } from '../../../styles/Colors';
 import styles from './styles';
 
 const uninformed = 'Uninformed';

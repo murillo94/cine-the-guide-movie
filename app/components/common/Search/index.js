@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, TextInput } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../TouchableOpacity';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
+
 import ImagesModal from '../modals/ImagesModal';
 
 test('should verify if renders images modal', () => {

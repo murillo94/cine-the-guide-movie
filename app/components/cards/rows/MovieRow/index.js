@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-
 import Image from 'react-native-scalable-image';
-
-import language from '../../../../assets/language/iso.json';
-import genre from '../../../../assets/genre/ids.json';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
 import { width } from '../../../../utils/Metrics';
 import { notFound } from '../../../../utils/StaticImages';
+
+import language from '../../../../assets/language/iso.json';
+import genre from '../../../../assets/genre/ids.json';
 
 import styles from './styles';
 

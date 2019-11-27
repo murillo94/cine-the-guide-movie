@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-
 import Constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
 
@@ -10,6 +9,7 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import { Switch } from '../../components/common/Switch';
 
 import { getItem, setItem } from '../../utils/AsyncStorage';
+
 import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';

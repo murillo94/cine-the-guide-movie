@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
+
 import Spinner from '../common/Spinner';
 
 test('should verify if renders spinner', () => {

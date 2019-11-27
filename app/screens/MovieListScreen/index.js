@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-
 import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
@@ -15,6 +14,7 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import request from '../../services/Api';
 
 import { getItem } from '../../utils/AsyncStorage';
+
 import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';

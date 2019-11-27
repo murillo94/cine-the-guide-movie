@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
+
 import MovieRow from '../cards/rows/MovieRow';
 
 const props = {

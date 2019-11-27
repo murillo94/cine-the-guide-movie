@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
 
 import Spinner from '../../components/common/Spinner';
+
 import styles from './styles';
 
 export default class WebViewScreen extends Component {

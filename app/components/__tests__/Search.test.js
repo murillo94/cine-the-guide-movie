@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
+
 import Search from '../common/Search';
 
 test('should verify if has only one TextInput', () => {

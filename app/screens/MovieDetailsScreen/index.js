@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
 
@@ -19,8 +18,8 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
-import { darkBlue } from '../../styles/Colors';
 
+import { darkBlue } from '../../styles/Colors';
 import styles from './styles';
 
 const uninformed = 'Uninformed';

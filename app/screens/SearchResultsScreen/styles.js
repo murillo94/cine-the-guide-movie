@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { white, darkBlue, lightGray } from '../../styles/Colors';
 import { fontSizeResponsive } from '../../utils/Metrics';
+
+import { white, darkBlue, lightGray } from '../../styles/Colors';
 
 const styles = StyleSheet.create({
   container: {

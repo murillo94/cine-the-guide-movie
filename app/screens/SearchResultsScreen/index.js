@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 
 import Spinner from '../../components/common/Spinner';
@@ -12,6 +11,7 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import request from '../../services/Api';
 
 import { getItem } from '../../utils/AsyncStorage';
+
 import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
