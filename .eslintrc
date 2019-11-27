@@ -22,6 +22,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-indent-props": ["error", 2],
     "react/jsx-indent": ["error", 2],
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-curly-newline": 0,
     "react/destructuring-assignment": 0,
     "react-native/no-unused-styles": 2,
     "react-native/no-inline-styles": 2,
