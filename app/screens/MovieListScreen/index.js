@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
@@ -19,82 +19,46 @@ import { darkBlue } from '../../styles/Colors';
 
 import styles from './styles';
 
-export default class MovieListScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-
-    return {
-      headerRight: (
-        <TouchableOpacity
-          style={styles.buttonFilter}
-          onPress={params.actionFilter}
-        >
-          <Feather name="filter" size={23} color={darkBlue} />
-        </TouchableOpacity>
-      )
-    };
-  };
-
-  state = {
-    isVisible: false,
-    isLoading: false,
-    isRefresh: false,
-    isLoadingMore: false,
-    isError: false,
-    hasAdultContent: false,
+export const MovieListScreen = ({ navigation }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [hasAdultContent, setHasAdultContent] = useState(false);
+  const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState({
     filterType: 'popularity.desc',
-    filterName: 'Most popular',
-    results: [],
-    page: 1,
-    numColumns: 1,
-    keyGrid: 1
-  };
+    filterName: 'Most popular'
+  });
+  const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
 
-  async componentDidMount() {
-    try {
-      Asset.loadAsync(StackAssets);
-      this.props.navigation.setParams({ actionFilter: this.actionFilter });
+  useEffect(() => {
+    (async () => {
+      try {
+        Asset.loadAsync(StackAssets);
+        navigation.setParams({ actionFilter });
 
-      const hasAdultContent = await getItem('@ConfigKey', 'hasAdultContent');
+        const adultContentStorage = await getItem(
+          '@ConfigKey',
+          'hasAdultContent'
+        );
 
-      this.setState({ hasAdultContent }, () => {
-        this.requestMoviesList();
-      });
-    } catch (error) {
-      this.requestMoviesList();
-    }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const {
-      results,
-      isVisible,
-      isLoading,
-      isRefresh,
-      isLoadingMore,
-      isError,
-      keyGrid
-    } = this.state;
-
-    if (
-      results !== nextState.results ||
-      isVisible !== nextState.isVisible ||
-      isLoading !== nextState.isLoading ||
-      isRefresh !== nextState.isRefresh ||
-      isLoadingMore !== nextState.isLoadingMore ||
-      isError !== nextState.isError ||
-      keyGrid !== nextState.keyGrid
-    ) {
-      return true;
-    }
-    return false;
-  }
+        setHasAdultContent(adultContentStorage);
+        requestMoviesList();
+      } catch (error) {
+        requestMoviesList();
+      }
+    })();
+  }, []);
 
   requestMoviesList = async () => {
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
 
-      const { page, filterType, hasAdultContent } = this.state;
+      const { filterType } = filter;
       const dateRelease = new Date().toISOString().slice(0, 10);
 
       const data = await request('discover/movie', {
@@ -105,21 +69,17 @@ export default class MovieListScreen extends Component {
         include_adult: hasAdultContent
       });
 
-      this.setState(({ isRefresh, results }) => ({
-        isLoading: false,
-        isRefresh: false,
-        isLoadingMore: false,
-        isError: false,
-        totalPages: data.total_pages,
-        results: isRefresh ? data.results : [...results, ...data.results]
-      }));
+      setIsLoading(false);
+      setIsLoadingMore(false);
+      setIsRefresh(false);
+      setIsError(false);
+      setTotalPages(data.total_pages);
+      setResults(isRefresh ? data.results : [...results, ...data.results]);
     } catch (err) {
-      this.setState({
-        isLoading: false,
-        isRefresh: false,
-        isLoadingMore: false,
-        isError: true
-      });
+      setIsLoading(false);
+      setIsLoadingMore(false);
+      setIsRefresh(false);
+      setIsError(true);
     }
   };
 
@@ -134,8 +94,6 @@ export default class MovieListScreen extends Component {
   );
 
   renderFooter = () => {
-    const { isLoadingMore, totalPages, page, results } = this.state;
-
     if (isLoadingMore) return <Spinner size="small" />;
 
     if (totalPages !== page && results.length > 0) {
@@ -143,7 +101,7 @@ export default class MovieListScreen extends Component {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            onPress={this.actionLoadMore}
+            onPress={actionLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
           </TouchableOpacity>
@@ -156,125 +114,114 @@ export default class MovieListScreen extends Component {
     return null;
   };
 
-  actionRefresh = () => {
-    this.setState(
-      {
-        isRefresh: true,
-        page: 1
-      },
-      () => {
-        this.requestMoviesList();
-      }
-    );
+  actionRefresh = async () => {
+    await setIsRefresh(true);
+    await setPage(1);
+    await requestMoviesList();
   };
 
-  actionLoadMore = () => {
-    this.setState(
-      ({ page }) => ({
-        isLoadingMore: true,
-        page: page + 1
-      }),
-      () => {
-        this.requestMoviesList();
-      }
-    );
+  actionLoadMore = async () => {
+    await setIsLoadingMore(true);
+    await setPage(page + 1);
+    await requestMoviesList();
   };
 
   actionGrid = () => {
-    this.setState(({ numColumns, keyGrid }) => {
-      return { numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 };
-    });
+    const { numColumns, keyGrid } = view;
+
+    setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
   };
 
   actionFilter = () => {
-    this.setState(({ isVisible }) => {
-      return { isVisible: !isVisible };
-    });
+    setIsVisible(!isVisible);
   };
 
-  actionSwitchMovie = (filterType, filterName, isVisible) => {
-    if (this.state.filterType !== filterType) {
-      this.setState(
-        { filterType, filterName, isVisible, page: 1, results: [] },
-        () => {
-          this.requestMoviesList();
-        }
-      );
+  actionSwitchMovie = async (type, name, visible) => {
+    const { filterType } = filter;
+
+    if (type !== filterType) {
+      await setPage(1);
+      await setResults([]);
+      await setFilter({ filterType: type, filterName: name });
+      await setIsVisible(visible);
+      await requestMoviesList();
     } else {
-      this.setState({ isVisible });
+      setIsVisible(visible);
     }
   };
 
-  render() {
-    const { navigate } = this.props.navigation;
-    const {
-      isLoading,
-      isRefresh,
-      isLoadingMore,
-      isError,
-      results,
-      filterName,
-      isVisible,
-      filterType,
-      numColumns,
-      keyGrid
-    } = this.state;
+  const { navigate } = navigation;
+  const { filterName, filterType } = filter;
+  const { numColumns, keyGrid } = view;
 
-    return (
-      <View style={styles.container}>
-        {isLoading && !isRefresh && !isLoadingMore ? (
-          <Spinner />
-        ) : isError ? (
-          <NotificationCard
-            icon="alert-octagon"
-            action={this.requestMoviesList}
-          />
-        ) : results.length === 0 ? (
-          <NotificationCard
-            icon="thumbs-down"
-            textError="No results available."
-          />
-        ) : (
-          <View style={styles.containerList}>
-            {results.length > 0 && (
-              <View style={styles.containerMainText}>
-                <Text style={styles.textMain} numberOfLines={1}>
-                  {filterName}
-                </Text>
-                <TouchableOpacity
-                  style={[
-                    styles.buttonGrid,
-                    numColumns === 2 && styles.buttonGridActive
-                  ]}
-                  onPress={this.actionGrid}
-                >
-                  <Feather name="grid" size={22} color={darkBlue} />
-                </TouchableOpacity>
-              </View>
-            )}
-            <MovieListRow
-              data={results}
-              type="normal"
-              isSearch={false}
-              keyGrid={keyGrid}
-              numColumns={numColumns}
-              refreshing={isRefresh}
-              onRefresh={this.actionRefresh}
-              ListFooterComponent={this.renderFooter}
-              navigate={navigate}
-              renderItem={this.renderItem}
-            />
-          </View>
-        )}
-        <FilterModal
-          isVisible={isVisible}
-          filterType={filterType}
-          filterName={filterName}
-          actionFilter={this.actionFilter}
-          actionSwitchMovie={this.actionSwitchMovie}
-          style={styles.bottomModal}
+  return (
+    <View style={styles.container}>
+      {isLoading && !isRefresh && !isLoadingMore ? (
+        <Spinner />
+      ) : isError ? (
+        <NotificationCard icon="alert-octagon" action={requestMoviesList} />
+      ) : results.length === 0 ? (
+        <NotificationCard
+          icon="thumbs-down"
+          textError="No results available."
         />
-      </View>
-    );
-  }
-}
+      ) : (
+        <View style={styles.containerList}>
+          {results.length > 0 && (
+            <View style={styles.containerMainText}>
+              <Text style={styles.textMain} numberOfLines={1}>
+                {filterName}
+              </Text>
+              <TouchableOpacity
+                style={[
+                  styles.buttonGrid,
+                  numColumns === 2 && styles.buttonGridActive
+                ]}
+                onPress={actionGrid}
+              >
+                <Feather name="grid" size={22} color={darkBlue} />
+              </TouchableOpacity>
+            </View>
+          )}
+          <MovieListRow
+            data={results}
+            type="normal"
+            isSearch={false}
+            keyGrid={keyGrid}
+            numColumns={numColumns}
+            refreshing={isRefresh}
+            onRefresh={actionRefresh}
+            ListFooterComponent={renderFooter}
+            navigate={navigate}
+            renderItem={renderItem}
+          />
+        </View>
+      )}
+      <FilterModal
+        isVisible={isVisible}
+        filterType={filterType}
+        filterName={filterName}
+        actionFilter={actionFilter}
+        actionSwitchMovie={actionSwitchMovie}
+        style={styles.bottomModal}
+      />
+    </View>
+  );
+};
+
+MovieListScreen.navigationOptions = ({ navigation }) => {
+  const params = navigation.state.params || {};
+
+  return {
+    headerRight: (
+      <TouchableOpacity
+        style={styles.buttonFilter}
+        onPress={params.actionFilter}
+      >
+        <Feather name="filter" size={23} color={darkBlue} />
+      </TouchableOpacity>
+    )
+  };
+};
+
+export default MovieListScreen;
