@@ -21,7 +21,7 @@ const SearchResultsScreen = ({ navigation }) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isError, setIsError] = useState(false);
   const [hasAdultContent, setHasAdultContent] = useState(false);
-  const [results, setResult] = useState([]);
+  const [results, setResults] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
@@ -65,7 +65,7 @@ const SearchResultsScreen = ({ navigation }) => {
       setIsLoadingMore(false);
       setIsError(false);
       setTotalPages(data.total_pages);
-      setResult([...results, ...data.results]);
+      setResults([...results, ...data.results]);
     } catch (err) {
       setIsLoading(false);
       setIsLoadingMore(false);
