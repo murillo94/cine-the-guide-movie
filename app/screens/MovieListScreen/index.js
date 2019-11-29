@@ -159,7 +159,7 @@ export const MovieListScreen = ({ navigation }) => {
       {isLoading && !isRefresh && !isLoadingMore ? (
         <Spinner />
       ) : isError ? (
-        <NotificationCard icon="alert-octagon" action={requestMoviesList} />
+        <NotificationCard icon="alert-octagon" onPress={requestMoviesList} />
       ) : results.length === 0 ? (
         <NotificationCard
           icon="thumbs-down"

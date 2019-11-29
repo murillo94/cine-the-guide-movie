@@ -13,11 +13,11 @@ export default class Search extends Component {
     value: ''
   };
 
-  actionClearSearch = () => {
+  handleClearSearch = () => {
     this.setState({ value: '' });
   };
 
-  actionSubmit = () => {
+  handleSubmit = () => {
     const { value } = this.state;
     const { navigate, typeRequest } = this.props;
 
@@ -45,7 +45,7 @@ export default class Search extends Component {
             />
             <TextInput
               style={styles.textInput}
-              onSubmitEditing={this.actionSubmit}
+              onSubmitEditing={this.handleSubmit}
               onChangeText={search => this.setState({ value: search })}
               value={value}
               returnKeyType="search"
@@ -58,7 +58,7 @@ export default class Search extends Component {
               placeholder="Search"
             />
             {value.length > 0 && (
-              <TouchableOpacity onPress={this.actionClearSearch}>
+              <TouchableOpacity onPress={this.handleClearSearch}>
                 <Feather
                   style={styles.icon}
                   name="x"

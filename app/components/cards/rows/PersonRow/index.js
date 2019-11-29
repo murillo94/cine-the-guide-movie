@@ -15,13 +15,13 @@ const getImageApi = image => {
 
 export default class PersonRow extends React.PureComponent {
   render() {
-    const { type, item, actionTeamDetail } = this.props;
+    const { type, item, onTeamDetail } = this.props;
 
     if (type === 'character' || type === 'job') {
       return (
         <TouchableOpacity
           style={styles.containerCast}
-          onPress={() => actionTeamDetail(item.id)}
+          onPress={() => onTeamDetail(item.id)}
         >
           {type === 'character' && (
             <Text

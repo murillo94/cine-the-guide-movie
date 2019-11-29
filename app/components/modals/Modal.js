@@ -4,15 +4,15 @@ import Modal from 'react-native-modal';
 const ModalCustom = ({
   isVisible = false,
   onModalShow = () => null,
-  actionOpenClose = () => null,
+  onClose = () => null,
   style = {},
   children = null
 }) => (
   <Modal
     isVisible={isVisible}
     onModalShow={onModalShow}
-    onBackdropPress={actionOpenClose}
-    onBackButtonPress={actionOpenClose}
+    onBackdropPress={onClose}
+    onBackButtonPress={onClose}
     hideModalContentWhileAnimating
     useNativeDriver
     backdropOpacity={0.5}

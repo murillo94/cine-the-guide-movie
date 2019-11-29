@@ -37,7 +37,7 @@ convertRatingToStars = voteAverage => {
   /* eslint-enable react/no-array-index-key */
 };
 
-actionPlayVideo = (video, navigate) => {
+handlePlayVideo = (video, navigate) => {
   const { key } = video;
 
   navigate('WebView', { key });
@@ -62,7 +62,7 @@ const PosterRow = ({
     {video && video.site === 'YouTube' && (
       <TouchableOpacity
         style={styles.play}
-        onPress={() => actionPlayVideo(video, navigate)}
+        onPress={() => handlePlayVideo(video, navigate)}
       >
         <FontAwesome
           name="play"
@@ -87,11 +87,7 @@ const PosterRow = ({
       </View>
     </TouchableOpacity>
     {images.length ? (
-      <ImagesModal
-        showImage={showImage}
-        images={images}
-        actionClose={onPress}
-      />
+      <ImagesModal showImage={showImage} images={images} onClose={onPress} />
     ) : null}
   </View>
 );

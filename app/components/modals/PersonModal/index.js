@@ -76,11 +76,11 @@ export default class PersonModal extends Component {
   };
 
   renderFooter = () => {
-    const { actionClose } = this.props;
+    const { onClose } = this.props;
 
     return (
       <View style={styles.containerRow}>
-        <TouchableOpacity style={styles.button} onPress={actionClose}>
+        <TouchableOpacity style={styles.button} onPress={onClose}>
           <Feather
             name="chevron-down"
             size={styles.icon.fontSize}
@@ -102,13 +102,13 @@ export default class PersonModal extends Component {
       biography
     } = this.state;
 
-    const { isVisible, actionClose, style, creditId } = this.props;
+    const { isVisible, onClose, style, creditId } = this.props;
 
     return (
       <Modal
         isVisible={isVisible}
         onModalShow={this.requestTeamInfo}
-        actionOpenClose={actionClose}
+        onClose={onClose}
         style={style}
       >
         <View style={styles.containerModal}>
@@ -119,7 +119,7 @@ export default class PersonModal extends Component {
               <ScrollView style={styles.containerScroll}>
                 <NotificationCard
                   icon="alert-octagon"
-                  action={this.requestTeamInfo}
+                  onPress={this.requestTeamInfo}
                 />
               </ScrollView>
               {this.renderFooter()}

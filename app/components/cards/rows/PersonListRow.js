@@ -6,7 +6,7 @@ const PersonListRow = ({
   type,
   keyItem,
   ListEmptyComponent,
-  actionTeamDetail,
+  onTeamDetail,
   renderItem
 }) => (
   <FlatList
@@ -18,7 +18,7 @@ const PersonListRow = ({
       keyItem === 'creditId' ? item.credit_id.toString() : item.id.toString()
     }
     ListEmptyComponent={ListEmptyComponent}
-    renderItem={({ item }) => renderItem(item, type, actionTeamDetail)}
+    renderItem={({ item }) => renderItem(item, type, onTeamDetail)}
   />
 );
 

@@ -193,8 +193,8 @@ const MovieDetailsScreen = ({ navigation }) => {
     }
   };
 
-  renderItem = (item, type, actionTeamDetail) => (
-    <PersonRow item={item} type={type} actionTeamDetail={actionTeamDetail} />
+  renderItem = (item, type, handleTeamDetail) => (
+    <PersonRow item={item} type={type} onTeamDetail={handleTeamDetail} />
   );
 
   renderListEmpty = () => (
@@ -223,7 +223,7 @@ const MovieDetailsScreen = ({ navigation }) => {
         {isLoading ? (
           <Spinner />
         ) : isError ? (
-          <NotificationCard icon="alert-octagon" action={requestMoviesInfo} />
+          <NotificationCard icon="alert-octagon" onPress={requestMoviesInfo} />
         ) : (
           <ScrollView>
             <PosterRow
@@ -257,7 +257,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="character"
                   keyItem="creditId"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={handlePerson}
+                  onTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -267,7 +267,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="job"
                   keyItem="creditId"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={handlePerson}
+                  onTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -277,7 +277,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="production"
                   keyItem="id"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={handlePerson}
+                  onTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -287,7 +287,7 @@ const MovieDetailsScreen = ({ navigation }) => {
         <PersonModal
           isVisible={isVisible}
           creditId={creditId}
-          actionClose={handlePerson}
+          onClose={handlePerson}
           style={styles.bottomModal}
         />
       </View>

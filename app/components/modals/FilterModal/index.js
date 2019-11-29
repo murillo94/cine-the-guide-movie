@@ -21,7 +21,7 @@ const FilterModal = ({ isVisible, filter, onVisible, onFilter, style }) => {
   };
 
   return (
-    <Modal isVisible={isVisible} actionOpenClose={onVisible} style={style}>
+    <Modal isVisible={isVisible} onClose={onVisible} style={style}>
       <View style={styles.containerModal}>
         <Text style={styles.modalTitle}>Filter</Text>
         <ScrollView>
