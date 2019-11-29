@@ -39,7 +39,7 @@ export const MovieListScreen = ({ navigation }) => {
     (async () => {
       try {
         Asset.loadAsync(StackAssets);
-        navigation.setParams({ actionFilter });
+        navigation.setParams({ handleFilter });
 
         const adultContentStorage = await getItem(
           '@ConfigKey',
@@ -101,7 +101,7 @@ export const MovieListScreen = ({ navigation }) => {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            onPress={actionLoadMore}
+            onPress={handleLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
           </TouchableOpacity>
@@ -114,29 +114,29 @@ export const MovieListScreen = ({ navigation }) => {
     return null;
   };
 
-  actionRefresh = async () => {
+  handleRefresh = async () => {
     await setIsRefresh(true);
     await setPage(1);
     await requestMoviesList();
   };
 
-  actionLoadMore = async () => {
+  handleLoadMore = async () => {
     await setIsLoadingMore(true);
     await setPage(page + 1);
     await requestMoviesList();
   };
 
-  actionGrid = () => {
+  handleGrid = () => {
     const { numColumns, keyGrid } = view;
 
     setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
   };
 
-  actionFilter = () => {
+  handleFilter = () => {
     setIsVisible(!isVisible);
   };
 
-  actionSwitchMovie = async (type, name, visible) => {
+  handleSwitchMovie = async (type, name, visible) => {
     const { filterType } = filter;
 
     if (type !== filterType) {
@@ -151,7 +151,7 @@ export const MovieListScreen = ({ navigation }) => {
   };
 
   const { navigate } = navigation;
-  const { filterName, filterType } = filter;
+  const { filterName } = filter;
   const { numColumns, keyGrid } = view;
 
   return (
@@ -177,7 +177,7 @@ export const MovieListScreen = ({ navigation }) => {
                   styles.buttonGrid,
                   numColumns === 2 && styles.buttonGridActive
                 ]}
-                onPress={actionGrid}
+                onPress={handleGrid}
               >
                 <Feather name="grid" size={22} color={darkBlue} />
               </TouchableOpacity>
@@ -190,7 +190,7 @@ export const MovieListScreen = ({ navigation }) => {
             keyGrid={keyGrid}
             numColumns={numColumns}
             refreshing={isRefresh}
-            onRefresh={actionRefresh}
+            onRefresh={handleRefresh}
             ListFooterComponent={renderFooter}
             navigate={navigate}
             renderItem={renderItem}
@@ -199,10 +199,9 @@ export const MovieListScreen = ({ navigation }) => {
       )}
       <FilterModal
         isVisible={isVisible}
-        filterType={filterType}
-        filterName={filterName}
-        actionFilter={actionFilter}
-        actionSwitchMovie={actionSwitchMovie}
+        filter={filter}
+        onVisible={handleFilter}
+        onFilter={handleSwitchMovie}
         style={styles.bottomModal}
       />
     </View>
@@ -216,7 +215,7 @@ MovieListScreen.navigationOptions = ({ navigation }) => {
     headerRight: (
       <TouchableOpacity
         style={styles.buttonFilter}
-        onPress={params.actionFilter}
+        onPress={params.handleFilter}
       >
         <Feather name="filter" size={23} color={darkBlue} />
       </TouchableOpacity>

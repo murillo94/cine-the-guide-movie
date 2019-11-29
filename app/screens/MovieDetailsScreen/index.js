@@ -60,7 +60,7 @@ const MovieDetailsScreen = ({ navigation }) => {
   const [info, setInfo] = useState(INITIAL_INFO);
 
   useEffect(() => {
-    navigation.setParams({ actionShare });
+    navigation.setParams({ handleShare });
     requestMoviesInfo();
   }, []);
 
@@ -166,16 +166,16 @@ const MovieDetailsScreen = ({ navigation }) => {
     );
   };
 
-  actionPerson = (id = '') => {
+  handlePerson = (id = '') => {
     setIsVisible(!isVisible);
     setCreditId(id);
   };
 
-  actionImage = () => {
+  handleImage = () => {
     setShowImage(!showImage);
   };
 
-  actionShare = () => {
+  handleShare = () => {
     const { title, id } = info;
 
     if (isError) {
@@ -234,7 +234,7 @@ const MovieDetailsScreen = ({ navigation }) => {
               video={video}
               navigate={navigate}
               showImage={showImage}
-              onPress={actionImage}
+              onPress={handleImage}
             />
             <View style={styles.containerMovieInfo}>
               <MainInfoRow data={infosDetail} />
@@ -257,7 +257,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="character"
                   keyItem="creditId"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={actionPerson}
+                  actionTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -267,7 +267,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="job"
                   keyItem="creditId"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={actionPerson}
+                  actionTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -277,7 +277,7 @@ const MovieDetailsScreen = ({ navigation }) => {
                   type="production"
                   keyItem="id"
                   ListEmptyComponent={renderListEmpty}
-                  actionTeamDetail={actionPerson}
+                  actionTeamDetail={handlePerson}
                   renderItem={renderItem}
                 />
               </SectionRow>
@@ -287,7 +287,7 @@ const MovieDetailsScreen = ({ navigation }) => {
         <PersonModal
           isVisible={isVisible}
           creditId={creditId}
-          actionClose={actionPerson}
+          actionClose={handlePerson}
           style={styles.bottomModal}
         />
       </View>
@@ -301,7 +301,7 @@ MovieDetailsScreen.navigationOptions = ({ navigation }) => {
   return {
     title: 'Movie details',
     headerRight: (
-      <TouchableOpacity style={styles.buttonShare} onPress={params.actionShare}>
+      <TouchableOpacity style={styles.buttonShare} onPress={params.handleShare}>
         <Feather name="share" size={23} color={darkBlue} />
       </TouchableOpacity>
     )

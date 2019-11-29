@@ -91,7 +91,7 @@ const SearchResultsScreen = ({ navigation }) => {
         <View style={styles.loadingMore}>
           <TouchableOpacity
             style={styles.loadingButton}
-            onPress={actionLoadMore}
+            onPress={handleLoadMore}
           >
             <Text style={styles.loadingText}>Load more</Text>
           </TouchableOpacity>
@@ -104,13 +104,13 @@ const SearchResultsScreen = ({ navigation }) => {
     return null;
   };
 
-  actionLoadMore = async () => {
+  handleLoadMore = async () => {
     await setIsLoadingMore(true);
     await setPage(page + 1);
     await requestMoviesList();
   };
 
-  actionGrid = () => {
+  handleGrid = () => {
     const { numColumns, keyGrid } = view;
 
     setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
@@ -142,7 +142,7 @@ const SearchResultsScreen = ({ navigation }) => {
                   styles.buttonGrid,
                   numColumns === 2 && styles.buttonGridActive
                 ]}
-                onPress={actionGrid}
+                onPress={handleGrid}
               >
                 <Feather name="grid" size={22} color={darkBlue} />
               </TouchableOpacity>
