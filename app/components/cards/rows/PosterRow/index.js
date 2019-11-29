@@ -12,12 +12,6 @@ import { white } from '../../../../styles/Colors';
 
 import styles from './styles';
 
-getImageApi = backdropPath => {
-  return backdropPath
-    ? { uri: `https://image.tmdb.org/t/p/w500/${backdropPath}` }
-    : notFound;
-};
-
 convertRatingToStars = voteAverage => {
   const average = voteAverage > 5 ? Math.round(voteAverage) : voteAverage;
   const length =
@@ -52,44 +46,51 @@ const PosterRow = ({
   showImage,
   onPress,
   navigate
-}) => (
-  <View style={styles.containerMainPhoto}>
-    <Image
-      source={getImageApi(backdropPath)}
-      style={styles.mainPhoto}
-      resizeMode="cover"
-    />
-    {video && video.site === 'YouTube' && (
+}) => {
+  getImageApi = () =>
+    backdropPath
+      ? { uri: `https://image.tmdb.org/t/p/w500/${backdropPath}` }
+      : notFound;
+
+  return (
+    <View style={styles.containerMainPhoto}>
+      <Image
+        source={getImageApi()}
+        style={styles.mainPhoto}
+        resizeMode="cover"
+      />
+      {video && video.site === 'YouTube' && (
+        <TouchableOpacity
+          style={styles.play}
+          onPress={() => handlePlayVideo(video, navigate)}
+        >
+          <FontAwesome
+            name="play"
+            size={width * 0.07}
+            color={white}
+            style={styles.buttonPlay}
+          />
+        </TouchableOpacity>
+      )}
       <TouchableOpacity
-        style={styles.play}
-        onPress={() => handlePlayVideo(video, navigate)}
+        style={styles.containerMainPhotoInfo}
+        activeOpacity={images.length ? 0.5 : 1}
+        onPress={images.length ? onPress : null}
       >
-        <FontAwesome
-          name="play"
-          size={width * 0.07}
-          color={white}
-          style={styles.buttonPlay}
-        />
-      </TouchableOpacity>
-    )}
-    <TouchableOpacity
-      style={styles.containerMainPhotoInfo}
-      activeOpacity={images.length ? 0.5 : 1}
-      onPress={images.length ? onPress : null}
-    >
-      <View style={styles.containerBackgroundPhotoInfo}>
-        <Text numberOfLines={2} style={styles.photoInfo}>
-          {title}
-        </Text>
-        <View style={styles.photoStar}>
-          {convertRatingToStars(voteAverage)}
+        <View style={styles.containerBackgroundPhotoInfo}>
+          <Text numberOfLines={2} style={styles.photoInfo}>
+            {title}
+          </Text>
+          <View style={styles.photoStar}>
+            {convertRatingToStars(voteAverage)}
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-    {images.length ? (
-      <ImagesModal showImage={showImage} images={images} onClose={onPress} />
-    ) : null}
-  </View>
-);
+      </TouchableOpacity>
+      {images.length ? (
+        <ImagesModal showImage={showImage} images={images} onClose={onPress} />
+      ) : null}
+    </View>
+  );
+};
 
 export default PosterRow;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
@@ -8,68 +8,65 @@ import { darkGray } from '../../../styles/Colors';
 
 import styles from './styles';
 
-export default class Search extends Component {
-  state = {
-    value: ''
+const Search = ({ navigate, typeRequest }) => {
+  const [search, setSearch] = useState('');
+
+  onChangeSearch = value => {
+    setSearch(value);
   };
 
   handleClearSearch = () => {
-    this.setState({ value: '' });
+    setSearch('');
   };
 
   handleSubmit = () => {
-    const { value } = this.state;
-    const { navigate, typeRequest } = this.props;
-
-    if (value) {
+    if (search) {
       navigate('SearchResults', {
         typeRequest,
-        name: value,
+        name: search,
         id: null
       });
     }
   };
 
-  render() {
-    const { value } = this.state;
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.containerInput}>
-          <View style={styles.inputDirection}>
-            <Feather
-              style={styles.icon}
-              name="search"
-              size={20}
-              color={darkGray}
-            />
-            <TextInput
-              style={styles.textInput}
-              onSubmitEditing={this.handleSubmit}
-              onChangeText={search => this.setState({ value: search })}
-              value={value}
-              returnKeyType="search"
-              keyboardType="default"
-              blurOnSubmit
-              multiline={false}
-              autoCorrect={false}
-              underlineColorAndroid="transparent"
-              placeholderTextColor={darkGray}
-              placeholder="Search"
-            />
-            {value.length > 0 && (
-              <TouchableOpacity onPress={this.handleClearSearch}>
-                <Feather
-                  style={styles.icon}
-                  name="x"
-                  size={20}
-                  color={darkGray}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.containerInput}>
+        <View style={styles.inputDirection}>
+          <Feather
+            style={styles.icon}
+            name="search"
+            size={20}
+            color={darkGray}
+          />
+          <TextInput
+            style={styles.textInput}
+            onSubmitEditing={handleSubmit}
+            onChangeText={value => onChangeSearch(value)}
+            value={search}
+            returnKeyType="search"
+            keyboardType="default"
+            blurOnSubmit
+            multiline={false}
+            autoCorrect={false}
+            underlineColorAndroid="transparent"
+            placeholderTextColor={darkGray}
+            placeholder="Search"
+          />
+          {search.length > 0 && (
+            <TouchableOpacity onPress={handleClearSearch}>
+              <Feather
+                style={styles.icon}
+                name="x"
+                size={20}
+                color={darkGray}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
+
+export default Search;

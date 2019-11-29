@@ -166,9 +166,13 @@ const MovieDetailsScreen = ({ navigation }) => {
     );
   };
 
-  handlePerson = (id = '') => {
+  handleVisibleModal = () => {
     setIsVisible(!isVisible);
+  };
+
+  handlePerson = id => {
     setCreditId(id);
+    handleVisibleModal();
   };
 
   handleImage = () => {
@@ -287,8 +291,8 @@ const MovieDetailsScreen = ({ navigation }) => {
         <PersonModal
           isVisible={isVisible}
           creditId={creditId}
-          onClose={handlePerson}
           style={styles.bottomModal}
+          onClose={handleVisibleModal}
         />
       </View>
     );

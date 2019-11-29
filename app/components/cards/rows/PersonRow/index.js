@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text, Image } from 'react-native';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
@@ -9,16 +9,13 @@ import styles from './styles';
 
 const uninformed = 'Uninformed';
 
-const getImageApi = image => {
-  return image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
-};
+const getImageApi = image =>
+  image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
 
-export default class PersonRow extends React.PureComponent {
-  render() {
-    const { type, item, onTeamDetail } = this.props;
-
-    if (type === 'character' || type === 'job') {
-      return (
+const PersonRow = memo(
+  ({ type, item, onTeamDetail }) => (
+    <>
+      {type === 'character' || type === 'job' ? (
         <TouchableOpacity
           style={styles.containerCast}
           onPress={() => onTeamDetail(item.id)}
@@ -47,19 +44,21 @@ export default class PersonRow extends React.PureComponent {
             {item.name || uninformed}
           </Text>
         </TouchableOpacity>
-      );
-    }
-    return (
-      <View style={styles.containerCast}>
-        <Image
-          source={getImageApi(item.logo_path)}
-          style={styles.productionCompaniesPhoto}
-          resizeMode="contain"
-        />
-        <Text numberOfLines={2} style={styles.titleCast}>
-          {item.name || uninformed}
-        </Text>
-      </View>
-    );
-  }
-}
+      ) : (
+        <View style={styles.containerCast}>
+          <Image
+            source={getImageApi(item.logo_path)}
+            style={styles.productionCompaniesPhoto}
+            resizeMode="contain"
+          />
+          <Text numberOfLines={2} style={styles.titleCast}>
+            {item.name || uninformed}
+          </Text>
+        </View>
+      )}
+    </>
+  ),
+  (prevProps, nextProps) => prevProps.item.id === nextProps.item.id
+);
+
+export default PersonRow;

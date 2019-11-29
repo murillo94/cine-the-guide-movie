@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text } from 'react-native';
 import Image from 'react-native-scalable-image';
 
@@ -52,12 +52,10 @@ const renderScore = voteAverage => {
   );
 };
 
-export default class MovieRow extends React.PureComponent {
-  render() {
-    const { numColumns, item, type, isSearch, navigate } = this.props;
-
-    if (numColumns === 1) {
-      return (
+const MovieRow = memo(
+  ({ numColumns, item, type, isSearch, navigate }) => (
+    <>
+      {numColumns === 1 ? (
         <TouchableOpacity
           onPress={() => navigate('MovieDetails', { id: item.id })}
         >
@@ -91,24 +89,26 @@ export default class MovieRow extends React.PureComponent {
             </View>
           </View>
         </TouchableOpacity>
-      );
-    }
-    return (
-      <TouchableOpacity
-        style={styles.containerTwoItem}
-        onPress={() => navigate('MovieDetails', { id: item.id })}
-      >
-        <View>
-          <Image
-            source={getImageApi(item.poster_path)}
-            style={styles.photo}
-            width={width * 0.33}
-          />
-        </View>
-        <Text numberOfLines={2} style={styles.textTwoTitle}>
-          {item.title}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-}
+      ) : (
+        <TouchableOpacity
+          style={styles.containerTwoItem}
+          onPress={() => navigate('MovieDetails', { id: item.id })}
+        >
+          <View>
+            <Image
+              source={getImageApi(item.poster_path)}
+              style={styles.photo}
+              width={width * 0.33}
+            />
+          </View>
+          <Text numberOfLines={2} style={styles.textTwoTitle}>
+            {item.title}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </>
+  ),
+  (prevProps, nextProps) => prevProps.item.id === nextProps.item.id
+);
+
+export default MovieRow;
