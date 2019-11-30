@@ -15,7 +15,7 @@ import SectionRow from '../../components/cards/rows/SectionRow';
 import MainInfoRow from '../../components/cards/rows/MainInfoRow';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
-import request from '../../services/Api';
+import request from '../../services/api';
 
 import language from '../../assets/language/iso.json';
 

@@ -11,7 +11,7 @@ import MovieListRow from '../../components/cards/rows/MovieListRow';
 import MovieRow from '../../components/cards/rows/MovieRow';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
-import request from '../../services/Api';
+import request from '../../services/api';
 
 import { getItem } from '../../utils/asyncStorage';
 

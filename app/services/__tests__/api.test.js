@@ -1,4 +1,4 @@
-import request from '../Api';
+import request from '../api';
 
 test('should verify if request movie', async () => {
   const data = await request('movie/424694', {}, true);

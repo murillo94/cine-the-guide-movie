@@ -8,7 +8,7 @@ import NotificationCard from '../../cards/NotificationCard';
 import { Modal } from '../Modal';
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import request from '../../../services/Api';
+import request from '../../../services/api';
 
 import { width } from '../../../utils/dimensions';
 import { notFound } from '../../../utils/images';
