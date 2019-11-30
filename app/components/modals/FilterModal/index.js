@@ -9,6 +9,18 @@ import { Switch } from '../../common/Switch';
 import { darkBlue } from '../../../styles/colors';
 import styles from './styles';
 
+const Filter = ({ title, type, selected, onChange }) => (
+  <View style={styles.containerRow}>
+    <Text style={styles.optionTitle} numberOfLines={2}>
+      {title}
+    </Text>
+    <Switch
+      value={type === selected}
+      onValueChange={() => onChange(type, title)}
+    />
+  </View>
+);
+
 const FilterModal = ({ isVisible, filter, onVisible, onFilter, style }) => {
   const [filters, setFilters] = useState({
     type: filter.filterType,
@@ -30,80 +42,52 @@ const FilterModal = ({ isVisible, filter, onVisible, onFilter, style }) => {
               <Text style={styles.optionSectionTitle} numberOfLines={2}>
                 Date
               </Text>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Releases
-                </Text>
-                <Switch
-                  value={type === 'release_date.desc'}
-                  onValueChange={() =>
-                    changeValues('release_date.desc', 'Releases')
-                  }
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Old
-                </Text>
-                <Switch
-                  value={type === 'release_date.asc'}
-                  onValueChange={() => changeValues('release_date.asc', 'Old')}
-                />
-              </View>
+              <Filter
+                title="Releases"
+                type="release_date.desc"
+                selected={type}
+                onChange={changeValues}
+              />
+              <Filter
+                title="Old"
+                type="release_date.asc"
+                selected={type}
+                onChange={changeValues}
+              />
             </View>
             <View style={styles.containerSection}>
               <Text style={styles.optionSectionTitle} numberOfLines={2}>
                 Popularity
               </Text>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Most popular
-                </Text>
-                <Switch
-                  value={type === 'popularity.desc'}
-                  onValueChange={() =>
-                    changeValues('popularity.desc', 'Most popular')
-                  }
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Less popular
-                </Text>
-                <Switch
-                  value={type === 'popularity.asc'}
-                  onValueChange={() =>
-                    changeValues('popularity.asc', 'Less popular')
-                  }
-                />
-              </View>
+              <Filter
+                title="Most popular"
+                type="popularity.desc"
+                selected={type}
+                onChange={changeValues}
+              />
+              <Filter
+                title="Less popular"
+                type="popularity.asc"
+                selected={type}
+                onChange={changeValues}
+              />
             </View>
             <View>
               <Text style={styles.optionSectionTitle} numberOfLines={2}>
                 Revenue
               </Text>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Higher revenue
-                </Text>
-                <Switch
-                  value={type === 'revenue.desc'}
-                  onValueChange={() =>
-                    changeValues('revenue.desc', 'Higher revenue')
-                  }
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <Text style={styles.optionTitle} numberOfLines={2}>
-                  Lowest revenue
-                </Text>
-                <Switch
-                  value={type === 'revenue.asc'}
-                  onValueChange={() =>
-                    changeValues('revenue.asc', 'Lowest revenue')
-                  }
-                />
-              </View>
+              <Filter
+                title="Higher revenue"
+                type="revenue.desc"
+                selected={type}
+                onChange={changeValues}
+              />
+              <Filter
+                title="Lowest revenue"
+                type="revenue.asc"
+                selected={type}
+                onChange={changeValues}
+              />
             </View>
           </View>
         </ScrollView>

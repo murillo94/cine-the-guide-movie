@@ -11,7 +11,7 @@ import { TouchableOpacity } from '../../common/TouchableOpacity';
 import request from '../../../services/api';
 
 import { width } from '../../../utils/dimensions';
-import { notFound } from '../../../utils/images';
+import { getImageApi } from '../../../utils/images';
 
 import { darkBlue } from '../../../styles/colors';
 import styles from './styles';
@@ -26,23 +26,33 @@ const INITIAL_INFO = {
   biography: UNINFORMED
 };
 
+const Footer = ({ onClose }) => (
+  <View style={styles.containerRow}>
+    <TouchableOpacity style={styles.button} onPress={onClose}>
+      <Feather
+        name="chevron-down"
+        size={styles.icon.fontSize}
+        color={darkBlue}
+      />
+    </TouchableOpacity>
+  </View>
+);
+
 const PersonModal = ({ isVisible, creditId, style, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState(INITIAL_INFO);
-  const { name, knownForDepartment, placeOfBirth, biography } = info;
+  const {
+    name,
+    profilePath,
+    knownForDepartment,
+    placeOfBirth,
+    biography
+  } = info;
 
   useEffect(() => {
     requestTeamInfo();
   }, [creditId]);
-
-  getImageApi = () => {
-    const { profilePath } = info;
-
-    return profilePath
-      ? { uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }
-      : notFound;
-  };
 
   getAge = () => {
     const { birthday } = info;
@@ -84,18 +94,6 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
     }
   };
 
-  renderFooter = () => (
-    <View style={styles.containerRow}>
-      <TouchableOpacity style={styles.button} onPress={onClose}>
-        <Feather
-          name="chevron-down"
-          size={styles.icon.fontSize}
-          color={darkBlue}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <Modal isVisible={isVisible} onClose={onClose} style={style}>
       <View style={styles.containerModal}>
@@ -109,14 +107,13 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
                 onPress={requestTeamInfo}
               />
             </ScrollView>
-            {renderFooter()}
           </View>
         ) : (
           <View style={styles.containerModal}>
             <ScrollView style={styles.containerScroll}>
               <View style={styles.containerMainText}>
                 <Image
-                  source={getImageApi()}
+                  source={getImageApi(profilePath)}
                   style={styles.photo}
                   width={width * 0.33}
                 />
@@ -159,9 +156,9 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
                 {biography}
               </Text>
             </ScrollView>
-            {renderFooter()}
           </View>
         )}
+        <Footer onClose={onClose} />
       </View>
     </Modal>
   );
