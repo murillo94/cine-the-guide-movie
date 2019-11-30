@@ -5,15 +5,12 @@ import Image from 'react-native-scalable-image';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
 import { width } from '../../../../utils/dimensions';
-import { notFound } from '../../../../utils/images';
+import { getImageApi } from '../../../../utils/images';
 
 import language from '../../../../assets/language/iso.json';
 import genre from '../../../../assets/genre/ids.json';
 
 import styles from './styles';
-
-const getImageApi = image =>
-  image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
 
 const convertToDate = date => new Date(date).getFullYear() || '';
 

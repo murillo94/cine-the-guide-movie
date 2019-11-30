@@ -3,14 +3,11 @@ import { View, Text, Image } from 'react-native';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { notFound } from '../../../../utils/images';
+import { getImageApi } from '../../../../utils/images';
 
 import styles from './styles';
 
 const uninformed = 'Uninformed';
-
-const getImageApi = image =>
-  image ? { uri: `https://image.tmdb.org/t/p/w500/${image}` } : notFound;
 
 const PersonRow = memo(
   ({ type, item, onTeamDetail }) => (
