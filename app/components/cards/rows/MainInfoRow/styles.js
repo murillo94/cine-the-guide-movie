@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../../../utils/Metrics';
+import { fontSizeResponsive } from '../../../../utils/dimensions';
 
-import { blue } from '../../../../styles/Colors';
+import { blue } from '../../../../styles/colors';
 
 const styles = StyleSheet.create({
   container: {

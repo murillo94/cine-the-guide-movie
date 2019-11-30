@@ -4,7 +4,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import Spinner from '../common/Spinner';
 
-import { white } from '../../styles/Colors';
+import { white } from '../../styles/colors';
 
 const ImagesModal = ({ showImage = false, images = [], onClose = null }) => (
   <Modal visible={showImage} transparent onRequestClose={onClose}>

@@ -4,8 +4,8 @@ import Image from 'react-native-scalable-image';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { width } from '../../../../utils/Metrics';
-import { notFound } from '../../../../utils/StaticImages';
+import { width } from '../../../../utils/dimensions';
+import { notFound } from '../../../../utils/images';
 
 import language from '../../../../assets/language/iso.json';
 import genre from '../../../../assets/genre/ids.json';

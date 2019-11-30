@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-native';
 
-import { gray, darkBlue } from '../../styles/Colors';
+import { gray, darkBlue } from '../../styles/colors';
 
 const SwitchCustom = ({
   value = false,

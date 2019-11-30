@@ -19,7 +19,7 @@ import request from '../../services/Api';
 
 import language from '../../assets/language/iso.json';
 
-import { darkBlue } from '../../styles/Colors';
+import { darkBlue } from '../../styles/colors';
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';

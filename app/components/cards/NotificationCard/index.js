@@ -4,9 +4,9 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import { width } from '../../../utils/Metrics';
+import { width } from '../../../utils/dimensions';
 
-import { darkBlue } from '../../../styles/Colors';
+import { darkBlue } from '../../../styles/colors';
 
 import styles from './styles';
 

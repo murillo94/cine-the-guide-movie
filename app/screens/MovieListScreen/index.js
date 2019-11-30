@@ -13,9 +13,9 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/Api';
 
-import { getItem } from '../../utils/AsyncStorage';
+import { getItem } from '../../utils/asyncStorage';
 
-import { darkBlue } from '../../styles/Colors';
+import { darkBlue } from '../../styles/colors';
 
 import styles from './styles';
 

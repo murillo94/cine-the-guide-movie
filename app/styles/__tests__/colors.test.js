@@ -10,7 +10,7 @@ import {
   lightRed,
   lightYellow,
   lightGreen
-} from '../Colors';
+} from '../colors';
 
 test('should verify the hex color', () => {
   expect(white).toBe('#fff');

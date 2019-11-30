@@ -10,10 +10,10 @@ import { TouchableOpacity } from '../../common/TouchableOpacity';
 
 import request from '../../../services/Api';
 
-import { width } from '../../../utils/Metrics';
-import { notFound } from '../../../utils/StaticImages';
+import { width } from '../../../utils/dimensions';
+import { notFound } from '../../../utils/images';
 
-import { darkBlue } from '../../../styles/Colors';
+import { darkBlue } from '../../../styles/colors';
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';

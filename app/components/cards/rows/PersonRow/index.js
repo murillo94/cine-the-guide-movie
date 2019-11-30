@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { notFound } from '../../../../utils/StaticImages';
+import { notFound } from '../../../../utils/images';
 
 import styles from './styles';
 

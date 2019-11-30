@@ -5,10 +5,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import ImagesModal from '../../../modals/ImagesModal';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
-import { width } from '../../../../utils/Metrics';
-import { notFound } from '../../../../utils/StaticImages';
+import { width } from '../../../../utils/dimensions';
+import { notFound } from '../../../../utils/images';
 
-import { white } from '../../../../styles/Colors';
+import { white } from '../../../../styles/colors';
 
 import styles from './styles';
 

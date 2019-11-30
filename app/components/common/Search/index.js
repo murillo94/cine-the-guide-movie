@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../TouchableOpacity';
 
-import { darkGray } from '../../../styles/Colors';
+import { darkGray } from '../../../styles/colors';
 
 import styles from './styles';
 

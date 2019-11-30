@@ -8,9 +8,9 @@ import { Share } from '../../components/common/Share';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import { Switch } from '../../components/common/Switch';
 
-import { getItem, setItem } from '../../utils/AsyncStorage';
+import { getItem, setItem } from '../../utils/asyncStorage';
 
-import { darkBlue } from '../../styles/Colors';
+import { darkBlue } from '../../styles/colors';
 
 import styles from './styles';
 

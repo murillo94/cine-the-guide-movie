@@ -6,7 +6,7 @@ import { Modal } from '../Modal';
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 import { Switch } from '../../common/Switch';
 
-import { darkBlue } from '../../../styles/Colors';
+import { darkBlue } from '../../../styles/colors';
 import styles from './styles';
 
 const FilterModal = ({ isVisible, filter, onVisible, onFilter, style }) => {

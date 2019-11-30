@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { blue } from '../../../../styles/Colors';
+import { blue } from '../../../../styles/colors';
 
 const styles = StyleSheet.create({
   containerCast: {
