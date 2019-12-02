@@ -16,4 +16,4 @@ const TouchableOpacityCustom = ({
   </TouchableOpacity>
 );
 
-export { TouchableOpacityCustom as TouchableOpacity }; // eslint-disable-line import/prefer-default-export
+export { TouchableOpacityCustom as TouchableOpacity };

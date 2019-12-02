@@ -11,4 +11,4 @@ const SwitchCustom = ({
   <Switch value={value} onValueChange={onValueChange} trackColor={trackColor} />
 );
 
-export { SwitchCustom as Switch }; // eslint-disable-line import/prefer-default-export
+export { SwitchCustom as Switch };

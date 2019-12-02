@@ -22,4 +22,4 @@ const ModalCustom = ({
   </Modal>
 );
 
-export { ModalCustom as Modal }; // eslint-disable-line import/prefer-default-export
+export { ModalCustom as Modal };
