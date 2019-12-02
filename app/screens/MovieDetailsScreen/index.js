@@ -18,8 +18,9 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import request from '../../services/api';
 
 import { getImageApi } from '../../utils/images';
-import { convertToDate } from '../../utils/dates';
+import { convertMinsToHrsMins } from '../../utils/time';
 import { convertToUpperCaseFirstLetter } from '../../utils/letters';
+import { convertToDate } from '../../utils/dates';
 import { convertToDolar } from '../../utils/currency';
 
 import language from '../../assets/language/iso.json';
@@ -136,14 +137,6 @@ const MovieDetailsScreen = ({ navigation }) => {
 
   sliceArrayLength = (arr, num) => {
     return arr.length > num ? arr.slice(0, num) : arr;
-  };
-
-  convertMinsToHrsMins = runtime => {
-    let h = Math.floor(runtime / 60);
-    let m = runtime % 60;
-    h = h < 10 ? `0${h}` : h;
-    m = m < 10 ? `0${m}` : m;
-    return h && m ? `${h}h ${m}m` : UNINFORMED;
   };
 
   convertToGenre = genre => {
