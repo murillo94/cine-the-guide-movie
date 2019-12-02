@@ -6,17 +6,18 @@ import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
 import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
+import { convertToYear } from '../../../../utils/dates';
+import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 
 import language from '../../../../assets/language/iso.json';
 import genre from '../../../../assets/genre/ids.json';
 
 import styles from './styles';
 
-const convertToDate = date => new Date(date).getFullYear() || '';
-
-const convertToUpperCaseFirstLetter = value => {
+const getLanguage = value => {
   const str = language[value] || '';
-  return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+
+  return convertToUpperCaseFirstLetter(str);
 };
 
 const convertGenre = (arr, type, isSearch) => {
@@ -69,11 +70,11 @@ const MovieRow = memo(
                 </Text>
                 <View style={[styles.textRow, styles.containerSubTitle]}>
                   <Text style={styles.textSmall}>
-                    {convertToDate(item.release_date)}
+                    {convertToYear(item.release_date)}
                   </Text>
                   {renderDivider(item.release_date, item.original_language)}
                   <Text numberOfLines={1} style={styles.textSmall}>
-                    {convertToUpperCaseFirstLetter(item.original_language)}
+                    {getLanguage(item.original_language)}
                   </Text>
                 </View>
                 <Text numberOfLines={1} style={styles.textSmall}>

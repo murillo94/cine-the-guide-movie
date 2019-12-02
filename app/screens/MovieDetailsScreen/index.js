@@ -17,6 +17,9 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/api';
 
+import { convertToDate } from '../../utils/dates';
+import { convertToUpperCaseFirstLetter } from '../../utils/letters';
+
 import language from '../../assets/language/iso.json';
 
 import { darkBlue } from '../../styles/colors';
@@ -152,18 +155,6 @@ const MovieDetailsScreen = ({ navigation }) => {
         ? `${genre[0].name}, ${genre[1].name}`
         : genre[0].name
       : UNINFORMED;
-  };
-
-  convertToUpperCaseFirstLetter = originalLanguage => {
-    return originalLanguage.charAt(0).toUpperCase() + originalLanguage.slice(1);
-  };
-
-  convertToDate = releaseDate => {
-    const date = new Date(releaseDate);
-    return (
-      `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}` ||
-      UNINFORMED
-    );
   };
 
   handleVisibleModal = () => {
