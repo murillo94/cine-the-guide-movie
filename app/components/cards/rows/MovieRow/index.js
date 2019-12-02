@@ -6,8 +6,8 @@ import { TouchableOpacity } from '../../../common/TouchableOpacity';
 
 import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
-import { convertToYear } from '../../../../utils/dates';
 import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
+import { convertToYear } from '../../../../utils/dates';
 
 import language from '../../../../assets/language/iso.json';
 import genre from '../../../../assets/genre/ids.json';
