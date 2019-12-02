@@ -17,8 +17,10 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
 import request from '../../services/api';
 
+import { getImageApi } from '../../utils/images';
 import { convertToDate } from '../../utils/dates';
 import { convertToUpperCaseFirstLetter } from '../../utils/letters';
+import { convertToDolar } from '../../utils/currency';
 
 import language from '../../assets/language/iso.json';
 
@@ -46,6 +48,10 @@ const INITIAL_INFO = {
     Revenue: UNINFORMED,
     Adult: UNINFORMED
   }
+};
+const ADULT_RATE = {
+  true: 'No',
+  false: 'Yes'
 };
 
 const renderReadMoreFooter = (text, handlePress) => (
@@ -117,29 +123,20 @@ const MovieDetailsScreen = ({ navigation }) => {
       Release: convertToDate(release_date || ''),
       Budget: convertToDolar(budget || 0),
       Revenue: convertToDolar(revenue || 0),
-      Adult: convertAdult(adult || '')
+      Adult: ADULT_RATE[adult] || UNINFORMED
     };
   };
   /* eslint-enable camelcase */
 
   formatImageUrl = images => {
-    return sliceArrayLength(images, 15).map(item => {
-      return { url: `https://image.tmdb.org/t/p/original/${item.file_path}` };
-    });
+    return sliceArrayLength(images, 15).map(item =>
+      getImageApi(item.file_path, 'original')
+    );
   };
 
   sliceArrayLength = (arr, num) => {
     return arr.length > num ? arr.slice(0, num) : arr;
   };
-
-  convertToDolar = value => {
-    return (
-      `$${value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}` ||
-      UNINFORMED
-    );
-  };
-
-  convertAdult = adult => (adult === false ? 'Yes' : 'No' || UNINFORMED);
 
   convertMinsToHrsMins = runtime => {
     let h = Math.floor(runtime / 60);

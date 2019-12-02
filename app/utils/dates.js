@@ -5,6 +5,6 @@ export const convertToDate = date => {
 
   return (
     `${newDate.getDate() + 1}/${newDate.getMonth() +
-      1}/${newDate.getFullYear()}` || UNINFORMED
+      1}/${newDate.getFullYear()}` || 'Uninformed'
   );
 };
