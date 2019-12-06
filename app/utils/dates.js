@@ -8,3 +8,5 @@ export const convertToDate = date => {
       1}/${newDate.getFullYear()}` || 'Uninformed'
   );
 };
+
+export const getTodayDate = () => new Date().toISOString().slice(0, 10);
