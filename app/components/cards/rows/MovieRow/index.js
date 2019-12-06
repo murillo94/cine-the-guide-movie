@@ -8,9 +8,9 @@ import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 import { convertToYear } from '../../../../utils/dates';
+import { convertTypeWithGenre } from '../../../../utils/genre';
 
 import language from '../../../../assets/language/iso.json';
-import genre from '../../../../assets/genre/ids.json';
 
 import styles from './styles';
 
@@ -18,16 +18,6 @@ const getLanguage = value => {
   const str = language[value] || '';
 
   return convertToUpperCaseFirstLetter(str);
-};
-
-const convertGenre = (arr, type, isSearch) => {
-  if (type === 'normal' || isSearch) {
-    if (arr.length > 1) return `${genre[arr[0]].name}, ${genre[arr[1]].name}`;
-    return arr.length !== 0 ? `${genre[arr[0]].name}` : '';
-  }
-  return arr.length !== 0 && type !== genre[arr[0]].name
-    ? `${type}, ${genre[arr[0]].name}`
-    : type;
 };
 
 const renderDivider = (releaseDate, originalLanguage) =>
@@ -78,7 +68,7 @@ const MovieRow = memo(
                   </Text>
                 </View>
                 <Text numberOfLines={1} style={styles.textSmall}>
-                  {convertGenre(item.genre_ids, type, isSearch)}
+                  {convertTypeWithGenre(item.genre_ids, type, isSearch)}
                 </Text>
               </View>
               <View style={[styles.textRow, styles.containerReview]}>

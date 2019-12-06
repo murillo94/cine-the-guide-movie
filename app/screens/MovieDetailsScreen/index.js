@@ -22,6 +22,8 @@ import { convertMinsToHrsMins } from '../../utils/time';
 import { convertToUpperCaseFirstLetter } from '../../utils/letters';
 import { convertToDate } from '../../utils/dates';
 import { convertToDolar } from '../../utils/currency';
+import { convertToGenres } from '../../utils/genre';
+import { sliceArrayLength } from '../../utils/array';
 
 import language from '../../assets/language/iso.json';
 
@@ -107,45 +109,30 @@ const MovieDetailsScreen = ({ navigation }) => {
 
   /* eslint-disable camelcase */
   getInfosDetail = ({
-    runtime,
-    genres,
-    original_language,
-    release_date,
-    budget,
-    revenue,
-    adult
+    runtime = 0,
+    genres = '',
+    original_language = '',
+    release_date = '',
+    budget = 0,
+    revenue = 0,
+    adult = ''
   }) => {
     return {
-      Duration: convertMinsToHrsMins(runtime || 0),
-      Genre: convertToGenre(sliceArrayLength(genres, 2) || ''),
-      Language: convertToUpperCaseFirstLetter(
-        language[original_language] || ''
-      ),
-      Release: convertToDate(release_date || ''),
-      Budget: convertToDolar(budget || 0),
-      Revenue: convertToDolar(revenue || 0),
+      Duration: convertMinsToHrsMins(runtime),
+      Genre: convertToGenres(sliceArrayLength(genres, 2)),
+      Language: convertToUpperCaseFirstLetter(language[original_language]),
+      Release: convertToDate(release_date),
+      Budget: convertToDolar(budget),
+      Revenue: convertToDolar(revenue),
       Adult: ADULT_RATE[adult] || UNINFORMED
     };
   };
   /* eslint-enable camelcase */
 
-  formatImageUrl = images => {
-    return sliceArrayLength(images, 15).map(item =>
+  formatImageUrl = images =>
+    sliceArrayLength(images, 15).map(item =>
       getImageApi(item.file_path, 'original')
     );
-  };
-
-  sliceArrayLength = (arr, num) => {
-    return arr.length > num ? arr.slice(0, num) : arr;
-  };
-
-  convertToGenre = genre => {
-    return genre.length > 0
-      ? genre.length > 1
-        ? `${genre[0].name}, ${genre[1].name}`
-        : genre[0].name
-      : UNINFORMED;
-  };
 
   handleVisibleModal = () => {
     setIsVisible(!isVisible);
