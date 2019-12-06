@@ -47,7 +47,7 @@ const SearchResultsScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
 
-      const dateRelease = new Date().toISOString().slice(0, 10);
+      const dateRelease = getTodayDate();
       const query =
         typeRequest === 'search'
           ? { query: `${name.trim()}` }

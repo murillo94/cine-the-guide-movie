@@ -59,7 +59,7 @@ export const MovieListScreen = ({ navigation }) => {
       setIsLoading(true);
 
       const { filterType } = filter;
-      const dateRelease = new Date().toISOString().slice(0, 10);
+      const dateRelease = getTodayDate();
 
       const data = await request('discover/movie', {
         page,
