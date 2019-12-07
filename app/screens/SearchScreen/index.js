@@ -25,8 +25,8 @@ const SearchScreen = ({ navigation }) => {
       <ScrollView style={styles.containerList}>
         {Object.keys(genres).map(id => (
           <TouchableOpacity
-            style={styles.item}
             key={id}
+            style={styles.item}
             onPress={() => handleSearch(id)}
           >
             <Text style={styles.itemText}>{genres[id].name}</Text>
