@@ -11,6 +11,7 @@ import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import request from '../../services/api';
 
 import { getItem } from '../../utils/asyncStorage';
+import { getTodayDate } from '../../utils/dates';
 
 import { darkBlue } from '../../styles/colors';
 
