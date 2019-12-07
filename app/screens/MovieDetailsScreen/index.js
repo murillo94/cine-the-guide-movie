@@ -116,17 +116,15 @@ const MovieDetailsScreen = ({ navigation }) => {
     budget = 0,
     revenue = 0,
     adult = ''
-  }) => {
-    return {
-      Duration: convertMinsToHrsMins(runtime),
-      Genre: convertToGenres(sliceArrayLength(genres, 2)),
-      Language: convertToUpperCaseFirstLetter(isoLanguage[original_language]),
-      Release: convertToDate(release_date),
-      Budget: convertToDolar(budget),
-      Revenue: convertToDolar(revenue),
-      Adult: ADULT_RATE[adult] || UNINFORMED
-    };
-  };
+  }) => ({
+    Duration: convertMinsToHrsMins(runtime),
+    Genre: convertToGenres(sliceArrayLength(genres, 2)),
+    Language: convertToUpperCaseFirstLetter(isoLanguage[original_language]),
+    Release: convertToDate(release_date),
+    Budget: convertToDolar(budget),
+    Revenue: convertToDolar(revenue),
+    Adult: ADULT_RATE[adult] || UNINFORMED
+  });
   /* eslint-enable camelcase */
 
   formatImageUrl = images =>
