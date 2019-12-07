@@ -10,12 +10,12 @@ import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 import { convertToYear } from '../../../../utils/dates';
 import { convertTypeWithGenre } from '../../../../utils/genre';
 
-import language from '../../../../assets/language/iso.json';
+import isoLanguage from '../../../../data/iso.json';
 
 import styles from './styles';
 
 const getLanguage = value => {
-  const str = language[value] || '';
+  const str = isoLanguage[value] || '';
 
   return convertToUpperCaseFirstLetter(str);
 };

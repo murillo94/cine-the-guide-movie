@@ -1,4 +1,4 @@
-import genre from '../assets/genre/ids.json';
+import genre from '../data/genres.json';
 
 export const convertTypeWithGenre = (arr, type, isSearch) => {
   if (type === 'normal' || isSearch) {

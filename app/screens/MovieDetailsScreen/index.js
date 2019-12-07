@@ -25,7 +25,7 @@ import { convertToDolar } from '../../utils/currency';
 import { convertToGenres } from '../../utils/genre';
 import { sliceArrayLength } from '../../utils/array';
 
-import language from '../../assets/language/iso.json';
+import isoLanguage from '../../data/iso.json';
 
 import { darkBlue } from '../../styles/colors';
 import styles from './styles';
@@ -120,7 +120,7 @@ const MovieDetailsScreen = ({ navigation }) => {
     return {
       Duration: convertMinsToHrsMins(runtime),
       Genre: convertToGenres(sliceArrayLength(genres, 2)),
-      Language: convertToUpperCaseFirstLetter(language[original_language]),
+      Language: convertToUpperCaseFirstLetter(isoLanguage[original_language]),
       Release: convertToDate(release_date),
       Budget: convertToDolar(budget),
       Revenue: convertToDolar(revenue),
