@@ -11,7 +11,7 @@ export const convertTypeWithGenre = (arr, type, isSearch) => {
     : type;
 };
 
-export const convertToGenres = (genre, messageNotFound = UNINFORMED) =>
+export const convertToGenres = (genre, messageNotFound = 'Uninformed') =>
   genre.length > 0
     ? genre.length > 1
       ? `${genre[0].name}, ${genre[1].name}`
