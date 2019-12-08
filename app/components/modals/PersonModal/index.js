@@ -26,18 +26,6 @@ const INITIAL_INFO = {
   biography: UNINFORMED
 };
 
-const Footer = ({ onClose }) => (
-  <View style={styles.containerRow}>
-    <TouchableOpacity style={styles.button} onPress={onClose}>
-      <Feather
-        name="chevron-down"
-        size={styles.icon.fontSize}
-        color={darkBlue}
-      />
-    </TouchableOpacity>
-  </View>
-);
-
 const PersonModal = ({ isVisible, creditId, style, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -95,70 +83,71 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
   };
 
   return (
-    <Modal isVisible={isVisible} onClose={onClose} style={style}>
+    <Modal isVisible={isVisible} style={style} onClose={onClose}>
       <View style={styles.containerModal}>
         {isLoading ? (
           <Spinner style={styles.containerCenter} />
         ) : isError ? (
-          <View style={styles.containerModal}>
-            <ScrollView style={styles.containerScroll}>
-              <NotificationCard
-                icon="alert-octagon"
-                onPress={requestTeamInfo}
-              />
-            </ScrollView>
-          </View>
+          <ScrollView style={styles.containerScroll}>
+            <NotificationCard icon="alert-octagon" onPress={requestTeamInfo} />
+          </ScrollView>
         ) : (
-          <View style={styles.containerModal}>
-            <ScrollView style={styles.containerScroll}>
-              <View style={styles.containerMainText}>
-                <Image
-                  source={getImageApi(profilePath)}
-                  style={styles.photo}
-                  width={width * 0.33}
-                />
-                <View style={styles.textItens}>
-                  <Text style={styles.titleName}>{name}</Text>
-                  <View style={styles.containerTitleMargin}>
-                    <Text
-                      numberOfLines={2}
-                      style={[styles.textSmall, styles.textJustify]}
-                    >
-                      {knownForDepartment}
-                    </Text>
-                  </View>
-                  <View style={styles.containerTitleMargin}>
-                    <Text
-                      numberOfLines={2}
-                      style={[styles.textSmall, styles.textJustify]}
-                    >
-                      {getAge()}
-                    </Text>
-                  </View>
-                  <View style={styles.containerTitleMargin}>
-                    <Text
-                      numberOfLines={2}
-                      style={[styles.textSmall, styles.textJustify]}
-                    >
-                      {placeOfBirth}
-                    </Text>
-                  </View>
+          <ScrollView style={styles.containerScroll}>
+            <View style={styles.containerMainText}>
+              <Image
+                source={getImageApi(profilePath)}
+                style={styles.photo}
+                width={width * 0.33}
+              />
+              <View style={styles.textItens}>
+                <Text style={styles.titleName}>{name}</Text>
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {knownForDepartment}
+                  </Text>
+                </View>
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {getAge()}
+                  </Text>
+                </View>
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {placeOfBirth}
+                  </Text>
                 </View>
               </View>
-              <Text style={styles.titleInfo}>Biography</Text>
-              <Text
-                style={[
-                  styles.textSmall,
-                  styles.textLineHeight,
-                  styles.textJustify
-                ]}
-              >
-                {biography}
-              </Text>
-            </ScrollView>
-          </View>
+            </View>
+            <Text style={styles.titleInfo}>Biography</Text>
+            <Text
+              style={[
+                styles.textSmall,
+                styles.textLineHeight,
+                styles.textJustify
+              ]}
+            >
+              {biography}
+            </Text>
+          </ScrollView>
         )}
-        <Footer onClose={onClose} />
+        <View style={styles.containerRow}>
+          <TouchableOpacity style={styles.button} onPress={onClose}>
+            <Feather
+              name="chevron-down"
+              size={styles.icon.fontSize}
+              color={darkBlue}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </Modal>
   );
