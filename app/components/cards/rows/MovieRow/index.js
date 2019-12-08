@@ -45,7 +45,9 @@ const MovieRow = memo(
     <>
       {numColumns === 1 ? (
         <TouchableOpacity
-          onPress={() => navigate('MovieDetails', { id: item.id })}
+          onPress={() =>
+            navigate('MovieDetails', { id: item.id, title: item.title })
+          }
         >
           <View style={styles.containerItem}>
             <Image
@@ -80,7 +82,9 @@ const MovieRow = memo(
       ) : (
         <TouchableOpacity
           style={styles.containerTwoItem}
-          onPress={() => navigate('MovieDetails', { id: item.id })}
+          onPress={() =>
+            navigate('MovieDetails', { id: item.id, title: item.title })
+          }
         >
           <View>
             <Image

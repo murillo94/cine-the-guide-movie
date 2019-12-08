@@ -145,9 +145,7 @@ const MovieDetailsScreen = ({ navigation }) => {
     setShowImage(!showImage);
   };
 
-  handleShare = () => {
-    const { title, id } = info;
-
+  handleShare = (title, id) => {
     if (isError) {
       Alert({
         title: 'Attention',
@@ -266,12 +264,15 @@ const MovieDetailsScreen = ({ navigation }) => {
 };
 
 MovieDetailsScreen.navigationOptions = ({ navigation }) => {
-  const params = navigation.state.params || {};
+  const { id, title, handleShare } = navigation.state.params || {};
 
   return {
     title: 'Movie details',
     headerRight: (
-      <TouchableOpacity style={styles.buttonShare} onPress={params.handleShare}>
+      <TouchableOpacity
+        style={styles.buttonShare}
+        onPress={() => handleShare(title, id)}
+      >
         <Feather name="share" size={23} color={darkBlue} />
       </TouchableOpacity>
     )
