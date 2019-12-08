@@ -210,14 +210,11 @@ export const MovieListScreen = ({ navigation }) => {
 };
 
 MovieListScreen.navigationOptions = ({ navigation }) => {
-  const params = navigation.state.params || {};
+  const { handleFilter } = navigation.state.params || {};
 
   return {
     headerRight: (
-      <TouchableOpacity
-        style={styles.buttonFilter}
-        onPress={params.handleFilter}
-      >
+      <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
         <Feather name="filter" size={23} color={darkBlue} />
       </TouchableOpacity>
     )
