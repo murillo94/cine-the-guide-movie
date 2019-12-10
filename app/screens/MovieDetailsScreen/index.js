@@ -129,7 +129,7 @@ const MovieDetailsScreen = ({ navigation }) => {
 
   formatImageUrl = images =>
     sliceArrayLength(images, 15).map(item =>
-      getImageApi(item.file_path, 'original')
+      getImageApi(item.file_path, 'url', 'original')
     );
 
   handleVisibleModal = () => {
