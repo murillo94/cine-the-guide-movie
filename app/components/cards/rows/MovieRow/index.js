@@ -10,6 +10,8 @@ import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 import { convertToYear } from '../../../../utils/dates';
 import { convertTypeWithGenre } from '../../../../utils/genre';
 
+import ROUTES from '../../../../navigation/routes';
+
 import isoLanguage from '../../../../data/iso.json';
 
 import styles from './styles';
@@ -46,7 +48,7 @@ const MovieRow = memo(
       {numColumns === 1 ? (
         <TouchableOpacity
           onPress={() =>
-            navigate('MovieDetails', { id: item.id, title: item.title })
+            navigate(ROUTES.MOVIE_DETAILS, { id: item.id, title: item.title })
           }
         >
           <View style={styles.containerItem}>
@@ -83,7 +85,7 @@ const MovieRow = memo(
         <TouchableOpacity
           style={styles.containerTwoItem}
           onPress={() =>
-            navigate('MovieDetails', { id: item.id, title: item.title })
+            navigate(ROUTES.MOVIE_DETAILS, { id: item.id, title: item.title })
           }
         >
           <View>

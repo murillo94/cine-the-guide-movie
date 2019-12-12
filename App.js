@@ -7,107 +7,41 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import MovieList from './app/screens/MovieList';
-import Configuration from './app/screens/Configuration';
-import MovieDetails from './app/screens/MovieDetails';
-import Search from './app/screens/Search';
-import MovieVideo from './app/screens/MovieVideo';
+import {
+  MoviesScreen,
+  SearchScreen,
+  ConfigurationScreen
+} from './app/navigation/screens';
+import ROUTES from './app/navigation/routes';
 
-import { darkBlue, white, pink, blue } from './app/utils/colors';
+import { white, pink, blue } from './app/utils/colors';
 
-const titleMovieTab = 'Home';
-const titleSearchTab = 'Search';
-const titleConfigTab = 'More';
-
-const navigationOptions = {
-  headerTintColor: darkBlue,
-  headerStyle: {
-    backgroundColor: white
+const MoviesStack = createStackNavigator(MoviesScreen, {
+  initialRouteName: ROUTES.MOVIE_LIST,
+  navigationOptions: {
+    tabBarIcon: ({ tintColor }) => (
+      <Feather name="home" size={20} color={tintColor} />
+    )
   }
-};
+});
 
-const MoviesTab = createStackNavigator(
-  {
-    MovieList: {
-      screen: MovieList,
-      navigationOptions: {
-        ...navigationOptions,
-        title: titleMovieTab
-      }
-    },
-    MovieDetails: {
-      screen: MovieDetails,
-      navigationOptions
-    },
-    MovieVideo: {
-      screen: MovieVideo,
-      navigationOptions
-    }
-  },
-  {
-    initialRouteName: 'MovieList'
+const SearchStack = createStackNavigator(SearchScreen, {
+  initialRouteName: ROUTES.SEARCH,
+  navigationOptions: {
+    tabBarIcon: ({ tintColor }) => (
+      <Feather name="search" size={20} color={tintColor} />
+    )
   }
-);
+});
 
-MoviesTab.navigationOptions = {
-  tabBarIcon: ({ tintColor }) => (
-    <Feather name="home" size={20} color={tintColor} />
-  )
-};
-
-const SearchTab = createStackNavigator(
-  {
-    Search: {
-      screen: Search,
-      navigationOptions: {
-        ...navigationOptions,
-        title: titleSearchTab
-      }
-    },
-    SearchResults: {
-      screen: MovieList,
-      navigationOptions
-    },
-    MovieDetails: {
-      screen: MovieDetails,
-      navigationOptions
-    },
-    MovieVideo: {
-      screen: MovieVideo,
-      navigationOptions
-    }
-  },
-  {
-    initialRouteName: 'Search'
+const ConfigurationStack = createStackNavigator(ConfigurationScreen, {
+  initialRouteName: ROUTES.CONFIGURATION,
+  navigationOptions: {
+    tabBarIcon: ({ tintColor }) => (
+      <Feather name="menu" size={20} color={tintColor} />
+    )
   }
-);
-
-SearchTab.navigationOptions = {
-  tabBarIcon: ({ tintColor }) => (
-    <Feather name="search" size={20} color={tintColor} />
-  )
-};
-
-const ConfigurationTab = createStackNavigator(
-  {
-    Configuration: {
-      screen: Configuration,
-      navigationOptions: {
-        ...navigationOptions,
-        title: titleConfigTab
-      }
-    }
-  },
-  {
-    initialRouteName: 'Configuration'
-  }
-);
-
-ConfigurationTab.navigationOptions = {
-  tabBarIcon: ({ tintColor }) => (
-    <Feather name="menu" size={20} color={tintColor} />
-  )
-};
+});
 
 const MovieListTabBarVisible = navigation => {
   const { routes } = navigation.state;
@@ -115,9 +49,9 @@ const MovieListTabBarVisible = navigation => {
   if (routes && routes.length > 0) {
     const route = routes[routes.length - 1];
     if (
-      route.routeName === 'MovieDetails' ||
-      route.routeName === 'MovieVideo' ||
-      route.routeName === 'SearchResults'
+      route.routeName === ROUTES.MOVIE_DETAILS ||
+      route.routeName === ROUTES.MOVIE_VIDEO ||
+      route.routeName === ROUTES.SEARCH_RESULTS
     ) {
       return false;
     }
@@ -128,19 +62,19 @@ const MovieListTabBarVisible = navigation => {
 
 const tabNavigatorDefault = {
   Movie: {
-    screen: MoviesTab,
+    screen: MoviesStack,
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: MovieListTabBarVisible(navigation)
     })
   },
   Search: {
-    screen: SearchTab,
+    screen: SearchStack,
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: MovieListTabBarVisible(navigation)
     })
   },
   Config: {
-    screen: ConfigurationTab
+    screen: ConfigurationStack
   }
 };
 

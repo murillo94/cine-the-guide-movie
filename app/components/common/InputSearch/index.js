@@ -4,6 +4,8 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../TouchableOpacity';
 
+import ROUTES from '../../../navigation/routes';
+
 import { darkGray } from '../../../utils/colors';
 
 import styles from './styles';
@@ -21,7 +23,7 @@ const InputSearch = ({ navigate, typeRequest }) => {
 
   handleSubmit = () => {
     if (search) {
-      navigate('SearchResults', {
+      navigate(ROUTES.SEARCH_RESULTS, {
         typeRequest,
         name: search
       });

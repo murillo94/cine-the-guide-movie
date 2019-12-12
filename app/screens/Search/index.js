@@ -5,6 +5,8 @@ import Screen from '../../components/common/Screen';
 import InputSearch from '../../components/common/InputSearch';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 
+import ROUTES from '../../navigation/routes';
+
 import genres from '../../data/genres.json';
 
 import styles from './styles';
@@ -13,7 +15,7 @@ const Search = ({ navigation }) => {
   const { navigate } = navigation;
 
   handleSearch = id => {
-    navigate('SearchResults', {
+    navigate(ROUTES.SEARCH_RESULTS, {
       typeRequest: 'discover',
       name: genres[id].name,
       id

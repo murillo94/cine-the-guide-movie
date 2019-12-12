@@ -9,6 +9,8 @@ import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { getAvarageRating } from '../../../../utils/rating';
 
+import ROUTES from '../../../../navigation/routes';
+
 import { white } from '../../../../utils/colors';
 
 import styles from './styles';
@@ -26,7 +28,7 @@ const PosterRow = ({
   handlePlayVideo = () => {
     const { key } = video;
 
-    navigate('MovieVideo', { key });
+    navigate(ROUTES.MOVIE_VIDEO, { key });
   };
 
   return (
