@@ -16,8 +16,6 @@ import MovieVideo from './app/screens/MovieVideo';
 import { darkBlue, white, pink, blue } from './app/styles/colors';
 
 const titleMovieTab = 'Home';
-const titleMovieDetailsTab = 'Movie details';
-const titleMovieVideoTab = 'Trailer';
 const titleSearchTab = 'Search';
 const titleConfigTab = 'More';
 
@@ -39,17 +37,11 @@ const MoviesTab = createStackNavigator(
     },
     MovieDetails: {
       screen: MovieDetails,
-      navigationOptions: {
-        ...navigationOptions,
-        title: titleMovieDetailsTab
-      }
+      navigationOptions
     },
     MovieVideo: {
       screen: MovieVideo,
-      navigationOptions: {
-        ...navigationOptions,
-        title: titleMovieVideoTab
-      }
+      navigationOptions
     }
   },
   {
@@ -74,6 +66,14 @@ const SearchTab = createStackNavigator(
     },
     SearchResults: {
       screen: MovieList,
+      navigationOptions
+    },
+    MovieDetails: {
+      screen: MovieDetails,
+      navigationOptions
+    },
+    MovieVideo: {
+      screen: MovieVideo,
       navigationOptions
     }
   },
@@ -179,8 +179,7 @@ const AppNavigator = createSwitchNavigator(
     Main: MainNavigator
   },
   {
-    initialRouteName: 'Main',
-    backBehavior: 'history'
+    initialRouteName: 'Main'
   }
 );
 

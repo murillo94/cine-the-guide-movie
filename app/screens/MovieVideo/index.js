@@ -22,4 +22,8 @@ const MovieVideo = ({ navigation }) => {
   );
 };
 
+MovieVideo.navigationOptions = () => ({
+  title: 'Trailer'
+});
+
 export default MovieVideo;
