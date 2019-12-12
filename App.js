@@ -14,10 +14,18 @@ import {
 } from './app/navigation/screens';
 import ROUTES from './app/navigation/routes';
 
-import { white, pink, blue } from './app/utils/colors';
+import { darkBlue, white, pink, blue } from './app/utils/colors';
+
+const defaultNavigationOptions = {
+  headerTintColor: darkBlue,
+  headerStyle: {
+    backgroundColor: white
+  }
+};
 
 const MoviesStack = createStackNavigator(MoviesScreen, {
   initialRouteName: ROUTES.MOVIE_LIST,
+  defaultNavigationOptions,
   navigationOptions: {
     tabBarIcon: ({ tintColor }) => (
       <Feather name="home" size={20} color={tintColor} />
@@ -27,6 +35,7 @@ const MoviesStack = createStackNavigator(MoviesScreen, {
 
 const SearchStack = createStackNavigator(SearchScreen, {
   initialRouteName: ROUTES.SEARCH,
+  defaultNavigationOptions,
   navigationOptions: {
     tabBarIcon: ({ tintColor }) => (
       <Feather name="search" size={20} color={tintColor} />
@@ -36,6 +45,7 @@ const SearchStack = createStackNavigator(SearchScreen, {
 
 const ConfigurationStack = createStackNavigator(ConfigurationScreen, {
   initialRouteName: ROUTES.CONFIGURATION,
+  defaultNavigationOptions,
   navigationOptions: {
     tabBarIcon: ({ tintColor }) => (
       <Feather name="menu" size={20} color={tintColor} />
