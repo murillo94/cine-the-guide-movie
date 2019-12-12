@@ -8,7 +8,7 @@ import { darkGray } from '../../../styles/colors';
 
 import styles from './styles';
 
-const Search = ({ navigate, typeRequest }) => {
+const InputSearch = ({ navigate, typeRequest }) => {
   const [search, setSearch] = useState('');
 
   onChangeSearch = value => {
@@ -23,8 +23,7 @@ const Search = ({ navigate, typeRequest }) => {
     if (search) {
       navigate('SearchResults', {
         typeRequest,
-        name: search,
-        id: null
+        name: search
       });
     }
   };
@@ -69,4 +68,4 @@ const Search = ({ navigate, typeRequest }) => {
   );
 };
 
-export default Search;
+export default InputSearch;

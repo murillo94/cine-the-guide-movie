@@ -7,47 +7,48 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import MovieListScreen from './app/screens/MovieListScreen';
-import ConfigurationScreen from './app/screens/ConfigurationScreen';
-import MovieDetailsScreen from './app/screens/MovieDetailsScreen';
-import SearchScreen from './app/screens/SearchScreen';
-import SearchResultsScreen from './app/screens/SearchResultsScreen';
-import WebViewScreen from './app/screens/WebViewScreen';
+import MovieList from './app/screens/MovieList';
+import Configuration from './app/screens/Configuration';
+import MovieDetails from './app/screens/MovieDetails';
+import Search from './app/screens/Search';
+import MovieVideo from './app/screens/MovieVideo';
 
-const TitleMovieTab = 'Home';
-const TitleConfigTab = 'More';
-const TitleSearchTab = 'Search';
-const TitleWebView = 'Trailer';
+import { darkBlue, white, pink, blue } from './app/styles/colors';
+
+const titleMovieTab = 'Home';
+const titleMovieDetailsTab = 'Movie details';
+const titleMovieVideoTab = 'Trailer';
+const titleSearchTab = 'Search';
+const titleConfigTab = 'More';
+
+const navigationOptions = {
+  headerTintColor: darkBlue,
+  headerStyle: {
+    backgroundColor: white
+  }
+};
 
 const MoviesTab = createStackNavigator(
   {
     MovieList: {
-      screen: MovieListScreen,
+      screen: MovieList,
       navigationOptions: {
-        title: TitleMovieTab,
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
+        ...navigationOptions,
+        title: titleMovieTab
       }
     },
     MovieDetails: {
-      screen: MovieDetailsScreen,
+      screen: MovieDetails,
       navigationOptions: {
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
+        ...navigationOptions,
+        title: titleMovieDetailsTab
       }
     },
-    WebView: {
-      screen: WebViewScreen,
+    MovieVideo: {
+      screen: MovieVideo,
       navigationOptions: {
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        },
-        title: TitleWebView
+        ...navigationOptions,
+        title: titleMovieVideoTab
       }
     }
   },
@@ -65,42 +66,15 @@ MoviesTab.navigationOptions = {
 const SearchTab = createStackNavigator(
   {
     Search: {
-      screen: SearchScreen,
+      screen: Search,
       navigationOptions: {
-        title: TitleSearchTab,
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
+        ...navigationOptions,
+        title: titleSearchTab
       }
     },
     SearchResults: {
-      screen: SearchResultsScreen,
-      navigationOptions: {
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
-      }
-    },
-    MovieDetails: {
-      screen: MovieDetailsScreen,
-      navigationOptions: {
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
-      }
-    },
-    WebView: {
-      screen: WebViewScreen,
-      navigationOptions: {
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        },
-        title: TitleWebView
-      }
+      screen: MovieList,
+      navigationOptions
     }
   },
   {
@@ -117,13 +91,10 @@ SearchTab.navigationOptions = {
 const ConfigurationTab = createStackNavigator(
   {
     Configuration: {
-      screen: ConfigurationScreen,
+      screen: Configuration,
       navigationOptions: {
-        title: TitleConfigTab,
-        headerTintColor: '#47525E',
-        headerStyle: {
-          backgroundColor: '#ffffff'
-        }
+        ...navigationOptions,
+        title: titleConfigTab
       }
     }
   },
@@ -140,103 +111,76 @@ ConfigurationTab.navigationOptions = {
 
 const MovieListTabBarVisible = navigation => {
   const { routes } = navigation.state;
+
   if (routes && routes.length > 0) {
     const route = routes[routes.length - 1];
     if (
       route.routeName === 'MovieDetails' ||
-      route.routeName === 'WebView' ||
+      route.routeName === 'MovieVideo' ||
       route.routeName === 'SearchResults'
     ) {
       return false;
     }
   }
+
   return true;
+};
+
+const tabNavigatorDefault = {
+  Movie: {
+    screen: MoviesTab,
+    navigationOptions: ({ navigation }) => ({
+      tabBarVisible: MovieListTabBarVisible(navigation)
+    })
+  },
+  Search: {
+    screen: SearchTab,
+    navigationOptions: ({ navigation }) => ({
+      tabBarVisible: MovieListTabBarVisible(navigation)
+    })
+  },
+  Config: {
+    screen: ConfigurationTab
+  }
 };
 
 const MainNavigator =
   Platform.OS === 'ios'
-    ? createBottomTabNavigator(
-        {
-          Movie: {
-            screen: MoviesTab,
-            navigationOptions: ({ navigation }) => ({
-              title: TitleMovieTab,
-              tabBarVisible: MovieListTabBarVisible(navigation)
-            })
+    ? createBottomTabNavigator(tabNavigatorDefault, {
+        tabBarOptions: {
+          activeTintColor: pink,
+          inactiveTintColor: blue,
+          showIcon: true,
+          labelStyle: {
+            margin: 0,
+            padding: 2
           },
-          Search: {
-            screen: SearchTab,
-            navigationOptions: ({ navigation }) => ({
-              title: TitleSearchTab,
-              tabBarVisible: MovieListTabBarVisible(navigation)
-            })
-          },
-          Config: {
-            screen: ConfigurationTab,
-            navigationOptions: {
-              title: TitleConfigTab
-            }
+          style: {
+            backgroundColor: white
           }
         },
-        {
-          tabBarOptions: {
-            activeTintColor: '#F95F62',
-            inactiveTintColor: '#8190A5',
-            showIcon: true,
-            labelStyle: {
-              margin: 0,
-              padding: 2
-            },
-            style: {
-              backgroundColor: '#ffffff'
-            }
-          },
-          animationEnabled: false,
-          swipeEnabled: false
+        animationEnabled: false,
+        swipeEnabled: false
+      })
+    : createMaterialBottomTabNavigator(tabNavigatorDefault, {
+        initialRouteName: 'Movie',
+        activeTintColor: pink,
+        inactiveTintColor: blue,
+        shifting: true,
+        barStyle: {
+          backgroundColor: white,
+          paddingTop: 2,
+          paddingBottom: 2
         }
-      )
-    : createMaterialBottomTabNavigator(
-        {
-          Movie: {
-            screen: MoviesTab,
-            navigationOptions: ({ navigation }) => ({
-              title: TitleMovieTab,
-              tabBarVisible: MovieListTabBarVisible(navigation)
-            })
-          },
-          Search: {
-            screen: SearchTab,
-            navigationOptions: ({ navigation }) => ({
-              title: TitleSearchTab,
-              tabBarVisible: MovieListTabBarVisible(navigation)
-            })
-          },
-          Config: {
-            screen: ConfigurationTab,
-            navigationOptions: {
-              title: TitleConfigTab
-            }
-          }
-        },
-        {
-          initialRouteName: 'Movie',
-          activeTintColor: '#F95F62',
-          inactiveTintColor: '#8190A5',
-          shifting: true,
-          barStyle: {
-            backgroundColor: '#ffffff',
-            paddingTop: 2,
-            paddingBottom: 2
-          }
-        }
-      );
+      });
 
 const AppNavigator = createSwitchNavigator(
   {
     Main: MainNavigator
   },
   {
-    initialRouteName: 'Main'
+    initialRouteName: 'Main',
+    backBehavior: 'history'
   }
 );
 

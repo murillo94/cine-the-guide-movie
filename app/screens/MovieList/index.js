@@ -4,6 +4,7 @@ import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
 import { Assets as StackAssets } from 'react-navigation-stack';
 
+import Screen from '../../components/common/Screen';
 import Spinner from '../../components/common/Spinner';
 import NotificationCard from '../../components/cards/NotificationCard';
 import FilterModal from '../../components/modals/FilterModal';
@@ -20,7 +21,7 @@ import { darkBlue } from '../../styles/colors';
 
 import styles from './styles';
 
-export const MovieListScreen = ({ navigation }) => {
+const MovieList = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -35,6 +36,9 @@ export const MovieListScreen = ({ navigation }) => {
     filterName: 'Most popular'
   });
   const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
+  const {
+    params: { id = null, name = null, typeRequest = 'discover' } = {}
+  } = navigation.state;
 
   useEffect(() => {
     (async () => {
@@ -62,12 +66,13 @@ export const MovieListScreen = ({ navigation }) => {
       const { filterType } = filter;
       const dateRelease = getTodayDate();
 
-      const data = await request('discover/movie', {
+      const data = await request(`${typeRequest}/movie`, {
         page,
         'release_date.lte': dateRelease,
         sort_by: filterType,
         with_release_type: '1|2|3|4|5|6|7',
-        include_adult: hasAdultContent
+        include_adult: hasAdultContent,
+        ...getQueryRequest()
       });
 
       setIsLoading(false);
@@ -82,6 +87,18 @@ export const MovieListScreen = ({ navigation }) => {
       setIsRefresh(false);
       setIsError(true);
     }
+  };
+
+  getQueryRequest = () => {
+    if (typeRequest === 'discover') {
+      return id ? { with_genres: `${id}` } : null;
+    }
+
+    if (typeRequest === 'search') {
+      return { query: `${name.trim()}` };
+    }
+
+    return null;
   };
 
   renderItem = (item, type, isSearch, numColumns, navigate) => (
@@ -156,64 +173,68 @@ export const MovieListScreen = ({ navigation }) => {
   const { numColumns, keyGrid } = view;
 
   return (
-    <View style={styles.container}>
-      {isLoading && !isRefresh && !isLoadingMore ? (
-        <Spinner />
-      ) : isError ? (
-        <NotificationCard icon="alert-octagon" onPress={requestMoviesList} />
-      ) : results.length === 0 ? (
-        <NotificationCard
-          icon="thumbs-down"
-          textError="No results available."
-        />
-      ) : (
-        <View style={styles.containerList}>
-          {results.length > 0 && (
-            <View style={styles.containerMainText}>
-              <Text style={styles.textMain} numberOfLines={1}>
-                {filterName}
-              </Text>
-              <TouchableOpacity
-                style={[
-                  styles.buttonGrid,
-                  numColumns === 2 && styles.buttonGridActive
-                ]}
-                onPress={handleGrid}
-              >
-                <Feather name="grid" size={22} color={darkBlue} />
-              </TouchableOpacity>
-            </View>
-          )}
-          <MovieListRow
-            data={results}
-            type="normal"
-            isSearch={false}
-            keyGrid={keyGrid}
-            numColumns={numColumns}
-            refreshing={isRefresh}
-            onRefresh={handleRefresh}
-            ListFooterComponent={renderFooter}
-            navigate={navigate}
-            renderItem={renderItem}
+    <Screen>
+      <View style={styles.container}>
+        {isLoading && !isRefresh && !isLoadingMore ? (
+          <Spinner />
+        ) : isError ? (
+          <NotificationCard icon="alert-octagon" onPress={requestMoviesList} />
+        ) : results.length === 0 ? (
+          <NotificationCard
+            icon="thumbs-down"
+            textError="No results available."
           />
-        </View>
-      )}
-      <FilterModal
-        isVisible={isVisible}
-        filter={filter}
-        onVisible={handleFilter}
-        onFilter={handleSwitchMovie}
-        style={styles.bottomModal}
-      />
-    </View>
+        ) : (
+          <View style={styles.containerList}>
+            {results.length > 0 && (
+              <View style={styles.containerMainText}>
+                <Text style={styles.textMain} numberOfLines={1}>
+                  {typeRequest === 'discover' ? filterName : name}
+                </Text>
+                <TouchableOpacity
+                  style={[
+                    styles.buttonGrid,
+                    numColumns === 2 && styles.buttonGridActive
+                  ]}
+                  onPress={handleGrid}
+                >
+                  <Feather name="grid" size={22} color={darkBlue} />
+                </TouchableOpacity>
+              </View>
+            )}
+            <MovieListRow
+              data={results}
+              type="normal"
+              isSearch={false}
+              keyGrid={keyGrid}
+              numColumns={numColumns}
+              refreshing={isRefresh}
+              onRefresh={handleRefresh}
+              ListFooterComponent={renderFooter}
+              navigate={navigate}
+              renderItem={renderItem}
+            />
+          </View>
+        )}
+        <FilterModal
+          isVisible={isVisible}
+          filter={filter}
+          onVisible={handleFilter}
+          onFilter={handleSwitchMovie}
+          style={styles.bottomModal}
+        />
+      </View>
+    </Screen>
   );
 };
 
-MovieListScreen.navigationOptions = ({ navigation }) => {
-  const { handleFilter } = navigation.state.params || {};
+MovieList.navigationOptions = ({ navigation }) => {
+  const { handleFilter, name, routeName, typeRequest } =
+    navigation.state.params || {};
 
   return {
-    headerRight: (
+    title: name || routeName,
+    headerRight: typeRequest === 'discover' && (
       <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
         <Feather name="filter" size={23} color={darkBlue} />
       </TouchableOpacity>
@@ -221,4 +242,4 @@ MovieListScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
-export default MovieListScreen;
+export default MovieList;

@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { Alert } from '../../components/common/Alert';
 import { Share } from '../../components/common/Share';
+import Screen from '../../components/common/Screen';
 import { TouchableOpacity } from '../../components/common/TouchableOpacity';
 import { Switch } from '../../components/common/Switch';
 
@@ -14,7 +15,7 @@ import { darkBlue } from '../../styles/colors';
 
 import styles from './styles';
 
-const ConfigurationScreen = () => {
+const Configuration = () => {
   const [hasAdultContent, setHasAdultContent] = useState(false);
 
   useEffect(() => {
@@ -66,61 +67,69 @@ const ConfigurationScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.bgWhite}>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
-            Interface
-          </Text>
-          <View style={[styles.item, styles.itemNoBorder]}>
-            <Text style={styles.itemText} numberOfLines={2}>
-              Include adult content
+    <Screen>
+      <ScrollView style={styles.bgWhite}>
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <Text
+              style={[styles.itemText, styles.sectionText]}
+              numberOfLines={2}
+            >
+              Interface
             </Text>
-            <Switch
-              value={hasAdultContent}
-              onValueChange={handleChangeAdultContent}
-            />
-          </View>
-        </View>
-        <View>
-          <Text style={[styles.itemText, styles.sectionText]} numberOfLines={2}>
-            Application
-          </Text>
-          <TouchableOpacity onPress={handleShare}>
-            <View style={styles.item}>
+            <View style={[styles.item, styles.itemNoBorder]}>
               <Text style={styles.itemText} numberOfLines={2}>
-                Tell a friend
+                Include adult content
               </Text>
-              <Feather
-                name="share"
-                size={22}
-                color={darkBlue}
-                style={styles.icon}
+              <Switch
+                value={hasAdultContent}
+                onValueChange={handleChangeAdultContent}
               />
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleRating}>
-            <View style={styles.item}>
-              <Text style={styles.itemText} numberOfLines={2}>
-                Rate the app
-              </Text>
-              <Feather
-                name="star"
-                size={22}
-                color={darkBlue}
-                style={styles.icon}
-              />
-            </View>
-          </TouchableOpacity>
-          <View style={[styles.item, styles.itemNoBorder]}>
-            <Text style={styles.itemTextVersion} numberOfLines={2}>
-              Version {Constants.manifest.version}
+          </View>
+          <View>
+            <Text
+              style={[styles.itemText, styles.sectionText]}
+              numberOfLines={2}
+            >
+              Application
             </Text>
+            <TouchableOpacity onPress={handleShare}>
+              <View style={styles.item}>
+                <Text style={styles.itemText} numberOfLines={2}>
+                  Tell a friend
+                </Text>
+                <Feather
+                  name="share"
+                  size={22}
+                  color={darkBlue}
+                  style={styles.icon}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleRating}>
+              <View style={styles.item}>
+                <Text style={styles.itemText} numberOfLines={2}>
+                  Rate the app
+                </Text>
+                <Feather
+                  name="star"
+                  size={22}
+                  color={darkBlue}
+                  style={styles.icon}
+                />
+              </View>
+            </TouchableOpacity>
+            <View style={[styles.item, styles.itemNoBorder]}>
+              <Text style={styles.itemTextVersion} numberOfLines={2}>
+                Version {Constants.manifest.version}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </Screen>
   );
 };
 
-export default ConfigurationScreen;
+export default Configuration;

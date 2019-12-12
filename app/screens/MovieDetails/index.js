@@ -5,6 +5,7 @@ import ReadMore from 'react-native-read-more-text';
 
 import { Alert } from '../../components/common/Alert';
 import { Share } from '../../components/common/Share';
+import Screen from '../../components/common/Screen';
 import Spinner from '../../components/common/Spinner';
 import NotificationCard from '../../components/cards/NotificationCard';
 import PosterRow from '../../components/cards/rows/PosterRow';
@@ -63,7 +64,7 @@ const renderReadMoreFooter = (text, handlePress) => (
   </TouchableOpacity>
 );
 
-const MovieDetailsScreen = ({ navigation }) => {
+const MovieDetails = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -187,87 +188,91 @@ const MovieDetailsScreen = ({ navigation }) => {
     const { navigate } = navigation;
 
     return (
-      <View style={styles.container}>
-        {isLoading ? (
-          <Spinner />
-        ) : isError ? (
-          <NotificationCard icon="alert-octagon" onPress={requestMoviesInfo} />
-        ) : (
-          <ScrollView>
-            <PosterRow
-              title={title}
-              backdropPath={backdropPath}
-              voteAverage={voteAverage}
-              images={images}
-              video={video}
-              navigate={navigate}
-              showImage={showImage}
-              onPress={handleImage}
+      <Screen>
+        <View style={styles.container}>
+          {isLoading ? (
+            <Spinner />
+          ) : isError ? (
+            <NotificationCard
+              icon="alert-octagon"
+              onPress={requestMoviesInfo}
             />
-            <View style={styles.containerMovieInfo}>
-              <MainInfoRow data={infosDetail} />
-              <SectionRow title="Synopsis">
-                <ReadMore
-                  numberOfLines={3}
-                  renderTruncatedFooter={handlePress =>
-                    renderReadMoreFooter('Read more', handlePress)
-                  }
-                  renderRevealedFooter={handlePress =>
-                    renderReadMoreFooter('Read less', handlePress)
-                  }
-                >
-                  <Text style={styles.subTitleInfo}>{overview}</Text>
-                </ReadMore>
-              </SectionRow>
-              <SectionRow title="Main cast">
-                <PersonListRow
-                  data={cast}
-                  type="character"
-                  keyItem="creditId"
-                  ListEmptyComponent={renderListEmpty}
-                  onTeamDetail={handlePerson}
-                  renderItem={renderItem}
-                />
-              </SectionRow>
-              <SectionRow title="Main technical team">
-                <PersonListRow
-                  data={crew}
-                  type="job"
-                  keyItem="creditId"
-                  ListEmptyComponent={renderListEmpty}
-                  onTeamDetail={handlePerson}
-                  renderItem={renderItem}
-                />
-              </SectionRow>
-              <SectionRow title="Producer" isLast>
-                <PersonListRow
-                  data={productionCompanies}
-                  type="production"
-                  keyItem="id"
-                  ListEmptyComponent={renderListEmpty}
-                  onTeamDetail={handlePerson}
-                  renderItem={renderItem}
-                />
-              </SectionRow>
-            </View>
-          </ScrollView>
-        )}
-        <PersonModal
-          isVisible={isVisible}
-          creditId={creditId}
-          style={styles.bottomModal}
-          onClose={handleVisibleModal}
-        />
-      </View>
+          ) : (
+            <ScrollView>
+              <PosterRow
+                title={title}
+                backdropPath={backdropPath}
+                voteAverage={voteAverage}
+                images={images}
+                video={video}
+                navigate={navigate}
+                showImage={showImage}
+                onPress={handleImage}
+              />
+              <View style={styles.containerMovieInfo}>
+                <MainInfoRow data={infosDetail} />
+                <SectionRow title="Synopsis">
+                  <ReadMore
+                    numberOfLines={3}
+                    renderTruncatedFooter={handlePress =>
+                      renderReadMoreFooter('Read more', handlePress)
+                    }
+                    renderRevealedFooter={handlePress =>
+                      renderReadMoreFooter('Read less', handlePress)
+                    }
+                  >
+                    <Text style={styles.subTitleInfo}>{overview}</Text>
+                  </ReadMore>
+                </SectionRow>
+                <SectionRow title="Main cast">
+                  <PersonListRow
+                    data={cast}
+                    type="character"
+                    keyItem="creditId"
+                    ListEmptyComponent={renderListEmpty}
+                    onTeamDetail={handlePerson}
+                    renderItem={renderItem}
+                  />
+                </SectionRow>
+                <SectionRow title="Main technical team">
+                  <PersonListRow
+                    data={crew}
+                    type="job"
+                    keyItem="creditId"
+                    ListEmptyComponent={renderListEmpty}
+                    onTeamDetail={handlePerson}
+                    renderItem={renderItem}
+                  />
+                </SectionRow>
+                <SectionRow title="Producer" isLast>
+                  <PersonListRow
+                    data={productionCompanies}
+                    type="production"
+                    keyItem="id"
+                    ListEmptyComponent={renderListEmpty}
+                    onTeamDetail={handlePerson}
+                    renderItem={renderItem}
+                  />
+                </SectionRow>
+              </View>
+            </ScrollView>
+          )}
+          <PersonModal
+            isVisible={isVisible}
+            creditId={creditId}
+            style={styles.bottomModal}
+            onClose={handleVisibleModal}
+          />
+        </View>
+      </Screen>
     );
   }
 };
 
-MovieDetailsScreen.navigationOptions = ({ navigation }) => {
+MovieDetails.navigationOptions = ({ navigation }) => {
   const { id, title, handleShare } = navigation.state.params || {};
 
   return {
-    title: 'Movie details',
     headerRight: (
       <TouchableOpacity
         style={styles.buttonShare}
@@ -279,4 +284,4 @@ MovieDetailsScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
-export default MovieDetailsScreen;
+export default MovieDetails;

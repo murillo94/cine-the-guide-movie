@@ -26,7 +26,7 @@ const PosterRow = ({
   handlePlayVideo = () => {
     const { key } = video;
 
-    navigate('WebView', { key });
+    navigate('MovieVideo', { key });
   };
 
   return (
