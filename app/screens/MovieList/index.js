@@ -23,7 +23,7 @@ import styles from './styles';
 
 const MovieList = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -229,7 +229,7 @@ const MovieList = ({ navigation }) => {
 };
 
 MovieList.navigationOptions = ({ navigation }) => {
-  const { handleFilter, name, routeName, typeRequest } =
+  const { handleFilter, name, routeName, typeRequest = 'discover' } =
     navigation.state.params || {};
 
   return {
