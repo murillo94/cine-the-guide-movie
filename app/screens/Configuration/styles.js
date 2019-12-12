@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { fontSizeResponsive } from '../../utils/dimensions';
 
-import { white, darkBlue, blue, lightGray } from '../../styles/colors';
+import { white, darkBlue, blue, lightGray } from '../../utils/colors';
 
 const styles = StyleSheet.create({
   bgWhite: {

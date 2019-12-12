@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { fontSizeResponsive } from '../../utils/dimensions';
 
-import { white, lightGray, darkBlue } from '../../styles/colors';
+import { white, lightGray, darkBlue } from '../../utils/colors';
 
 const styles = StyleSheet.create({
   buttonFilter: {

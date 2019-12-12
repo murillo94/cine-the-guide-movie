@@ -13,7 +13,7 @@ import request from '../../../services/api';
 import { width } from '../../../utils/dimensions';
 import { getImageApi } from '../../../utils/images';
 
-import { darkBlue } from '../../../styles/colors';
+import { darkBlue } from '../../../utils/colors';
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';

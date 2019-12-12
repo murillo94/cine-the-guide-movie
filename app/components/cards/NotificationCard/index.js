@@ -6,7 +6,7 @@ import { TouchableOpacity } from '../../common/TouchableOpacity';
 
 import { width } from '../../../utils/dimensions';
 
-import { darkBlue } from '../../../styles/colors';
+import { darkBlue } from '../../../utils/colors';
 
 import styles from './styles';
 

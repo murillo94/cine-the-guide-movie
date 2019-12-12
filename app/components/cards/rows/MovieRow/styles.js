@@ -9,7 +9,7 @@ import {
   lightRed,
   lightYellow,
   lightGreen
-} from '../../../../styles/colors';
+} from '../../../../utils/colors';
 
 const styles = StyleSheet.create({
   containerItem: {

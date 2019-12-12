@@ -11,7 +11,7 @@ import { Switch } from '../../components/common/Switch';
 
 import { getItem, setItem } from '../../utils/asyncStorage';
 
-import { darkBlue } from '../../styles/colors';
+import { darkBlue } from '../../utils/colors';
 
 import styles from './styles';
 

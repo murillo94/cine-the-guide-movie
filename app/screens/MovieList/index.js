@@ -17,7 +17,7 @@ import request from '../../services/api';
 import { getItem } from '../../utils/asyncStorage';
 import { getTodayDate } from '../../utils/dates';
 
-import { darkBlue } from '../../styles/colors';
+import { darkBlue } from '../../utils/colors';
 
 import styles from './styles';
 

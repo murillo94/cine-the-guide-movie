@@ -28,7 +28,7 @@ import { sliceArrayLength } from '../../utils/array';
 
 import isoLanguage from '../../data/iso.json';
 
-import { darkBlue } from '../../styles/colors';
+import { darkBlue } from '../../utils/colors';
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';

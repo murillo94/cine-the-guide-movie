@@ -13,7 +13,7 @@ import MovieDetails from './app/screens/MovieDetails';
 import Search from './app/screens/Search';
 import MovieVideo from './app/screens/MovieVideo';
 
-import { darkBlue, white, pink, blue } from './app/styles/colors';
+import { darkBlue, white, pink, blue } from './app/utils/colors';
 
 const titleMovieTab = 'Home';
 const titleSearchTab = 'Search';
