@@ -5,7 +5,7 @@ export const getAvarageRating = score => {
     const length =
       avarage !== 10 ? parseInt(`${avarage}`.charAt(0)) - 5 : avarage - 5;
 
-    return [...Array(length)];
+    return [...Array(length)].map((_, i) => i);
   }
 
   return [];
