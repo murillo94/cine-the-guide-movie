@@ -1,20 +1,15 @@
 import React from 'react';
 import { Platform } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import {
-  MoviesScreen,
-  SearchScreen,
-  ConfigurationScreen
-} from './app/navigation/screens';
-import ROUTES from './app/navigation/routes';
+import { MoviesScreen, SearchScreen, ConfigurationScreen } from './screens';
+import ROUTES from './routes';
 
-import { darkBlue, white, pink, blue } from './app/utils/colors';
+import { darkBlue, white, pink, blue } from '../utils/colors';
 
 const defaultNavigationOptions = {
   headerTintColor: darkBlue,

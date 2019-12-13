@@ -2,7 +2,7 @@
   "name": "cine-the-movie-guide",
   "version": "0.1.0",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./app/navigation",
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.1.0",
