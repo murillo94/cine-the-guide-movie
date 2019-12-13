@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
+
 import PersonRow from '../cards/rows/PersonRow';
 
 const props = {

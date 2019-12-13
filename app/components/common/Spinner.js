@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, ActivityIndicator, View } from 'react-native';
 
-import { darkBlue } from '../../styles/Colors';
+import { darkBlue } from '../../utils/colors';
 
 const Spinner = ({ style = {}, size = 50, color = darkBlue }) => (
   <View style={style}>

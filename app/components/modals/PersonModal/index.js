@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-
 import { Feather } from '@expo/vector-icons';
 import Image from 'react-native-scalable-image';
 
@@ -9,33 +8,42 @@ import NotificationCard from '../../cards/NotificationCard';
 import { Modal } from '../Modal';
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import request from '../../../services/Api';
+import request from '../../../services/api';
 
-import { width } from '../../../utils/Metrics';
-import { notFound } from '../../../utils/StaticImages';
-import { darkBlue } from '../../../styles/Colors';
+import { width } from '../../../utils/dimensions';
+import { getImageApi } from '../../../utils/images';
 
+import { darkBlue } from '../../../utils/colors';
 import styles from './styles';
 
-const uninformed = 'Uninformed';
+const UNINFORMED = 'Uninformed';
+const INITIAL_INFO = {
+  profilePath: '',
+  name: `${UNINFORMED} name`,
+  knownForDepartment: `${UNINFORMED} department`,
+  birthday: '',
+  placeOfBirth: `${UNINFORMED} place of birth`,
+  biography: UNINFORMED
+};
 
-export default class PersonModal extends Component {
-  state = {
-    isLoading: false,
-    isError: false,
-    id: this.props.creditId
-  };
+const PersonModal = ({ isVisible, creditId, style, onClose }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [info, setInfo] = useState(INITIAL_INFO);
+  const {
+    name,
+    profilePath,
+    knownForDepartment,
+    placeOfBirth,
+    biography
+  } = info;
 
-  getImageApi = () => {
-    const { profilePath } = this.state;
-
-    return profilePath
-      ? { uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }
-      : notFound;
-  };
+  useEffect(() => {
+    requestTeamInfo();
+  }, [creditId]);
 
   getAge = () => {
-    const { birthday } = this.state;
+    const { birthday } = info;
 
     if (birthday) {
       const today = new Date();
@@ -45,139 +53,104 @@ export default class PersonModal extends Component {
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age -= 1;
       return `${age} years`;
     }
-    return `${uninformed} age`;
+
+    return `${UNINFORMED} age`;
   };
 
   requestTeamInfo = async () => {
     try {
-      this.setState({ isLoading: true });
+      if (creditId) {
+        setIsLoading(true);
 
-      const { creditId } = this.props;
+        const data = await request(`person/${parseInt(creditId)}`);
 
-      const data = await request(`person/${parseInt(creditId)}`);
-
-      this.setState({
-        isLoading: false,
-        isError: false,
-        id: creditId,
-        profilePath: data.profile_path || '',
-        name: data.name || `${uninformed} name`,
-        knownForDepartment:
-          data.known_for_department || `${uninformed} department`,
-        birthday: data.birthday || '',
-        placeOfBirth: data.place_of_birth || `${uninformed} place of birth`,
-        biography: data.biography || uninformed
-      });
+        setIsLoading(false);
+        setIsError(false);
+        setInfo({
+          profilePath: data.profile_path || INITIAL_INFO.profilePath,
+          name: data.name || INITIAL_INFO.name,
+          knownForDepartment:
+            data.known_for_department || INITIAL_INFO.knownForDepartment,
+          birthday: data.birthday || INITIAL_INFO.birthday,
+          placeOfBirth: data.place_of_birth || INITIAL_INFO.placeOfBirth,
+          biography: data.biography || INITIAL_INFO.biography
+        });
+      }
     } catch (err) {
-      this.setState({
-        isLoading: false,
-        isError: true
-      });
+      setIsLoading(false);
+      setIsError(true);
     }
   };
 
-  renderFooter = () => {
-    const { actionClose } = this.props;
-
-    return (
-      <View style={styles.containerRow}>
-        <TouchableOpacity style={styles.button} onPress={actionClose}>
-          <Feather
-            name="chevron-down"
-            size={styles.icon.fontSize}
-            color={darkBlue}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
-  render() {
-    const {
-      isLoading,
-      isError,
-      id,
-      name,
-      knownForDepartment,
-      placeOfBirth,
-      biography
-    } = this.state;
-
-    const { isVisible, actionClose, style, creditId } = this.props;
-
-    return (
-      <Modal
-        isVisible={isVisible}
-        onModalShow={this.requestTeamInfo}
-        actionOpenClose={actionClose}
-        style={style}
-      >
-        <View style={styles.containerModal}>
-          {isLoading || creditId !== id ? (
-            <Spinner style={styles.containerCenter} />
-          ) : isError ? (
-            <View style={styles.containerModal}>
-              <ScrollView style={styles.containerScroll}>
-                <NotificationCard
-                  icon="alert-octagon"
-                  action={this.requestTeamInfo}
-                />
-              </ScrollView>
-              {this.renderFooter()}
-            </View>
-          ) : (
-            <View style={styles.containerModal}>
-              <ScrollView style={styles.containerScroll}>
-                <View style={styles.containerMainText}>
-                  <Image
-                    source={this.getImageApi()}
-                    style={styles.photo}
-                    width={width * 0.33}
-                  />
-                  <View style={styles.textItens}>
-                    <Text style={styles.titleName}>{name}</Text>
-                    <View style={styles.containerTitleMargin}>
-                      <Text
-                        numberOfLines={2}
-                        style={[styles.textSmall, styles.textJustify]}
-                      >
-                        {knownForDepartment}
-                      </Text>
-                    </View>
-                    <View style={styles.containerTitleMargin}>
-                      <Text
-                        numberOfLines={2}
-                        style={[styles.textSmall, styles.textJustify]}
-                      >
-                        {this.getAge()}
-                      </Text>
-                    </View>
-                    <View style={styles.containerTitleMargin}>
-                      <Text
-                        numberOfLines={2}
-                        style={[styles.textSmall, styles.textJustify]}
-                      >
-                        {placeOfBirth}
-                      </Text>
-                    </View>
-                  </View>
+  return (
+    <Modal isVisible={isVisible} style={style} onClose={onClose}>
+      <View style={styles.containerModal}>
+        {isLoading ? (
+          <Spinner style={styles.containerCenter} />
+        ) : isError ? (
+          <ScrollView style={styles.containerScroll}>
+            <NotificationCard icon="alert-octagon" onPress={requestTeamInfo} />
+          </ScrollView>
+        ) : (
+          <ScrollView style={styles.containerScroll}>
+            <View style={styles.containerMainText}>
+              <Image
+                source={getImageApi(profilePath)}
+                style={styles.photo}
+                width={width * 0.33}
+              />
+              <View style={styles.textItens}>
+                <Text style={styles.titleName}>{name}</Text>
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {knownForDepartment}
+                  </Text>
                 </View>
-                <Text style={styles.titleInfo}>Biography</Text>
-                <Text
-                  style={[
-                    styles.textSmall,
-                    styles.textLineHeight,
-                    styles.textJustify
-                  ]}
-                >
-                  {biography}
-                </Text>
-              </ScrollView>
-              {this.renderFooter()}
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {getAge()}
+                  </Text>
+                </View>
+                <View style={styles.containerTitleMargin}>
+                  <Text
+                    numberOfLines={2}
+                    style={[styles.textSmall, styles.textJustify]}
+                  >
+                    {placeOfBirth}
+                  </Text>
+                </View>
+              </View>
             </View>
-          )}
+            <Text style={styles.titleInfo}>Biography</Text>
+            <Text
+              style={[
+                styles.textSmall,
+                styles.textLineHeight,
+                styles.textJustify
+              ]}
+            >
+              {biography}
+            </Text>
+          </ScrollView>
+        )}
+        <View style={styles.containerRow}>
+          <TouchableOpacity style={styles.button} onPress={onClose}>
+            <Feather
+              name="chevron-down"
+              size={styles.icon.fontSize}
+              color={darkBlue}
+            />
+          </TouchableOpacity>
         </View>
-      </Modal>
-    );
-  }
-}
+      </View>
+    </Modal>
+  );
+};
+
+export default PersonModal;

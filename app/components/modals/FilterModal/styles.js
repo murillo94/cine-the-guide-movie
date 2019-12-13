@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { white, darkBlue } from '../../../styles/Colors';
-import { fontSizeResponsive, height } from '../../../utils/Metrics';
+import { fontSizeResponsive, height } from '../../../utils/dimensions';
+
+import { white, darkBlue } from '../../../utils/colors';
 
 const styles = StyleSheet.create({
   containerModal: {

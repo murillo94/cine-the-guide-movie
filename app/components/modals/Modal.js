@@ -2,24 +2,24 @@ import React from 'react';
 import Modal from 'react-native-modal';
 
 const ModalCustom = ({
+  children = null,
   isVisible = false,
-  onModalShow = () => null,
-  actionOpenClose = () => null,
   style = {},
-  children = null
+  onModalShow = () => null,
+  onClose = () => null
 }) => (
   <Modal
     isVisible={isVisible}
-    onModalShow={onModalShow}
-    onBackdropPress={actionOpenClose}
-    onBackButtonPress={actionOpenClose}
-    hideModalContentWhileAnimating
     useNativeDriver
+    hideModalContentWhileAnimating
     backdropOpacity={0.5}
     style={style}
+    onModalShow={onModalShow}
+    onBackdropPress={onClose}
+    onBackButtonPress={onClose}
   >
     {children}
   </Modal>
 );
 
-export { ModalCustom as Modal }; // eslint-disable-line import/prefer-default-export
+export { ModalCustom as Modal };

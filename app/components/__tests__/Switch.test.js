@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
+
 import { Switch } from '../common/Switch';
 
 test('should verify if calls switch', () => {

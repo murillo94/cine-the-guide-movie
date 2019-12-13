@@ -4,14 +4,10 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 import Spinner from '../common/Spinner';
 
-import { white } from '../../styles/Colors';
+import { white } from '../../utils/colors';
 
-const ImagesModal = ({
-  showImage = false,
-  images = [],
-  actionClose = null
-}) => (
-  <Modal visible={showImage} transparent onRequestClose={actionClose}>
+const ImagesModal = ({ showImage = false, images = [], onClose = null }) => (
+  <Modal visible={showImage} transparent onRequestClose={onClose}>
     <ImageViewer
       imageUrls={images}
       enableSwipeDown
@@ -23,7 +19,7 @@ const ImagesModal = ({
       maxOverflow={5}
       swipeDownThreshold={25}
       loadingRender={() => <Spinner color={white} />}
-      onCancel={actionClose}
+      onCancel={onClose}
     />
   </Modal>
 );

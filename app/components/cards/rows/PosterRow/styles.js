@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { white, pink } from '../../../../styles/Colors';
-import { fontSizeResponsive, width } from '../../../../utils/Metrics';
+import { fontSizeResponsive, width } from '../../../../utils/dimensions';
+
+import { white, pink } from '../../../../utils/colors';
 
 /* eslint-disable react-native/no-color-literals */
 
