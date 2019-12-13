@@ -103,8 +103,8 @@ const MainNavigator =
       })
     : createMaterialBottomTabNavigator(tabNavigatorDefault, {
         initialRouteName: 'Movie',
-        activeTintColor: pink,
-        inactiveTintColor: blue,
+        activeColor: pink,
+        inactiveColor: blue,
         shifting: true,
         barStyle: {
           backgroundColor: white,
