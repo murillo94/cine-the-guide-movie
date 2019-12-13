@@ -4,7 +4,7 @@ import MovieDetails from '../screens/MovieDetails';
 import Search from '../screens/Search';
 import MovieVideo from '../screens/MovieVideo';
 
-import ROUTES from './routes';
+import { ROUTES } from './routes';
 
 export const MoviesScreen = {
   [ROUTES.MOVIE_LIST]: {

@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import { MoviesScreen, SearchScreen, ConfigurationScreen } from './screens';
-import ROUTES from './routes';
+import { ROUTES, TABS } from './routes';
 
 import { darkBlue, white, pink, blue } from '../utils/colors';
 
@@ -66,19 +66,19 @@ const MovieListTabBarVisible = navigation => {
 };
 
 const tabNavigatorDefault = {
-  Movie: {
+  [TABS.HOME]: {
     screen: MoviesStack,
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: MovieListTabBarVisible(navigation)
     })
   },
-  Search: {
+  [TABS.SEARCH]: {
     screen: SearchStack,
     navigationOptions: ({ navigation }) => ({
       tabBarVisible: MovieListTabBarVisible(navigation)
     })
   },
-  Config: {
+  [TABS.CONFIG]: {
     screen: ConfigurationStack
   }
 };
@@ -102,7 +102,7 @@ const MainNavigator =
         swipeEnabled: false
       })
     : createMaterialBottomTabNavigator(tabNavigatorDefault, {
-        initialRouteName: 'Movie',
+        initialRouteName: TABS.HOME,
         activeColor: pink,
         inactiveColor: blue,
         shifting: true,

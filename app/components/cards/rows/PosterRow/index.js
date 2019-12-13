@@ -9,7 +9,7 @@ import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { getAvarageRating } from '../../../../utils/rating';
 
-import ROUTES from '../../../../navigation/routes';
+import { ROUTES } from '../../../../navigation/routes';
 
 import { white } from '../../../../utils/colors';
 

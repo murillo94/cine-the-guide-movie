@@ -10,7 +10,7 @@ import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 import { convertToYear } from '../../../../utils/dates';
 import { convertTypeWithGenre } from '../../../../utils/genre';
 
-import ROUTES from '../../../../navigation/routes';
+import { ROUTES } from '../../../../navigation/routes';
 
 import isoLanguage from '../../../../data/iso.json';
 

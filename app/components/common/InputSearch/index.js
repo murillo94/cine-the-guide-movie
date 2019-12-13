@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../TouchableOpacity';
 
-import ROUTES from '../../../navigation/routes';
+import { ROUTES } from '../../../navigation/routes';
 
 import { darkGray } from '../../../utils/colors';
 
