@@ -13,7 +13,7 @@ import {
 } from '../colors';
 
 test('should verify the hex color', () => {
-  expect(white).toBe('#fff');
+  expect(white).toBe('#ffffff');
   expect(freeze).toBe('#f6f6f6');
   expect(gray).toBe('#e9e9e9');
   expect(lightGray).toBe('#f0f0f0');
@@ -22,7 +22,7 @@ test('should verify the hex color', () => {
   expect(darkBlue).toBe('#47525e');
   expect(pink).toBe('#f95f62');
   expect(lightRed).toBe('#ff7f7f');
-  expect(lightYellow).toBe('#EAB079');
+  expect(lightYellow).toBe('#eab079');
   expect(lightGreen).toBe('#82c596');
 });
 

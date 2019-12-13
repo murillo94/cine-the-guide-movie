@@ -7,5 +7,5 @@ export const blue = '#8190a5';
 export const darkBlue = '#47525e';
 export const pink = '#f95f62';
 export const lightRed = '#ff7f7f';
-export const lightYellow = '#EAB079';
+export const lightYellow = '#eab079';
 export const lightGreen = '#82c596';
