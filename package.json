@@ -42,7 +42,7 @@
     "react-navigation-material-bottom-tabs": "^2.1.5",
     "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.6.0",
-    "yarn": "^1.19.2"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "start": "expo start",
