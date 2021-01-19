@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
-import { Assets as StackAssets } from 'react-navigation-stack';
+import { Assets as StackAssets } from '@react-navigation/stack';
 
 import Screen from '../../components/common/Screen';
 import Spinner from '../../components/common/Spinner';
@@ -21,7 +21,7 @@ import { darkBlue } from '../../utils/colors';
 
 import styles from './styles';
 
-const MovieList = ({ navigation }) => {
+const MovieList = ({ navigation, route }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -38,13 +38,22 @@ const MovieList = ({ navigation }) => {
   const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
   const {
     params: { id = null, name = null, typeRequest = 'discover' } = {}
-  } = navigation.state;
+  } = route;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
+          <Feather name="filter" size={23} color={darkBlue} />
+        </TouchableOpacity>
+      )
+    });
+  }, [navigation]);
 
   useEffect(() => {
     (async () => {
       try {
         Asset.loadAsync(StackAssets);
-        navigation.setParams({ handleFilter });
 
         const adultContentStorage = await getItem(
           '@ConfigKey',
@@ -226,20 +235,6 @@ const MovieList = ({ navigation }) => {
       </View>
     </Screen>
   );
-};
-
-MovieList.navigationOptions = ({ navigation }) => {
-  const { handleFilter, name, routeName, typeRequest = 'discover' } =
-    navigation.state.params || {};
-
-  return {
-    title: name || routeName,
-    headerRight: typeRequest === 'discover' && (
-      <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
-        <Feather name="filter" size={23} color={darkBlue} />
-      </TouchableOpacity>
-    )
-  };
 };
 
 export default MovieList;

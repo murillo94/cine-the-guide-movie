@@ -8,8 +8,8 @@ import styles from './styles';
 
 const Loading = () => <Spinner style={styles.container} />;
 
-const MovieVideo = ({ navigation }) => {
-  const { key } = navigation.state.params;
+const MovieVideo = ({ route }) => {
+  const { key } = route.params;
 
   return (
     <Screen>
@@ -21,9 +21,5 @@ const MovieVideo = ({ navigation }) => {
     </Screen>
   );
 };
-
-MovieVideo.navigationOptions = () => ({
-  title: 'Trailer'
-});
 
 export default MovieVideo;

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import ReadMore from 'react-native-read-more-text';
+import { Feather } from '@expo/vector-icons';
 
 import { Alert } from '../../components/common/Alert';
 import { Share } from '../../components/common/Share';
@@ -29,6 +29,7 @@ import { sliceArrayLength } from '../../utils/array';
 import isoLanguage from '../../data/iso.json';
 
 import { darkBlue } from '../../utils/colors';
+
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';
@@ -64,7 +65,7 @@ const renderReadMoreFooter = (text, handlePress) => (
   </TouchableOpacity>
 );
 
-const MovieDetails = ({ navigation }) => {
+const MovieDetails = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -72,8 +73,20 @@ const MovieDetails = ({ navigation }) => {
   const [creditId, setCreditId] = useState(null);
   const [info, setInfo] = useState(INITIAL_INFO);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          style={styles.buttonShare}
+          onPress={() => handleShare(route.params.title, route.params.id)}
+        >
+          <Feather name="share" size={23} color={darkBlue} />
+        </TouchableOpacity>
+      )
+    });
+  }, [navigation]);
+
   useEffect(() => {
-    navigation.setParams({ handleShare });
     requestMoviesInfo();
   }, []);
 
@@ -81,7 +94,7 @@ const MovieDetails = ({ navigation }) => {
     try {
       setIsLoading(true);
 
-      const { id } = navigation.state.params;
+      const { id } = route.params;
       const data = await request(`movie/${id}`, {
         include_image_language: 'en,null',
         append_to_response: 'credits,videos,images'
@@ -267,22 +280,6 @@ const MovieDetails = ({ navigation }) => {
       </Screen>
     );
   }
-};
-
-MovieDetails.navigationOptions = ({ navigation }) => {
-  const { id, title, handleShare } = navigation.state.params || {};
-
-  return {
-    title: 'Movie details',
-    headerRight: (
-      <TouchableOpacity
-        style={styles.buttonShare}
-        onPress={() => handleShare(title, id)}
-      >
-        <Feather name="share" size={23} color={darkBlue} />
-      </TouchableOpacity>
-    )
-  };
 };
 
 export default MovieDetails;

@@ -25,7 +25,7 @@ const Search = ({ navigation }) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <InputSearch typeRequest="search" navigate={navigate} />
+        <InputSearch navigate={navigate} />
         <ScrollView style={styles.containerList}>
           {Object.keys(genres).map(id => (
             <TouchableOpacity

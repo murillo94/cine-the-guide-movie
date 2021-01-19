@@ -10,5 +10,5 @@ export const ROUTES = {
 export const TABS = {
   HOME: 'Home',
   SEARCH: 'Search',
-  CONFIG: 'More'
+  CONFIGURATION: 'More'
 };

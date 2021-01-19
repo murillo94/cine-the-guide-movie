@@ -10,7 +10,7 @@ import { darkGray } from '../../../utils/colors';
 
 import styles from './styles';
 
-const InputSearch = ({ navigate, typeRequest }) => {
+const InputSearch = ({ navigate }) => {
   const [search, setSearch] = useState('');
 
   onChangeSearch = value => {
@@ -24,7 +24,7 @@ const InputSearch = ({ navigate, typeRequest }) => {
   handleSubmit = () => {
     if (search) {
       navigate(ROUTES.SEARCH_RESULTS, {
-        typeRequest,
+        typeRequest: 'search',
         name: search
       });
     }
