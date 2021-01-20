@@ -17,14 +17,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   castPhoto: {
-    width: 60,
-    height: 60,
     borderRadius: 30,
     marginTop: 13
   },
   productionCompaniesPhoto: {
-    width: '100%',
-    height: 60,
     borderRadius: 4,
     marginTop: 13
   }

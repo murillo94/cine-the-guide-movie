@@ -37,6 +37,8 @@ const PersonRow = memo(
           <Image
             accessibilityLabel={`${item.character || item.job} image`}
             uri={getImageApi(item.profile_path)}
+            width={60}
+            height={60}
             style={styles.castPhoto}
           />
           <Text numberOfLines={1} style={styles.titleCast}>
@@ -49,6 +51,8 @@ const PersonRow = memo(
             accessibilityLabel={`${item.name} image`}
             resizeMode="contain"
             uri={getImageApi(item.logo_path)}
+            width="100%"
+            height={60}
             style={styles.productionCompaniesPhoto}
           />
           <Text numberOfLines={2} style={styles.titleCast}>

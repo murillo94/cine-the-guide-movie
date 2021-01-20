@@ -11,10 +11,6 @@ const styles = StyleSheet.create({
     width,
     height: width * 0.6
   },
-  mainPhoto: {
-    width: '100%',
-    height: '100%'
-  },
   play: {
     position: 'absolute',
     zIndex: 1,

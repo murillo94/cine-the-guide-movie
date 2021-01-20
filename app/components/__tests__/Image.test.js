@@ -1,7 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { Image } from '../common/Image';
+import { Image, notFound } from '../common/Image';
+
+test('should verify if exist notFound image in path', () => {
+  expect(notFound).toBe(1);
+});
 
 test('should return default values', () => {
   const { getByA11yRole } = render(<Image />);

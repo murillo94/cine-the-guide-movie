@@ -56,6 +56,7 @@ const MovieRow = memo(
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
               width={width * 0.3}
+              height={width * 0.4}
               style={styles.photo}
             />
             <View style={styles.item}>
@@ -94,7 +95,8 @@ const MovieRow = memo(
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
               style={styles.photo}
-              width={width * 0.33}
+              width={width * 0.3}
+              height={width * 0.4}
             />
           </View>
           <Text numberOfLines={2} style={styles.textTwoTitle}>

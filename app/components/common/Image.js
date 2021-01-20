@@ -1,20 +1,28 @@
+/* eslint-disable global-require */
 import React from 'react';
 import { Image } from 'react-native';
+
+export const notFound = require('../../assets/images/not_found.png');
 
 const ImageCustom = ({
   accessibilityLabel,
   resizeMode = 'cover',
   uri = '',
   width,
+  height,
   style
-}) => (
-  <Image
-    accessibilityRole="image"
-    accessibilityLabel={accessibilityLabel}
-    resizeMode={resizeMode}
-    source={{ ...uri }}
-    style={[style, { width }]}
-  />
-);
+}) => {
+  const image = uri ? { ...uri } : notFound;
+
+  return (
+    <Image
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel}
+      resizeMode={resizeMode}
+      source={image}
+      style={[style, { width, height }]}
+    />
+  );
+};
 
 export { ImageCustom as Image };

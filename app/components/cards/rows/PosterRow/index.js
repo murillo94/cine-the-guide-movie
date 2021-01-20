@@ -37,8 +37,9 @@ const PosterRow = ({
       <Image
         accessibilityLabel={`${title} image`}
         uri={getImageApi(backdropPath)}
-        style={styles.mainPhoto}
         resizeMode="cover"
+        width="100%"
+        height="100%"
       />
       {video && video.site === 'YouTube' && (
         <TouchableOpacity style={styles.play} onPress={handlePlayVideo}>

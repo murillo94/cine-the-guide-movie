@@ -1,8 +1,4 @@
-import { getImageApi, notFound } from '../images';
-
-test('should verify if exist notFound image in path', () => {
-  expect(notFound).toBe(1);
-});
+import { getImageApi } from '../images';
 
 test('should return path with default values', () => {
   expect(getImageApi('path.teste')).toStrictEqual({

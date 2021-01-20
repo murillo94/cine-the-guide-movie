@@ -97,7 +97,8 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
               <Image
                 accessibilityLabel={`${name} image`}
                 uri={getImageApi(profilePath)}
-                width={width * 0.33}
+                width={width * 0.3}
+                height={width * 0.4}
                 style={styles.photo}
               />
               <View style={styles.textItens}>
