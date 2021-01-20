@@ -1,16 +1,19 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
+import { render, fireEvent } from '@testing-library/react-native';
 
 import { Switch } from '../common/Switch';
 
+import { gray, darkBlue } from '../../utils/colors';
+
 test('should verify if calls switch', () => {
-  const onPressMock = jest.fn();
-  const { getByTestId } = render(
-    <Switch onPress={onPressMock} testID="act1" />
-  );
+  const onValueChange = jest.fn();
+  const { getByA11yRole } = render(<Switch onValueChange={onValueChange} />);
+  const swtichButton = getByA11yRole('switch');
 
-  fireEvent.press(getByTestId('act1'));
+  expect(swtichButton.props.onTintColor).toBe(darkBlue);
+  expect(swtichButton.props.tintColor).toBe(gray);
 
-  expect(onPressMock).toHaveBeenCalled();
-  expect(onPressMock).toHaveBeenCalledTimes(1);
+  fireEvent(swtichButton, 'onValueChange', true);
+
+  expect(onValueChange).toHaveBeenCalledTimes(1);
 });

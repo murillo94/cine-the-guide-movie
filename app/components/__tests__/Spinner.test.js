@@ -1,11 +1,33 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { Platform } from 'react-native';
+import { render } from '@testing-library/react-native';
 
 import Spinner from '../common/Spinner';
 
-test('should verify if renders spinner', () => {
-  const { getByType } = render(<Spinner />);
-  const spin = getByType('ActivityIndicator');
+import { darkBlue, white } from '../../utils/colors';
 
-  expect(getByType('ActivityIndicator')).toBe(spin);
+test('should render default values to iOS', () => {
+  const { getByTestId } = render(<Spinner />);
+  const spin = getByTestId('activity-indicator');
+
+  expect(spin.props.size).toBe('small');
+  expect(spin.props.color).toBe(darkBlue);
+});
+
+test('should render default values to Android', () => {
+  Platform.OS = 'android';
+  const { getByTestId } = render(<Spinner />);
+  const spin = getByTestId('activity-indicator');
+
+  expect(spin.props.size).toBe(50);
+  expect(spin.props.color).toBe(darkBlue);
+});
+
+test('should render custom values', () => {
+  Platform.OS = 'android';
+  const { getByTestId } = render(<Spinner size={60} color={white} />);
+  const spin = getByTestId('activity-indicator');
+
+  expect(spin.props.size).toBe(60);
+  expect(spin.props.color).toBe(white);
 });

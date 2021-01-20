@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
+import { Image } from '../../../common/Image';
 
 import { getImageApi } from '../../../../utils/images';
 
@@ -34,7 +35,8 @@ const PersonRow = memo(
             </Text>
           )}
           <Image
-            source={getImageApi(item.profile_path)}
+            accessibilityLabel={`${item.character || item.job} image`}
+            uri={getImageApi(item.profile_path)}
             style={styles.castPhoto}
           />
           <Text numberOfLines={1} style={styles.titleCast}>
@@ -44,9 +46,10 @@ const PersonRow = memo(
       ) : (
         <View style={styles.containerCast}>
           <Image
-            source={getImageApi(item.logo_path)}
-            style={styles.productionCompaniesPhoto}
+            accessibilityLabel={`${item.name} image`}
             resizeMode="contain"
+            uri={getImageApi(item.logo_path)}
+            style={styles.productionCompaniesPhoto}
           />
           <Text numberOfLines={2} style={styles.titleCast}>
             {item.name || uninformed}

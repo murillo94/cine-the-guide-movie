@@ -2,12 +2,16 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
 const TouchableOpacityCustom = ({
+  accessibilityLabel = '',
   activeOpacity = 0.5,
   style = {},
   onPress = () => null,
   children = null
 }) => (
   <TouchableOpacity
+    accessible
+    accessibilityLabel={accessibilityLabel}
+    accessibilityRole="button"
     activeOpacity={activeOpacity}
     style={style}
     onPress={onPress}

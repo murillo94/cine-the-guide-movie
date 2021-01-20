@@ -13,15 +13,15 @@ import styles from './styles';
 const InputSearch = ({ navigate }) => {
   const [search, setSearch] = useState('');
 
-  onChangeSearch = value => {
+  const onChangeSearch = value => {
     setSearch(value);
   };
 
-  handleClearSearch = () => {
+  const handleClearSearch = () => {
     setSearch('');
   };
 
-  handleSubmit = () => {
+  const handleSubmit = () => {
     if (search) {
       navigate(ROUTES.SEARCH_RESULTS, {
         typeRequest: 'search',
@@ -45,6 +45,7 @@ const InputSearch = ({ navigate }) => {
             onSubmitEditing={handleSubmit}
             onChangeText={value => onChangeSearch(value)}
             value={search}
+            accessibilityRole="search"
             returnKeyType="search"
             keyboardType="default"
             blurOnSubmit

@@ -7,7 +7,12 @@ import Spinner from '../common/Spinner';
 import { white } from '../../utils/colors';
 
 const ImagesModal = ({ showImage = false, images = [], onClose = null }) => (
-  <Modal visible={showImage} transparent onRequestClose={onClose}>
+  <Modal
+    visible={showImage}
+    transparent
+    onRequestClose={onClose}
+    testID="modal"
+  >
     <ImageViewer
       imageUrls={images}
       enableSwipeDown

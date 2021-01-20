@@ -1,16 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
-import { render } from 'react-native-testing-library';
+import { Text } from 'react-native';
+import { render } from '@testing-library/react-native';
 
 import { Modal } from '../modals/Modal';
 
 test('should verify if renders modal', () => {
-  const { getByType } = render(
+  const { getByText } = render(
     <Modal>
-      <View />
+      <Text>Test</Text>
     </Modal>
   );
-  const modal = getByType('Modal');
 
-  expect(getByType('Modal')).toBe(modal);
+  expect(getByText('Test')).toBeTruthy();
 });

@@ -40,35 +40,7 @@ const MovieList = ({ navigation, route }) => {
     params: { id = null, name = null, typeRequest = 'discover' } = {}
   } = route;
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
-          <Feather name="filter" size={23} color={darkBlue} />
-        </TouchableOpacity>
-      )
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        Asset.loadAsync(StackAssets);
-
-        const adultContentStorage = await getItem(
-          '@ConfigKey',
-          'hasAdultContent'
-        );
-
-        setHasAdultContent(adultContentStorage);
-        requestMoviesList();
-      } catch (error) {
-        requestMoviesList();
-      }
-    })();
-  }, []);
-
-  requestMoviesList = async () => {
+  const requestMoviesList = async () => {
     try {
       setIsLoading(true);
 
@@ -98,7 +70,7 @@ const MovieList = ({ navigation, route }) => {
     }
   };
 
-  getQueryRequest = () => {
+  const getQueryRequest = () => {
     if (typeRequest === 'discover') {
       return id ? { with_genres: `${id}` } : null;
     }
@@ -110,7 +82,7 @@ const MovieList = ({ navigation, route }) => {
     return null;
   };
 
-  renderItem = (item, type, isSearch, numColumns, navigate) => (
+  const renderItem = (item, type, isSearch, numColumns, navigate) => (
     <MovieRow
       item={item}
       type={type}
@@ -120,7 +92,7 @@ const MovieList = ({ navigation, route }) => {
     />
   );
 
-  renderFooter = () => {
+  const renderFooter = () => {
     if (isLoadingMore) return <Spinner size="small" />;
 
     if (totalPages !== page && results.length > 0) {
@@ -141,29 +113,29 @@ const MovieList = ({ navigation, route }) => {
     return null;
   };
 
-  handleRefresh = async () => {
+  const handleRefresh = async () => {
     await setIsRefresh(true);
     await setPage(1);
     await requestMoviesList();
   };
 
-  handleLoadMore = async () => {
+  const handleLoadMore = async () => {
     await setIsLoadingMore(true);
     await setPage(page + 1);
     await requestMoviesList();
   };
 
-  handleGrid = () => {
+  const handleGrid = () => {
     const { numColumns, keyGrid } = view;
 
     setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
   };
 
-  handleFilter = () => {
+  const handleFilter = () => {
     setIsVisible(!isVisible);
   };
 
-  handleSwitchMovie = async (type, name, visible) => {
+  const handleSwitchMovie = async (type, name, visible) => {
     const { filterType } = filter;
 
     if (type !== filterType) {
@@ -176,6 +148,34 @@ const MovieList = ({ navigation, route }) => {
       setIsVisible(visible);
     }
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
+          <Feather name="filter" size={23} color={darkBlue} />
+        </TouchableOpacity>
+      )
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        Asset.loadAsync(StackAssets);
+
+        const adultContentStorage = await getItem(
+          '@ConfigKey',
+          'hasAdultContent'
+        );
+
+        setHasAdultContent(adultContentStorage);
+        requestMoviesList();
+      } catch (error) {
+        requestMoviesList();
+      }
+    })();
+  }, []);
 
   const { navigate } = navigation;
   const { filterName } = filter;

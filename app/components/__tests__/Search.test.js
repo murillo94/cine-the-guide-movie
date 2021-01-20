@@ -1,18 +1,35 @@
 import React from 'react';
-import { render } from 'react-native-testing-library';
+import { render, fireEvent } from '@testing-library/react-native';
 
 import InputSearch from '../common/InputSearch';
 
-test('should verify if has only one TextInput', () => {
-  const { getAllByType } = render(<InputSearch />);
-  const input = getAllByType('TextInput');
+test('should verify text in placeholder', () => {
+  const { getByA11yRole } = render(<InputSearch />);
+  const input = getByA11yRole('search');
 
-  expect(input).toHaveLength(1);
+  expect(input).toBeTruthy();
 });
 
-test('should verify text in placeholder', () => {
-  const { getByPlaceholder } = render(<InputSearch />);
-  const input = getByPlaceholder(/Search/i);
+test('should change value', () => {
+  const { getByPlaceholderText, getByDisplayValue } = render(<InputSearch />);
+  const input = getByPlaceholderText(/Search/i);
 
-  expect(input.props.placeholder).toBe('Search');
+  fireEvent.changeText(input, 'Test');
+
+  expect(getByDisplayValue('Test')).toBeTruthy();
+});
+
+test('should clear value', () => {
+  const { getByPlaceholderText, queryByDisplayValue, getByA11yRole } = render(
+    <InputSearch />
+  );
+  const input = getByPlaceholderText(/Search/i);
+
+  fireEvent.changeText(input, 'Test');
+
+  expect(queryByDisplayValue('Test')).toBeTruthy();
+
+  fireEvent.press(getByA11yRole('button'));
+
+  expect(queryByDisplayValue('Test')).not.toBeTruthy();
 });

@@ -18,6 +18,39 @@ import styles from './styles';
 const Configuration = () => {
   const [hasAdultContent, setHasAdultContent] = useState(false);
 
+  const showError = () => {
+    Alert({
+      title: 'Attention',
+      description: 'Something wrong has happened, please try again later.'
+    });
+  };
+
+  const handleChangeAdultContent = async value => {
+    try {
+      setHasAdultContent(value);
+      await setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
+    } catch (error) {
+      showError();
+    }
+  };
+
+  const handleShare = () => {
+    Share({
+      message: 'Learn all about movies and series \u{1F37F}',
+      url: 'https://www.themoviedb.org/',
+      title: 'AmoCinema',
+      dialogTitle: 'Learn all about movies and series \u{1F37F}'
+    });
+  };
+
+  const handleRating = () => {
+    Alert({
+      title: 'Attention',
+      description:
+        'Nothing happens now. In the future you will be redirected to store.'
+    });
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -32,39 +65,6 @@ const Configuration = () => {
       }
     })();
   }, [hasAdultContent]);
-
-  showError = () => {
-    Alert({
-      title: 'Attention',
-      description: 'Something wrong has happened, please try again later.'
-    });
-  };
-
-  handleChangeAdultContent = async value => {
-    try {
-      setHasAdultContent(value);
-      await setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
-    } catch (error) {
-      showError();
-    }
-  };
-
-  handleShare = () => {
-    Share({
-      message: 'Learn all about movies and series \u{1F37F}',
-      url: 'https://www.themoviedb.org/',
-      title: 'AmoCinema',
-      dialogTitle: 'Learn all about movies and series \u{1F37F}'
-    });
-  };
-
-  handleRating = () => {
-    Alert({
-      title: 'Attention',
-      description:
-        'Nothing happens now. In the future you will be redirected to store.'
-    });
-  };
 
   return (
     <Screen>

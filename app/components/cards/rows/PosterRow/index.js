@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import ImagesModal from '../../../modals/ImagesModal';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
+import { Image } from '../../../common/Image';
 
 import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
@@ -25,7 +26,7 @@ const PosterRow = ({
   onPress,
   navigate
 }) => {
-  handlePlayVideo = () => {
+  const handlePlayVideo = () => {
     const { key } = video;
 
     navigate(ROUTES.MOVIE_VIDEO, { key });
@@ -34,7 +35,8 @@ const PosterRow = ({
   return (
     <View style={styles.containerMainPhoto}>
       <Image
-        source={getImageApi(backdropPath)}
+        accessibilityLabel={`${title} image`}
+        uri={getImageApi(backdropPath)}
         style={styles.mainPhoto}
         resizeMode="cover"
       />

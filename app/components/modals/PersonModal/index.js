@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import Image from 'react-native-scalable-image';
 
 import Spinner from '../../common/Spinner';
 import NotificationCard from '../../cards/NotificationCard';
 import { Modal } from '../Modal';
 import { TouchableOpacity } from '../../common/TouchableOpacity';
+import { Image } from '../../common/Image';
 
 import request from '../../../services/api';
 
@@ -38,11 +38,7 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
     biography
   } = info;
 
-  useEffect(() => {
-    requestTeamInfo();
-  }, [creditId]);
-
-  getAge = () => {
+  const getAge = () => {
     const { birthday } = info;
 
     if (birthday) {
@@ -57,7 +53,7 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
     return `${UNINFORMED} age`;
   };
 
-  requestTeamInfo = async () => {
+  const requestTeamInfo = async () => {
     try {
       if (creditId) {
         setIsLoading(true);
@@ -82,6 +78,10 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
     }
   };
 
+  useEffect(() => {
+    requestTeamInfo();
+  }, [creditId]);
+
   return (
     <Modal isVisible={isVisible} style={style} onClose={onClose}>
       <View style={styles.containerModal}>
@@ -95,9 +95,10 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
           <ScrollView style={styles.containerScroll}>
             <View style={styles.containerMainText}>
               <Image
-                source={getImageApi(profilePath)}
-                style={styles.photo}
+                accessibilityLabel={`${name} image`}
+                uri={getImageApi(profilePath)}
                 width={width * 0.33}
+                style={styles.photo}
               />
               <View style={styles.textItens}>
                 <Text style={styles.titleName}>{name}</Text>

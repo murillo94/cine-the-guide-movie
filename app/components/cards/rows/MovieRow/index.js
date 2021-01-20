@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { View, Text } from 'react-native';
-import Image from 'react-native-scalable-image';
 
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
+import { Image } from '../../../common/Image';
 
 import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
@@ -53,9 +53,10 @@ const MovieRow = memo(
         >
           <View style={styles.containerItem}>
             <Image
-              source={getImageApi(item.poster_path)}
-              style={styles.photo}
+              accessibilityLabel={`${item.title} image`}
+              uri={getImageApi(item.poster_path)}
               width={width * 0.3}
+              style={styles.photo}
             />
             <View style={styles.item}>
               <View>
@@ -90,7 +91,8 @@ const MovieRow = memo(
         >
           <View>
             <Image
-              source={getImageApi(item.poster_path)}
+              accessibilityLabel={`${item.title} image`}
+              uri={getImageApi(item.poster_path)}
               style={styles.photo}
               width={width * 0.33}
             />

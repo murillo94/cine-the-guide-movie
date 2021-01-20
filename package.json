@@ -4,6 +4,7 @@
   "private": true,
   "main": "./app/navigation",
   "devDependencies": {
+    "@testing-library/react-native": "^7.1.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-expo": "8.3.0",
     "eslint": "^7.18.0",
@@ -18,9 +19,7 @@
     "jest-expo": "^40.0.0",
     "lint-staged": "^9.4.3",
     "node-fetch": "^2.6.1",
-    "prettier": "^1.19.1",
-    "react-native-testing-library": "^1.11.1",
-    "react-test-renderer": "16.8.6"
+    "prettier": "^1.19.1"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.3",

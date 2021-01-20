@@ -73,24 +73,7 @@ const MovieDetails = ({ navigation, route }) => {
   const [creditId, setCreditId] = useState(null);
   const [info, setInfo] = useState(INITIAL_INFO);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          style={styles.buttonShare}
-          onPress={() => handleShare(route.params.title, route.params.id)}
-        >
-          <Feather name="share" size={23} color={darkBlue} />
-        </TouchableOpacity>
-      )
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    requestMoviesInfo();
-  }, []);
-
-  requestMoviesInfo = async () => {
+  const requestMoviesInfo = async () => {
     try {
       setIsLoading(true);
 
@@ -122,7 +105,7 @@ const MovieDetails = ({ navigation, route }) => {
   };
 
   /* eslint-disable camelcase */
-  getInfosDetail = ({
+  const getInfosDetail = ({
     runtime = 0,
     genres = '',
     original_language = '',
@@ -141,25 +124,25 @@ const MovieDetails = ({ navigation, route }) => {
   });
   /* eslint-enable camelcase */
 
-  formatImageUrl = images =>
+  const formatImageUrl = images =>
     sliceArrayLength(images, 15).map(item =>
       getImageApi(item.file_path, 'url', 'original')
     );
 
-  handleVisibleModal = () => {
+  const handleVisibleModal = () => {
     setIsVisible(!isVisible);
   };
 
-  handlePerson = id => {
+  const handlePerson = id => {
     setCreditId(id);
     handleVisibleModal();
   };
 
-  handleImage = () => {
+  const handleImage = () => {
     setShowImage(!showImage);
   };
 
-  handleShare = (title, id) => {
+  const handleShare = (title, id) => {
     if (isError) {
       Alert({
         title: 'Attention',
@@ -175,15 +158,32 @@ const MovieDetails = ({ navigation, route }) => {
     }
   };
 
-  renderItem = (item, type, handleTeamDetail) => (
+  const renderItem = (item, type, handleTeamDetail) => (
     <PersonRow item={item} type={type} onTeamDetail={handleTeamDetail} />
   );
 
-  renderListEmpty = () => (
+  const renderListEmpty = () => (
     <View>
       <Text style={styles.subTitleInfo}>Uninformed</Text>
     </View>
   );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          style={styles.buttonShare}
+          onPress={() => handleShare(route.params.title, route.params.id)}
+        >
+          <Feather name="share" size={23} color={darkBlue} />
+        </TouchableOpacity>
+      )
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    requestMoviesInfo();
+  }, []);
 
   {
     const {
