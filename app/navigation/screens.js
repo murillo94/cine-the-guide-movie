@@ -7,11 +7,23 @@ import MovieDetails from '../screens/MovieDetails';
 import Search from '../screens/Search';
 import MovieVideo from '../screens/MovieVideo';
 
+import { white, darkBlue } from '../utils/colors';
+
 import { ROUTES, TABS } from './routes';
+
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: white
+  },
+  headerTintColor: darkBlue,
+  headerTitleStyle: {
+    fontWeight: 'bold'
+  }
+};
 
 const HomeStack = createStackNavigator();
 export const MoviesStackScreen = () => (
-  <HomeStack.Navigator>
+  <HomeStack.Navigator screenOptions={{ ...screenOptions }}>
     <HomeStack.Screen
       name={ROUTES.MOVIE_LIST}
       component={MovieList}
@@ -40,7 +52,7 @@ export const MoviesStackScreen = () => (
 
 const SearchStack = createStackNavigator();
 export const SearchStackScreen = () => (
-  <SearchStack.Navigator>
+  <SearchStack.Navigator screenOptions={{ ...screenOptions }}>
     <SearchStack.Screen
       name={ROUTES.SEARCH}
       component={Search}
@@ -72,7 +84,7 @@ export const SearchStackScreen = () => (
 
 const ConfigurationStack = createStackNavigator();
 export const ConfigurationStackScreen = () => (
-  <ConfigurationStack.Navigator>
+  <ConfigurationStack.Navigator screenOptions={{ ...screenOptions }}>
     <ConfigurationStack.Screen
       name={ROUTES.CONFIGURATION}
       component={Configuration}
