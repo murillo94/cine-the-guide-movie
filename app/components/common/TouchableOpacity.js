@@ -6,12 +6,11 @@ const TouchableOpacityCustom = ({
   activeOpacity = 0.5,
   style = {},
   onPress = () => null,
-  children = null
+  children = null,
 }) => (
   <TouchableOpacity
-    accessible
-    accessibilityLabel={accessibilityLabel}
     accessibilityRole="button"
+    accessibilityLabel={accessibilityLabel}
     activeOpacity={activeOpacity}
     style={style}
     onPress={onPress}

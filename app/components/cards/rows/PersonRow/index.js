@@ -35,6 +35,7 @@ const PersonRow = memo(
             </Text>
           )}
           <Image
+            accessibilityRole="imagebutton"
             accessibilityLabel={`${item.character || item.job} image`}
             uri={getImageApi(item.profile_path)}
             width={60}

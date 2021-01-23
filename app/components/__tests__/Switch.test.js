@@ -17,3 +17,12 @@ test('should verify if calls switch', () => {
 
   expect(onValueChange).toHaveBeenCalledTimes(1);
 });
+
+test('should verify switch with label', () => {
+  const onValueChange = jest.fn();
+  const { getByA11yLabel } = render(
+    <Switch onValueChange={onValueChange} accessibilityLabel="Change value" />
+  );
+
+  expect(getByA11yLabel('Change value')).toBeTruthy();
+});

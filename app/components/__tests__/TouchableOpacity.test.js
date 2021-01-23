@@ -11,3 +11,12 @@ test('should verify if calls touchableOpacity', () => {
 
   expect(onPress).toHaveBeenCalledTimes(1);
 });
+
+test('should verify button with label', () => {
+  const onPress = jest.fn();
+  const { getByA11yLabel } = render(
+    <TouchableOpacity onPress={onPress} accessibilityLabel="Change button" />
+  );
+
+  expect(getByA11yLabel('Change button')).toBeTruthy();
+});

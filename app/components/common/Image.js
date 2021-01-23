@@ -5,18 +5,19 @@ import { Image } from 'react-native';
 export const notFound = require('../../assets/images/not_found.png');
 
 const ImageCustom = ({
-  accessibilityLabel,
+  accessibilityRole = 'image',
+  accessibilityLabel = '',
   resizeMode = 'cover',
   uri = '',
   width,
   height,
-  style
+  style,
 }) => {
   const image = uri ? { ...uri } : notFound;
 
   return (
     <Image
-      accessibilityRole="image"
+      accessibilityRole={accessibilityRole}
       accessibilityLabel={accessibilityLabel}
       resizeMode={resizeMode}
       source={image}

@@ -14,3 +14,11 @@ test('should return default values', () => {
 
   expect(image.props.resizeMode).toBe('cover');
 });
+
+test('should verify image with label', () => {
+  const { getByA11yLabel } = render(
+    <Image accessibilityLabel="Image with a dog" />
+  );
+
+  expect(getByA11yLabel('Image with a dog')).toBeTruthy();
+});

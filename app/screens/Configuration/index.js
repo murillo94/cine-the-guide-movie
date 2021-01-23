@@ -21,11 +21,11 @@ const Configuration = () => {
   const showError = () => {
     Alert({
       title: 'Attention',
-      description: 'Something wrong has happened, please try again later.'
+      description: 'Something wrong has happened, please try again later.',
     });
   };
 
-  const handleChangeAdultContent = async value => {
+  const handleChangeAdultContent = async (value) => {
     try {
       setHasAdultContent(value);
       await setItem('@ConfigKey', `{"hasAdultContent": ${value}}`);
@@ -39,7 +39,7 @@ const Configuration = () => {
       message: 'Learn all about movies and series \u{1F37F}',
       url: 'https://www.themoviedb.org/',
       title: 'AmoCinema',
-      dialogTitle: 'Learn all about movies and series \u{1F37F}'
+      dialogTitle: 'Learn all about movies and series \u{1F37F}',
     });
   };
 
@@ -47,7 +47,7 @@ const Configuration = () => {
     Alert({
       title: 'Attention',
       description:
-        'Nothing happens now. In the future you will be redirected to store.'
+        'Nothing happens now. In the future you will be redirected to store.',
     });
   };
 
@@ -82,6 +82,7 @@ const Configuration = () => {
                 Include adult content
               </Text>
               <Switch
+                accessibilityLabel="Include adult content"
                 value={hasAdultContent}
                 onValueChange={handleChangeAdultContent}
               />

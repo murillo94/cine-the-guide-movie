@@ -15,6 +15,7 @@ const Filter = ({ title, type, selected, onChange }) => (
       {title}
     </Text>
     <Switch
+      accessibilityLabel={title}
       value={type === selected}
       onValueChange={() => onChange(type, title)}
     />
@@ -24,7 +25,7 @@ const Filter = ({ title, type, selected, onChange }) => (
 const FilterModal = ({ isVisible, filter, onVisible, onFilter, style }) => {
   const [filters, setFilters] = useState({
     type: filter.filterType,
-    name: filter.filterName
+    name: filter.filterName,
   });
   const { type, name } = filters;
 

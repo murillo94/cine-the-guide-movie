@@ -16,7 +16,7 @@ import isoLanguage from '../../../../data/iso.json';
 
 import styles from './styles';
 
-const getLanguage = value => {
+const getLanguage = (value) => {
   const str = isoLanguage[value] || '';
 
   return convertToUpperCaseFirstLetter(str);
@@ -27,7 +27,7 @@ const renderDivider = (releaseDate, originalLanguage) =>
     <Text style={styles.trace}>|</Text>
   ) : null;
 
-const renderScore = voteAverage => {
+const renderScore = (voteAverage) => {
   const color =
     voteAverage < 5
       ? 'low'
@@ -53,6 +53,7 @@ const MovieRow = memo(
         >
           <View style={styles.containerItem}>
             <Image
+              accessibilityRole="imagebutton"
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
               width={width * 0.3}
@@ -92,6 +93,7 @@ const MovieRow = memo(
         >
           <View>
             <Image
+              accessibilityRole="imagebutton"
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
               style={styles.photo}
