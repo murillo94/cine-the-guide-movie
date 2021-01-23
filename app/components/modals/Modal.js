@@ -1,25 +1,31 @@
-import React from 'react';
-import Modal from 'react-native-modal';
+import React, { forwardRef } from 'react';
+import { Modalize } from 'react-native-modalize';
+import { Portal } from 'react-native-portalize';
 
-const ModalCustom = ({
-  children = null,
-  isVisible = false,
-  style = {},
-  onModalShow = () => null,
-  onClose = () => null
-}) => (
-  <Modal
-    isVisible={isVisible}
-    useNativeDriver
-    hideModalContentWhileAnimating
-    backdropOpacity={0.5}
-    style={style}
-    onModalShow={onModalShow}
-    onBackdropPress={onClose}
-    onBackButtonPress={onClose}
-  >
-    {children}
-  </Modal>
+const ModalCustom = forwardRef(
+  (
+    {
+      children = null,
+      style = {},
+      onModalShow = () => null,
+      onClose = () => null
+    },
+    ref
+  ) => (
+    <Portal>
+      <Modalize
+        ref={ref}
+        useNativeDriver
+        rootStyle={style}
+        adjustToContentHeight
+        onOpened={onModalShow}
+        onOverlayPress={onClose}
+        onBackButtonPress={onClose}
+      >
+        {children}
+      </Modalize>
+    </Portal>
+  )
 );
 
 export { ModalCustom as Modal };

@@ -55,18 +55,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 100
   },
-  buttonClose: {
-    backgroundColor: white,
-    borderWidth: 1,
-    borderColor: darkBlue,
-    paddingVertical: 9.1,
-    flex: 0.23
-  },
   buttonSave: {
     backgroundColor: darkBlue,
     borderWidth: 1,
     borderColor: darkBlue,
-    flex: 0.67
+    flex: 1
   },
   buttonText: {
     fontSize: fontSizeResponsive(2.1),

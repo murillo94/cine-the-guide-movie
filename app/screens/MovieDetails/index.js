@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import ReadMore from 'react-native-read-more-text';
 import { Feather } from '@expo/vector-icons';
@@ -68,10 +68,64 @@ const renderReadMoreFooter = (text, handlePress) => (
 const MovieDetails = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [creditId, setCreditId] = useState(null);
   const [info, setInfo] = useState(INITIAL_INFO);
+  const personModalRef = useRef(null);
+
+  /* eslint-disable camelcase */
+  const getInfosDetail = ({
+    runtime = 0,
+    genres = '',
+    original_language = '',
+    release_date = '',
+    budget = 0,
+    revenue = 0,
+    adult = ''
+  }) => ({
+    Duration: convertMinsToHrsMins(runtime),
+    Genre: convertToGenres(sliceArrayLength(genres, 2)),
+    Language: convertToUpperCaseFirstLetter(isoLanguage[original_language]),
+    Release: convertToDate(release_date),
+    Budget: convertToDolar(budget),
+    Revenue: convertToDolar(revenue),
+    Adult: ADULT_RATE[adult] || UNINFORMED
+  });
+  /* eslint-enable camelcase */
+
+  const formatImageUrl = (images) =>
+    sliceArrayLength(images, 15).map((item) =>
+      getImageApi(item.file_path, 'url', 'original')
+    );
+
+  const handlePersonModal = () => {
+    personModalRef.current?.open();
+  };
+
+  const handlePerson = (id) => {
+    setCreditId(id);
+    handlePersonModal();
+  };
+
+  const handleImage = () => {
+    setShowImage(!showImage);
+  };
+
+  const handleShare = (title, id) => {
+    if (isError) {
+      Alert({
+        title: 'Attention',
+        description: 'Something wrong has happened, please try again later.'
+      });
+    } else {
+      Share({
+        message: `${title}, know everything about this movie \u{1F37F}`,
+        url: `https://www.themoviedb.org/movie/${id}`,
+        title: 'AmoCinema',
+        dialogTitle: `${title}, know everything about this movie \u{1F37F}`
+      });
+    }
+  };
 
   const requestMoviesInfo = async () => {
     try {
@@ -101,60 +155,6 @@ const MovieDetails = ({ navigation, route }) => {
     } catch (err) {
       setIsLoading(false);
       setIsError(true);
-    }
-  };
-
-  /* eslint-disable camelcase */
-  const getInfosDetail = ({
-    runtime = 0,
-    genres = '',
-    original_language = '',
-    release_date = '',
-    budget = 0,
-    revenue = 0,
-    adult = ''
-  }) => ({
-    Duration: convertMinsToHrsMins(runtime),
-    Genre: convertToGenres(sliceArrayLength(genres, 2)),
-    Language: convertToUpperCaseFirstLetter(isoLanguage[original_language]),
-    Release: convertToDate(release_date),
-    Budget: convertToDolar(budget),
-    Revenue: convertToDolar(revenue),
-    Adult: ADULT_RATE[adult] || UNINFORMED
-  });
-  /* eslint-enable camelcase */
-
-  const formatImageUrl = images =>
-    sliceArrayLength(images, 15).map(item =>
-      getImageApi(item.file_path, 'url', 'original')
-    );
-
-  const handleVisibleModal = () => {
-    setIsVisible(!isVisible);
-  };
-
-  const handlePerson = id => {
-    setCreditId(id);
-    handleVisibleModal();
-  };
-
-  const handleImage = () => {
-    setShowImage(!showImage);
-  };
-
-  const handleShare = (title, id) => {
-    if (isError) {
-      Alert({
-        title: 'Attention',
-        description: 'Something wrong has happened, please try again later.'
-      });
-    } else {
-      Share({
-        message: `${title}, know everything about this movie \u{1F37F}`,
-        url: `https://www.themoviedb.org/movie/${id}`,
-        title: 'AmoCinema',
-        dialogTitle: `${title}, know everything about this movie \u{1F37F}`
-      });
     }
   };
 
@@ -227,10 +227,10 @@ const MovieDetails = ({ navigation, route }) => {
                 <SectionRow title="Synopsis">
                   <ReadMore
                     numberOfLines={3}
-                    renderTruncatedFooter={handlePress =>
+                    renderTruncatedFooter={(handlePress) =>
                       renderReadMoreFooter('Read more', handlePress)
                     }
-                    renderRevealedFooter={handlePress =>
+                    renderRevealedFooter={(handlePress) =>
                       renderReadMoreFooter('Read less', handlePress)
                     }
                   >
@@ -271,10 +271,10 @@ const MovieDetails = ({ navigation, route }) => {
             </ScrollView>
           )}
           <PersonModal
-            isVisible={isVisible}
+            ref={personModalRef}
             creditId={creditId}
             style={styles.bottomModal}
-            onClose={handleVisibleModal}
+            onClose={handlePersonModal}
           />
         </View>
       </Screen>

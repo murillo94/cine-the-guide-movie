@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Asset } from 'expo-asset';
 import { Feather } from '@expo/vector-icons';
@@ -22,7 +22,6 @@ import { darkBlue } from '../../utils/colors';
 import styles from './styles';
 
 const MovieList = ({ navigation, route }) => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
@@ -36,9 +35,23 @@ const MovieList = ({ navigation, route }) => {
     filterName: 'Most popular'
   });
   const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
+  const filterModalRef = useRef(null);
+
   const {
     params: { id = null, name = null, typeRequest = 'discover' } = {}
   } = route;
+
+  const getQueryRequest = () => {
+    if (typeRequest === 'discover') {
+      return id ? { with_genres: `${id}` } : null;
+    }
+
+    if (typeRequest === 'search') {
+      return { query: `${name.trim()}` };
+    }
+
+    return null;
+  };
 
   const requestMoviesList = async () => {
     try {
@@ -70,16 +83,39 @@ const MovieList = ({ navigation, route }) => {
     }
   };
 
-  const getQueryRequest = () => {
-    if (typeRequest === 'discover') {
-      return id ? { with_genres: `${id}` } : null;
+  const handleRefresh = async () => {
+    await setIsRefresh(true);
+    await setPage(1);
+    await requestMoviesList();
+  };
+
+  const handleLoadMore = async () => {
+    await setIsLoadingMore(true);
+    await setPage(page + 1);
+    await requestMoviesList();
+  };
+
+  const handleGrid = () => {
+    const { numColumns, keyGrid } = view;
+
+    setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
+  };
+
+  const handleFilterModal = () => {
+    filterModalRef.current?.open();
+  };
+
+  const handleSwitchMovie = async (type, name) => {
+    const { filterType } = filter;
+
+    if (type !== filterType) {
+      await setPage(1);
+      await setResults([]);
+      await setFilter({ filterType: type, filterName: name });
+      await requestMoviesList();
     }
 
-    if (typeRequest === 'search') {
-      return { query: `${name.trim()}` };
-    }
-
-    return null;
+    filterModalRef.current?.close();
   };
 
   const renderItem = (item, type, isSearch, numColumns, navigate) => (
@@ -113,46 +149,13 @@ const MovieList = ({ navigation, route }) => {
     return null;
   };
 
-  const handleRefresh = async () => {
-    await setIsRefresh(true);
-    await setPage(1);
-    await requestMoviesList();
-  };
-
-  const handleLoadMore = async () => {
-    await setIsLoadingMore(true);
-    await setPage(page + 1);
-    await requestMoviesList();
-  };
-
-  const handleGrid = () => {
-    const { numColumns, keyGrid } = view;
-
-    setView({ numColumns: numColumns === 1 ? 2 : 1, keyGrid: keyGrid + 1 });
-  };
-
-  const handleFilter = () => {
-    setIsVisible(!isVisible);
-  };
-
-  const handleSwitchMovie = async (type, name, visible) => {
-    const { filterType } = filter;
-
-    if (type !== filterType) {
-      await setPage(1);
-      await setResults([]);
-      await setFilter({ filterType: type, filterName: name });
-      await setIsVisible(visible);
-      await requestMoviesList();
-    } else {
-      setIsVisible(visible);
-    }
-  };
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.buttonFilter} onPress={handleFilter}>
+        <TouchableOpacity
+          style={styles.buttonFilter}
+          onPress={handleFilterModal}
+        >
           <Feather name="filter" size={23} color={darkBlue} />
         </TouchableOpacity>
       )
@@ -226,9 +229,9 @@ const MovieList = ({ navigation, route }) => {
           </View>
         )}
         <FilterModal
-          isVisible={isVisible}
+          ref={filterModalRef}
           filter={filter}
-          onVisible={handleFilter}
+          onVisible={handleFilterModal}
           onFilter={handleSwitchMovie}
           style={styles.bottomModal}
         />

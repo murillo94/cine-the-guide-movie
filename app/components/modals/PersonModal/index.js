@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 
 import Spinner from '../../common/Spinner';
 import NotificationCard from '../../cards/NotificationCard';
 import { Modal } from '../Modal';
-import { TouchableOpacity } from '../../common/TouchableOpacity';
 import { Image } from '../../common/Image';
 
 import request from '../../../services/api';
@@ -13,7 +11,6 @@ import request from '../../../services/api';
 import { width } from '../../../utils/dimensions';
 import { getImageApi } from '../../../utils/images';
 
-import { darkBlue } from '../../../utils/colors';
 import styles from './styles';
 
 const UNINFORMED = 'Uninformed';
@@ -26,7 +23,7 @@ const INITIAL_INFO = {
   biography: UNINFORMED
 };
 
-const PersonModal = ({ isVisible, creditId, style, onClose }) => {
+const PersonModal = forwardRef(({ creditId, style, onClose }, ref) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState(INITIAL_INFO);
@@ -83,7 +80,7 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
   }, [creditId]);
 
   return (
-    <Modal isVisible={isVisible} style={style} onClose={onClose}>
+    <Modal ref={ref} style={style} onClose={onClose}>
       <View style={styles.containerModal}>
         {isLoading ? (
           <Spinner style={styles.containerCenter} />
@@ -141,18 +138,9 @@ const PersonModal = ({ isVisible, creditId, style, onClose }) => {
             </Text>
           </ScrollView>
         )}
-        <View style={styles.containerRow}>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
-            <Feather
-              name="chevron-down"
-              size={styles.icon.fontSize}
-              color={darkBlue}
-            />
-          </TouchableOpacity>
-        </View>
       </View>
     </Modal>
   );
-};
+});
 
 export default PersonModal;

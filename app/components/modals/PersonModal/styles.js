@@ -59,24 +59,6 @@ const styles = StyleSheet.create({
   },
   containerTitleMargin: {
     marginBottom: 7
-  },
-  containerRow: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 22
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: white,
-    borderWidth: 1,
-    borderColor: darkBlue,
-    paddingVertical: 9.1,
-    borderRadius: 100,
-    width: '60%'
-  },
-  icon: {
-    fontSize: fontSizeResponsive(2.8)
   }
 });
 

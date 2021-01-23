@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { Feather } from '@expo/vector-icons';
+import { Host } from 'react-native-portalize';
 
 import {
   MoviesStackScreen,
@@ -56,38 +57,40 @@ const TabsConfig =
 
 const AppNavigator = () => (
   <NavigationContainer>
-    <Tab.Navigator initialRouteName={ROUTES.MOVIE_LIST} {...TabsConfig}>
-      <Tab.Screen
-        name={TABS.HOME}
-        component={MoviesStackScreen}
-        options={{
-          ...defaultNavigationOptions,
-          tabBarIcon: ({ color }) => (
-            <Feather name="home" size={20} color={color} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name={TABS.SEARCH}
-        component={SearchStackScreen}
-        options={{
-          ...defaultNavigationOptions,
-          tabBarIcon: ({ color }) => (
-            <Feather name="search" size={20} color={color} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name={TABS.CONFIGURATION}
-        component={ConfigurationStackScreen}
-        options={{
-          ...defaultNavigationOptions,
-          tabBarIcon: ({ color }) => (
-            <Feather name="menu" size={20} color={color} />
-          )
-        }}
-      />
-    </Tab.Navigator>
+    <Host>
+      <Tab.Navigator initialRouteName={ROUTES.MOVIE_LIST} {...TabsConfig}>
+        <Tab.Screen
+          name={TABS.HOME}
+          component={MoviesStackScreen}
+          options={{
+            ...defaultNavigationOptions,
+            tabBarIcon: ({ color }) => (
+              <Feather name="home" size={20} color={color} />
+            )
+          }}
+        />
+        <Tab.Screen
+          name={TABS.SEARCH}
+          component={SearchStackScreen}
+          options={{
+            ...defaultNavigationOptions,
+            tabBarIcon: ({ color }) => (
+              <Feather name="search" size={20} color={color} />
+            )
+          }}
+        />
+        <Tab.Screen
+          name={TABS.CONFIGURATION}
+          component={ConfigurationStackScreen}
+          options={{
+            ...defaultNavigationOptions,
+            tabBarIcon: ({ color }) => (
+              <Feather name="menu" size={20} color={color} />
+            )
+          }}
+        />
+      </Tab.Navigator>
+    </Host>
   </NavigationContainer>
 );
 

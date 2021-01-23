@@ -39,6 +39,6 @@
     "no-prototype-builtins": 0,
     "radix": ["error", "as-needed"],
     "comma-dangle": ["error", "never"],
-    "arrow-parens": ["error", "as-needed"]
+    "arrow-parens": 0
   }
 }
