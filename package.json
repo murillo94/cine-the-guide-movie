@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.3",
+    "@react-native-async-storage/async-storage": "^1.13.3",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^2.6.0",
     "@react-navigation/material-bottom-tabs": "^5.3.11",
@@ -44,7 +45,8 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-scalable-image": "^1.0.0",
     "react-native-screens": "~2.15.0",
-    "react-native-webview": "^11.0.3"
+    "react-native-webview": "^11.0.3",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "expo start",
@@ -58,10 +60,10 @@
   "jest": {
     "preset": "jest-expo",
     "transform": {
-      "^.+\\.js$": "<rootDir>/jest/preprocessor.js"
+      "^.+\\.js$": "<rootDir>/jest/preProcessor.js"
     },
     "setupFiles": [
-      "<rootDir>/jest/mock.js"
+      "<rootDir>/jest/setupFile.js"
     ]
   },
   "husky": {
