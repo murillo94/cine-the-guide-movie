@@ -2,7 +2,7 @@
   "name": "cine-the-movie-guide",
   "version": "0.1.0",
   "private": true,
-  "main": "./app/navigation",
+  "main": "./app/navigation/index.js",
   "devDependencies": {
     "@testing-library/react-native": "^7.1.0",
     "babel-eslint": "^10.1.0",
