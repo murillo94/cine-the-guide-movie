@@ -23,10 +23,10 @@ const Filter = ({ title, type, selected, onChange }) => (
 const FilterModal = forwardRef(
   ({ filter, onVisible, onFilter, style }, ref) => {
     const [filters, setFilters] = useState({
-      type: filter.filterType,
-      name: filter.filterName
+      type: filter.type,
+      name: filter.name
     });
-    const { type, name } = filters;
+    const { type = 'popularity.desc' } = filters;
 
     changeValues = (type, name) => {
       setFilters({ type, name });
@@ -94,7 +94,7 @@ const FilterModal = forwardRef(
           <View style={styles.containerButton}>
             <TouchableOpacity
               style={[styles.button, styles.buttonSave]}
-              onPress={() => onFilter(type, name)}
+              onPress={() => onFilter(filters)}
             >
               <Text style={[styles.buttonText, styles.buttonTextSave]}>
                 Confirm

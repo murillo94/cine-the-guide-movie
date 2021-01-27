@@ -29,10 +29,10 @@ const MovieList = ({ navigation, route }) => {
   const [hasAdultContent, setHasAdultContent] = useState(false);
   const [results, setResults] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [filter, setFilter] = useState({
-    filterType: 'popularity.desc',
-    filterName: 'Most popular'
+    type: 'popularity.desc',
+    name: 'Most popular'
   });
   const [view, setView] = useState({ numColumns: 1, keyGrid: 1 });
   const filterModalRef = useRef(null);
@@ -53,17 +53,17 @@ const MovieList = ({ navigation, route }) => {
     return null;
   };
 
-  const requestMoviesList = async () => {
+  const requestMoviesList = async (resetPage, filterPage) => {
     try {
       setIsLoading(true);
 
-      const { filterType } = filter;
+      const { type } = filterPage || filter;
       const dateRelease = getTodayDate();
 
       const data = await request(`${typeRequest}/movie`, {
-        page,
+        page: resetPage ? 1 : page + 1,
         'release_date.lte': dateRelease,
-        sort_by: filterType,
+        sort_by: type,
         with_release_type: '1|2|3|4|5|6|7',
         include_adult: hasAdultContent,
         ...getQueryRequest()
@@ -74,7 +74,8 @@ const MovieList = ({ navigation, route }) => {
       setIsRefresh(false);
       setIsError(false);
       setTotalPages(data.total_pages);
-      setResults(isRefresh ? data.results : [...results, ...data.results]);
+      setPage(data.page);
+      setResults(resetPage ? data.results : [...results, ...data.results]);
     } catch (err) {
       setIsLoading(false);
       setIsLoadingMore(false);
@@ -85,13 +86,11 @@ const MovieList = ({ navigation, route }) => {
 
   const handleRefresh = async () => {
     await setIsRefresh(true);
-    await setPage(1);
-    await requestMoviesList();
+    await requestMoviesList(true);
   };
 
   const handleLoadMore = async () => {
     await setIsLoadingMore(true);
-    await setPage(page + 1);
     await requestMoviesList();
   };
 
@@ -105,14 +104,14 @@ const MovieList = ({ navigation, route }) => {
     filterModalRef.current?.open();
   };
 
-  const handleSwitchMovie = async (type, name) => {
-    const { filterType } = filter;
-
-    if (type !== filterType) {
-      await setPage(1);
+  const handleSwitchMovie = async (newFilter) => {
+    if (newFilter.type !== filter.type) {
       await setResults([]);
-      await setFilter({ filterType: type, filterName: name });
-      await requestMoviesList();
+      await setFilter({ type: newFilter.type, name: newFilter.name });
+      await requestMoviesList(true, {
+        type: newFilter.type,
+        name: newFilter.name
+      });
     }
 
     filterModalRef.current?.close();
@@ -181,7 +180,6 @@ const MovieList = ({ navigation, route }) => {
   }, []);
 
   const { navigate } = navigation;
-  const { filterName } = filter;
   const { numColumns, keyGrid } = view;
 
   return (
@@ -201,7 +199,7 @@ const MovieList = ({ navigation, route }) => {
             {results.length > 0 && (
               <View style={styles.containerMainText}>
                 <Text style={styles.textMain} numberOfLines={1}>
-                  {typeRequest === 'discover' ? filterName : name}
+                  {typeRequest === 'discover' ? filter.name : name}
                 </Text>
                 <TouchableOpacity
                   style={[

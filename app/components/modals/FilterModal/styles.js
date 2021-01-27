@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     height: height * 0.7
   },
   containerScroll: {
-    padding: 22
+    padding: 25,
+    marginVertical: 25
   },
   modalTitle: {
     textAlign: 'center',

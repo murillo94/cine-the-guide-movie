@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     height: height * 0.7
   },
   containerScroll: {
-    padding: 22,
+    padding: 25,
     paddingTop: 0,
-    marginTop: 22
+    marginVertical: 25
   },
   containerCenter: {
     alignItems: 'center',
