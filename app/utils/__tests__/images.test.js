@@ -13,5 +13,5 @@ test('should return path', () => {
 });
 
 test('should return not found image', () => {
-  expect(getImageApi()).toBe(1);
+  expect(getImageApi()).toBe('');
 });

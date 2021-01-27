@@ -17,7 +17,7 @@ test('should verify if has default values in character mode', () => {
   const { getAllByA11yRole, getByText } = render(
     <PersonRow {...props} type="character" />
   );
-  const image = getAllByA11yRole('image');
+  const image = getAllByA11yRole('imagebutton');
   const name = getByText(props.item.name);
   const character = getByText(props.item.character);
 
@@ -30,7 +30,7 @@ test('should verify if has default values in production mode', () => {
   const { getAllByA11yRole, getByText } = render(
     <PersonRow {...props} type="job" />
   );
-  const image = getAllByA11yRole('image');
+  const image = getAllByA11yRole('imagebutton');
 
   expect(image).toHaveLength(1);
   const name = getByText(props.item.name);

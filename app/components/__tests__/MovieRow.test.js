@@ -19,7 +19,7 @@ const props = {
 test('should verify if has only one Image in list mode', () => {
   const { getByA11yRole, getByText } = render(<MovieRow {...props} />);
 
-  expect(getByA11yRole('image')).toBeTruthy();
+  expect(getByA11yRole('imagebutton')).toBeTruthy();
   expect(getByText('Title')).toBeTruthy();
   expect(getByText('10')).toBeTruthy();
   expect(getByText('Akan')).toBeTruthy();
@@ -30,7 +30,7 @@ test('should verify if has only one Image in columns mode', () => {
     <MovieRow {...props} numColumns={2} />
   );
 
-  expect(getByA11yRole('image')).toBeTruthy();
+  expect(getByA11yRole('imagebutton')).toBeTruthy();
   expect(queryByText('Title')).toBeTruthy();
   expect(queryByText('10')).not.toBeTruthy();
   expect(queryByText('Akan')).not.toBeTruthy();
