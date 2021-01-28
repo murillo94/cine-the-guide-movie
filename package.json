@@ -31,10 +31,10 @@
     "@react-navigation/stack": "^5.14.2",
     "expo": "^40.0.0",
     "expo-asset": "^8.2.2",
-    "expo-constants": "^10.0.1",
+    "expo-constants": "~9.3.3",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
-    "react-native-gesture-handler": "^1.9.0",
+    "react-native-gesture-handler": "~1.8.0",
     "react-native-image-zoom-viewer": "^3.0.1",
     "react-native-modalize": "^2.0.8",
     "react-native-paper": "^4.7.0",
@@ -43,8 +43,8 @@
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "3.1.9",
     "react-native-scalable-image": "^1.0.0",
-    "react-native-screens": "^2.17.1",
-    "react-native-webview": "^11.0.3"
+    "react-native-screens": "~2.15.0",
+    "react-native-webview": "11.0.0"
   },
   "scripts": {
     "start": "expo start",

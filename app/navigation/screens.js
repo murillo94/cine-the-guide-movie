@@ -5,7 +5,6 @@ import MovieList from '../screens/MovieList';
 import Configuration from '../screens/Configuration';
 import MovieDetails from '../screens/MovieDetails';
 import Search from '../screens/Search';
-import MovieVideo from '../screens/MovieVideo';
 
 import { white, darkBlue } from '../utils/colors';
 
@@ -42,11 +41,6 @@ export const MoviesStackScreen = () => (
         };
       }}
     />
-    <HomeStack.Screen
-      name={ROUTES.MOVIE_VIDEO}
-      component={MovieVideo}
-      options={{ title: 'Trailer' }}
-    />
   </HomeStack.Navigator>
 );
 
@@ -73,11 +67,6 @@ export const SearchStackScreen = () => (
           title
         };
       }}
-    />
-    <SearchStack.Screen
-      name={ROUTES.MOVIE_VIDEO}
-      component={MovieVideo}
-      options={{ title: 'Trailer' }}
     />
   </SearchStack.Navigator>
 );

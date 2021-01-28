@@ -198,7 +198,6 @@ const MovieDetails = ({ navigation, route }) => {
       productionCompanies,
       images
     } = info;
-    const { navigate } = navigation;
 
     return (
       <Screen>
@@ -218,7 +217,6 @@ const MovieDetails = ({ navigation, route }) => {
                 voteAverage={voteAverage}
                 images={images}
                 video={video}
-                navigate={navigate}
                 showImage={showImage}
                 onPress={handleImage}
               />

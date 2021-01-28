@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import ImagesModal from '../../../modals/ImagesModal';
+import VideoModal from '../../../modals/VideoModal';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 import { Image } from '../../../common/Image';
 
 import { width } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { getAvarageRating } from '../../../../utils/rating';
-
-import { ROUTES } from '../../../../navigation/routes';
 
 import { white } from '../../../../utils/colors';
 
@@ -23,13 +22,11 @@ const PosterRow = ({
   images,
   video,
   showImage,
-  onPress,
-  navigate
+  onPress
 }) => {
+  const videoModalRef = useRef(null);
   const handlePlayVideo = () => {
-    const { key } = video;
-
-    navigate(ROUTES.MOVIE_VIDEO, { key });
+    videoModalRef.current?.open();
   };
 
   return (
@@ -42,14 +39,22 @@ const PosterRow = ({
         height="100%"
       />
       {video && video.site === 'YouTube' && (
-        <TouchableOpacity style={styles.play} onPress={handlePlayVideo}>
-          <FontAwesome
-            name="play"
-            size={width * 0.07}
-            color={white}
-            style={styles.buttonPlay}
+        <>
+          <TouchableOpacity style={styles.play} onPress={handlePlayVideo}>
+            <FontAwesome
+              name="play"
+              size={width * 0.07}
+              color={white}
+              style={styles.buttonPlay}
+            />
+          </TouchableOpacity>
+          <VideoModal
+            ref={videoModalRef}
+            keyId={video.key}
+            style={styles.bottomModal}
+            onClose={handlePlayVideo}
           />
-        </TouchableOpacity>
+        </>
       )}
       <TouchableOpacity
         style={styles.containerMainPhotoInfo}
@@ -61,7 +66,7 @@ const PosterRow = ({
             {title}
           </Text>
           <View style={styles.photoStar}>
-            {getAvarageRating(voteAverage).map(value => (
+            {getAvarageRating(voteAverage).map((value) => (
               <FontAwesome
                 key={value}
                 name="star"

@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
   buttonPlay: {
     marginLeft: 5
   },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0
+  },
   star: {
     marginRight: 5
   }
