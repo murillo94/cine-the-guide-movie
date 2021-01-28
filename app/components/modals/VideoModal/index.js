@@ -12,7 +12,7 @@ const Loading = () => <Spinner style={styles.container} />;
 
 const VideoModal = forwardRef(({ keyId, onVisible, style }, ref) => {
   const webViewRef = useRef(null);
-  const [height, setHeight] = useState(initialHeight);
+  const [height, setHeight] = useState(initialHeight - 150);
 
   const handleLayout = ({ layout }) => {
     setHeight(layout.height);
