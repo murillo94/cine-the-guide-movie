@@ -1,32 +1,17 @@
 import React from 'react';
-import { Modal } from 'react-native';
-import ImageViewer from 'react-native-image-zoom-viewer';
+import ImageView from 'react-native-image-viewing';
 
-import Spinner from '../common/Spinner';
-
-import { white } from '../../utils/colors';
-
-const ImagesModal = ({ showImage = false, images = [], onClose = null }) => (
-  <Modal
+const ImagesModal = ({
+  showImage = false,
+  images = [],
+  onClose = () => null
+}) => (
+  <ImageView
+    images={images}
+    imageIndex={0}
     visible={showImage}
-    transparent
     onRequestClose={onClose}
-    testID="modal"
-  >
-    <ImageViewer
-      imageUrls={images}
-      enableSwipeDown
-      enableImageZoom
-      enablePreload
-      saveToLocalByLongPress={false}
-      pageAnimateTime={200}
-      flipThreshold={10}
-      maxOverflow={5}
-      swipeDownThreshold={25}
-      loadingRender={() => <Spinner color={white} />}
-      onCancel={onClose}
-    />
-  </Modal>
+  />
 );
 
 export default ImagesModal;

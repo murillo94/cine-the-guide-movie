@@ -95,7 +95,7 @@ const MovieDetails = ({ navigation, route }) => {
 
   const formatImageUrl = (images) =>
     sliceArrayLength(images, 15).map((item) =>
-      getImageApi(item.file_path, 'url', 'original')
+      getImageApi(item.file_path, 'uri', 'original')
     );
 
   const handlePersonModal = () => {
