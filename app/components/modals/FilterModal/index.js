@@ -28,7 +28,7 @@ const FilterModal = forwardRef(
     });
     const { type = 'popularity.desc' } = filters;
 
-    changeValues = (type, name) => {
+    const changeValues = (type, name) => {
       setFilters({ type, name });
     };
 
