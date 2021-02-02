@@ -14,7 +14,7 @@ const PersonListRow = ({
     horizontal
     showsHorizontalScrollIndicator={false}
     removeClippedSubviews
-    keyExtractor={item =>
+    keyExtractor={(item) =>
       keyItem === 'creditId' ? item.credit_id.toString() : item.id.toString()
     }
     ListEmptyComponent={ListEmptyComponent}
