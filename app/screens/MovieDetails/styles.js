@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../utils/dimensions';
+import { getResponsiveFontSize } from '../../utils/dimensions';
 
 import { white, pink, blue } from '../../utils/colors';
 
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginTop: 35
   },
   subTitleInfo: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     color: blue,
     textAlign: 'justify'
   },

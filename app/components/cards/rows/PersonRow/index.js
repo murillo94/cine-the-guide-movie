@@ -5,10 +5,13 @@ import { TouchableOpacity } from '../../../common/TouchableOpacity';
 import { Image } from '../../../common/Image';
 
 import { getImageApi } from '../../../../utils/images';
+import { getResponsiveWidth } from '../../../../utils/dimensions';
 
 import styles from './styles';
 
 const uninformed = 'Uninformed';
+
+const WIDTH = getResponsiveWidth(20);
 
 const PersonRow = memo(
   ({ type, item, onTeamDetail }) => (
@@ -38,8 +41,8 @@ const PersonRow = memo(
             accessibilityRole="imagebutton"
             accessibilityLabel={`${item.character || item.job} image`}
             uri={getImageApi(item.profile_path)}
-            width={60}
-            height={60}
+            width={WIDTH}
+            height={WIDTH}
             style={styles.castPhoto}
           />
           <Text numberOfLines={1} style={styles.titleCast}>
@@ -53,7 +56,7 @@ const PersonRow = memo(
             resizeMode="contain"
             uri={getImageApi(item.logo_path)}
             width="100%"
-            height={60}
+            height={WIDTH}
             style={styles.productionCompaniesPhoto}
           />
           <Text numberOfLines={2} style={styles.titleCast}>

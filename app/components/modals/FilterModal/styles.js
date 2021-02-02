@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive, height } from '../../../utils/dimensions';
+import {
+  getResponsiveFontSize,
+  getResponsiveHeight
+} from '../../../utils/dimensions';
 import { white, darkBlue } from '../../../utils/colors';
 
 const styles = StyleSheet.create({
@@ -8,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: height * 0.7
+    height: getResponsiveHeight(70)
   },
   containerScroll: {
     padding: 25,
@@ -16,7 +19,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     textAlign: 'center',
-    fontSize: fontSizeResponsive(2.5),
+    fontSize: getResponsiveFontSize(2.5),
     fontWeight: 'bold',
     color: darkBlue,
     padding: 22,
@@ -32,13 +35,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   optionSectionTitle: {
-    fontSize: fontSizeResponsive(2.4),
+    fontSize: getResponsiveFontSize(2.4),
     color: darkBlue,
     fontWeight: 'bold',
     width: '100%'
   },
   optionTitle: {
-    fontSize: fontSizeResponsive(2.3),
+    fontSize: getResponsiveFontSize(2.3),
     color: darkBlue,
     width: '80%'
   },
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   buttonText: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     textAlign: 'center'
   },
   buttonTextSave: {
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   icon: {
-    fontSize: fontSizeResponsive(2.8)
+    fontSize: getResponsiveFontSize(2.8)
   }
 });
 

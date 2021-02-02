@@ -1,8 +1,11 @@
-import { Dimensions } from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from 'react-native-responsive-dimensions';
 
-export const { width, height } = Dimensions.get('window');
+export const getResponsiveHeight = (value) => responsiveHeight(value);
 
-export const fontSizeResponsive = (value) => {
-  const tempHeight = (16 / 9) * width;
-  return Math.sqrt(tempHeight ** 2 + width ** 2) * (value / 100);
-};
+export const getResponsiveWidth = (value) => responsiveWidth(value);
+
+export const getResponsiveFontSize = (value) => responsiveFontSize(value);

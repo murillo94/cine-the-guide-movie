@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../../utils/dimensions';
+import { getResponsiveFontSize } from '../../../utils/dimensions';
 
 import { white, blue, lightGray } from '../../../utils/colors';
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   errorInfo: {
-    fontSize: fontSizeResponsive(2.6),
+    fontSize: getResponsiveFontSize(2.6),
     color: blue,
     textAlign: 'center',
     padding: 25
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderColor: lightGray
   },
   loadingText: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     color: blue,
     textAlign: 'center'
   }

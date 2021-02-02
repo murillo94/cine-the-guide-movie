@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../utils/dimensions';
+import { getResponsiveFontSize } from '../../utils/dimensions';
 
 import { white, darkBlue } from '../../utils/colors';
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginBottom: 25
   },
   itemText: {
-    fontSize: fontSizeResponsive(2.5),
+    fontSize: getResponsiveFontSize(2.5),
     color: darkBlue,
     textAlign: 'center'
   }

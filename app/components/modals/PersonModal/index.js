@@ -8,7 +8,7 @@ import { Image } from '../../common/Image';
 
 import request from '../../../services/api';
 
-import { width } from '../../../utils/dimensions';
+import { getResponsiveWidth } from '../../../utils/dimensions';
 import { getImageApi } from '../../../utils/images';
 
 import styles from './styles';
@@ -22,6 +22,9 @@ const INITIAL_INFO = {
   placeOfBirth: `${UNINFORMED} place of birth`,
   biography: UNINFORMED
 };
+
+const WIDTH = getResponsiveWidth(30);
+const HEIGHT = getResponsiveWidth(40);
 
 const PersonModal = forwardRef(({ creditId, style, onClose }, ref) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -94,8 +97,8 @@ const PersonModal = forwardRef(({ creditId, style, onClose }, ref) => {
               <Image
                 accessibilityLabel={`${name} image`}
                 uri={getImageApi(profilePath)}
-                width={width * 0.3}
-                height={width * 0.4}
+                width={WIDTH}
+                height={HEIGHT}
                 style={styles.photo}
               />
               <View style={styles.textItens}>
