@@ -1,7 +1,6 @@
 {
   "name": "cine-the-movie-guide",
   "version": "0.1.0",
-  "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "devDependencies": {
     "@testing-library/react-native": "^7.1.0",
@@ -51,7 +50,6 @@
     "eject": "expo eject",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "publish": "expo publish",
     "web": "expo start:web",
     "web:build": "expo build:web",
     "test": "jest",

@@ -19,4 +19,4 @@ jobs:
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
           expo-cache: true
       - run: yarn ci
-      - run: yarn publish
+      - run: expo publish
