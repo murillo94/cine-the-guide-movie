@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../../../utils/dimensions';
+import { getResponsiveFontSize } from '../../../../utils/dimensions';
 
 import {
   darkBlue,
@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textTitle: {
-    fontSize: fontSizeResponsive(2.6),
+    fontSize: getResponsiveFontSize(2.6),
     color: darkBlue,
     fontWeight: 'bold'
   },
   textTwoTitle: {
     textAlign: 'center',
-    fontSize: fontSizeResponsive(2),
+    fontSize: getResponsiveFontSize(2),
     color: darkBlue,
     fontWeight: 'bold',
     paddingRight: 20,
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   textSmall: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     color: blue
   },
   trace: {
     marginLeft: 5,
     marginRight: 5,
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     color: blue
   },
   score: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: lightGreen
   },
   textPercent: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     fontWeight: '500',
     color: white,
     textAlign: 'center'

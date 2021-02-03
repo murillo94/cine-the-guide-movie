@@ -11,7 +11,7 @@ const ImageCustom = ({
   uri = '',
   width,
   height,
-  style,
+  style
 }) => {
   const image = uri ? { ...uri } : notFound;
 

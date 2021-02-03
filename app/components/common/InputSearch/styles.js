@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../../utils/dimensions';
+import { getResponsiveFontSize } from '../../../utils/dimensions';
 
 import { darkBlue, freeze } from '../../../utils/colors';
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     height: '100%',
-    fontSize: fontSizeResponsive(2.2),
+    fontSize: getResponsiveFontSize(2.2),
     color: darkBlue,
     width: '100%'
   }

@@ -7,13 +7,16 @@ import VideoModal from '../../../modals/VideoModal';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 import { Image } from '../../../common/Image';
 
-import { width } from '../../../../utils/dimensions';
+import { getResponsiveWidth } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { getAvarageRating } from '../../../../utils/rating';
 
 import { white } from '../../../../utils/colors';
 
 import styles from './styles';
+
+const PLAY_WIDTH = getResponsiveWidth(7);
+const STAR_HEIGHT = getResponsiveWidth(6);
 
 const PosterRow = ({
   title,
@@ -25,6 +28,7 @@ const PosterRow = ({
   onPress
 }) => {
   const videoModalRef = useRef(null);
+
   const handlePlayVideo = () => {
     videoModalRef.current?.open();
   };
@@ -43,7 +47,7 @@ const PosterRow = ({
           <TouchableOpacity style={styles.play} onPress={handlePlayVideo}>
             <FontAwesome
               name="play"
-              size={width * 0.07}
+              size={PLAY_WIDTH}
               color={white}
               style={styles.buttonPlay}
             />
@@ -70,7 +74,7 @@ const PosterRow = ({
               <FontAwesome
                 key={value}
                 name="star"
-                size={width * 0.06}
+                size={STAR_HEIGHT}
                 color={white}
                 style={styles.star}
               />

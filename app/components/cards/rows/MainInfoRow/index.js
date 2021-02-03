@@ -11,7 +11,7 @@ const MainInfoRow = ({ data = {} }) => (
     showsHorizontalScrollIndicator={false}
     style={styles.container}
   >
-    {Object.keys(data).map(key => (
+    {Object.keys(data).map((key) => (
       <SectionRow key={key} title={key} hasSubTitle>
         <Text style={styles.description}>{data[key]}</Text>
       </SectionRow>

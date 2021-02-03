@@ -14,7 +14,7 @@ import styles from './styles';
 const Search = ({ navigation }) => {
   const { navigate } = navigation;
 
-  handleSearch = id => {
+  const handleSearch = (id) => {
     navigate(ROUTES.SEARCH_RESULTS, {
       typeRequest: 'discover',
       name: genres[id].name,
@@ -27,7 +27,7 @@ const Search = ({ navigation }) => {
       <View style={styles.container}>
         <InputSearch navigate={navigate} />
         <ScrollView style={styles.containerList}>
-          {Object.keys(genres).map(id => (
+          {Object.keys(genres).map((id) => (
             <TouchableOpacity
               key={id}
               style={styles.item}

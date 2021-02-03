@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive, height } from '../../../utils/dimensions';
+import {
+  getResponsiveFontSize,
+  getResponsiveHeight
+} from '../../../utils/dimensions';
 import { white, darkBlue, blue } from '../../../utils/colors';
 
 const styles = StyleSheet.create({
@@ -8,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: height * 0.7
+    height: getResponsiveHeight(70)
   },
   containerScroll: {
     padding: 25,
@@ -29,13 +32,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   titleInfo: {
-    fontSize: fontSizeResponsive(2.4),
+    fontSize: getResponsiveFontSize(2.4),
     fontWeight: 'bold',
     color: darkBlue,
     marginBottom: 7
   },
   titleName: {
-    fontSize: fontSizeResponsive(2.6),
+    fontSize: getResponsiveFontSize(2.6),
     fontWeight: 'bold',
     color: darkBlue,
     marginBottom: 10
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   textSmall: {
-    fontSize: fontSizeResponsive(2.1),
+    fontSize: getResponsiveFontSize(2.1),
     color: blue
   },
   textJustify: {

@@ -4,11 +4,13 @@ import { Feather } from '@expo/vector-icons';
 
 import { TouchableOpacity } from '../../common/TouchableOpacity';
 
-import { width } from '../../../utils/dimensions';
+import { getResponsiveWidth } from '../../../utils/dimensions';
 
 import { darkBlue } from '../../../utils/colors';
 
 import styles from './styles';
+
+const WIDTH = getResponsiveWidth(20);
 
 const NotificationCard = ({
   style = styles.containerError,
@@ -18,7 +20,7 @@ const NotificationCard = ({
   onPress = null
 }) => (
   <View style={style}>
-    <Feather name={icon} size={width * 0.2} color={darkBlue} />
+    <Feather name={icon} size={WIDTH} color={darkBlue} />
     <Text style={styles.errorInfo}>{textError}</Text>
     {onPress && (
       <TouchableOpacity style={styles.loadingButton} onPress={onPress}>

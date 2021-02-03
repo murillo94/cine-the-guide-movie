@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive } from '../../utils/dimensions';
+import { getResponsiveFontSize } from '../../utils/dimensions';
 
 import { white, darkBlue, blue, lightGray } from '../../utils/colors';
 
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   sectionText: {
     marginBottom: 15,
     fontWeight: 'bold',
-    fontSize: fontSizeResponsive(3)
+    fontSize: getResponsiveFontSize(3)
   },
   item: {
     backgroundColor: white,
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     borderBottomColor: lightGray
   },
   itemText: {
-    fontSize: fontSizeResponsive(2.5),
+    fontSize: getResponsiveFontSize(2.5),
     color: darkBlue,
     width: '80%'
   },
   itemTextVersion: {
-    fontSize: fontSizeResponsive(2.5),
+    fontSize: getResponsiveFontSize(2.5),
     color: blue
   },
   itemNoBorder: {

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 import { Host } from 'react-native-portalize';
 
@@ -25,35 +23,20 @@ const defaultNavigationOptions = {
   }
 };
 
-const Tab =
-  Platform.OS === 'ios'
-    ? createBottomTabNavigator()
-    : createMaterialBottomTabNavigator();
-const TabsConfig =
-  Platform.OS === 'ios'
-    ? {
-        tabBarOptions: {
-          activeTintColor: pink,
-          inactiveTintColor: blue,
-          labelStyle: {
-            margin: 0,
-            padding: 1
-          },
-          style: {
-            backgroundColor: white
-          }
-        }
-      }
-    : {
-        activeColor: pink,
-        inactiveColor: blue,
-        shifting: true,
-        barStyle: {
-          backgroundColor: white,
-          paddingTop: 2,
-          paddingBottom: 2
-        }
-      };
+const Tab = createBottomTabNavigator();
+const TabsConfig = {
+  tabBarOptions: {
+    activeTintColor: pink,
+    inactiveTintColor: blue,
+    labelStyle: {
+      margin: 0,
+      padding: 1
+    },
+    style: {
+      backgroundColor: white
+    }
+  }
+};
 
 const AppNavigator = () => (
   <NavigationContainer>

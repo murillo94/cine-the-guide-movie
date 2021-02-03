@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSizeResponsive, width } from '../../../../utils/dimensions';
+import {
+  getResponsiveFontSize,
+  getResponsiveWidth
+} from '../../../../utils/dimensions';
 
 import { white, pink } from '../../../../utils/colors';
 
@@ -8,18 +11,18 @@ import { white, pink } from '../../../../utils/colors';
 
 const styles = StyleSheet.create({
   containerMainPhoto: {
-    width,
-    height: width * 0.6
+    width: '100%',
+    height: getResponsiveWidth(60)
   },
   play: {
     position: 'absolute',
     zIndex: 1,
     bottom: -20,
     right: 15,
-    borderRadius: width * 0.32,
+    borderRadius: getResponsiveWidth(32),
     backgroundColor: pink,
-    width: width * 0.16,
-    height: width * 0.16,
+    width: getResponsiveWidth(16),
+    height: getResponsiveWidth(16),
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
     right: 20
   },
   photoInfo: {
-    fontSize: fontSizeResponsive(3.8),
+    fontSize: getResponsiveFontSize(3.8),
     color: white,
     fontWeight: 'bold'
   },

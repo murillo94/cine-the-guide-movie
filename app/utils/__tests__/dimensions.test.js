@@ -1,5 +1,5 @@
-import { fontSizeResponsive } from '../dimensions';
+import { getResponsiveFontSize } from '../dimensions';
 
 test('should verify type number', () => {
-  expect(typeof fontSizeResponsive(2)).toBe('number');
+  expect(typeof getResponsiveFontSize(2)).toBe('number');
 });

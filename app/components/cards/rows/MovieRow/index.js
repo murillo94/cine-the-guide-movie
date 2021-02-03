@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { TouchableOpacity } from '../../../common/TouchableOpacity';
 import { Image } from '../../../common/Image';
 
-import { width } from '../../../../utils/dimensions';
+import { getResponsiveWidth } from '../../../../utils/dimensions';
 import { getImageApi } from '../../../../utils/images';
 import { convertToUpperCaseFirstLetter } from '../../../../utils/letters';
 import { convertToYear } from '../../../../utils/dates';
@@ -15,6 +15,9 @@ import { ROUTES } from '../../../../navigation/routes';
 import isoLanguage from '../../../../data/iso.json';
 
 import styles from './styles';
+
+const WIDTH = getResponsiveWidth(30);
+const HEIGHT = getResponsiveWidth(40);
 
 const getLanguage = (value) => {
   const str = isoLanguage[value] || '';
@@ -56,8 +59,8 @@ const MovieRow = memo(
               accessibilityRole="imagebutton"
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
-              width={width * 0.3}
-              height={width * 0.4}
+              width={WIDTH}
+              height={HEIGHT}
               style={styles.photo}
             />
             <View style={styles.item}>
@@ -97,8 +100,8 @@ const MovieRow = memo(
               accessibilityLabel={`${item.title} image`}
               uri={getImageApi(item.poster_path)}
               style={styles.photo}
-              width={width * 0.3}
-              height={width * 0.4}
+              width={WIDTH}
+              height={HEIGHT}
             />
           </View>
           <Text numberOfLines={2} style={styles.textTwoTitle}>

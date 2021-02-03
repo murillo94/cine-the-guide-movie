@@ -4,7 +4,7 @@ import { WebView } from 'react-native-webview';
 import { Modal } from '../Modal';
 import Spinner from '../../common/Spinner';
 
-import { height as initialHeight } from '../../../utils/dimensions';
+import { getResponsiveHeight } from '../../../utils/dimensions';
 
 import styles from './styles';
 
@@ -12,6 +12,7 @@ const Loading = () => <Spinner style={styles.container} />;
 
 const VideoModal = forwardRef(({ keyId, onVisible, style }, ref) => {
   const webViewRef = useRef(null);
+  const initialHeight = getResponsiveHeight(100);
   const [height, setHeight] = useState(initialHeight - 150);
 
   const handleLayout = ({ layout }) => {
